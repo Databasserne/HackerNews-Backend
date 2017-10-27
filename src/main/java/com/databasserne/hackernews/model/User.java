@@ -1,5 +1,7 @@
 package com.databasserne.hackernews.model;
 
+import com.databasserne.hackernews.service.security.Sha3;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -43,7 +45,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Sha3.encode(password);
     }
 
     public String getFullname() {
