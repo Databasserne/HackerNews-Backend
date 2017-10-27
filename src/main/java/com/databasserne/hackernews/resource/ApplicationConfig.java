@@ -1,4 +1,6 @@
-package com.databasserne.hackernews.resources;
+package com.databasserne.hackernews.resource;
+
+import io.swagger.jaxrs.config.BeanConfig;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -7,6 +9,16 @@ import java.util.Set;
 
 @ApplicationPath("api")
 public class ApplicationConfig extends Application {
+
+    public ApplicationConfig() {
+        BeanConfig beanConfig = new BeanConfig();
+        beanConfig.setVersion("1.0.0");
+        beanConfig.setSchemes(new String[]{"http"});
+        beanConfig.setHost("localhost:8080");
+        beanConfig.setBasePath("/api");
+        beanConfig.setResourcePackage("com.databasserne.hackernews.resource");
+        beanConfig.setScan(true);
+    }
 
     @Override
     public Set<Class<?>> getClasses() {

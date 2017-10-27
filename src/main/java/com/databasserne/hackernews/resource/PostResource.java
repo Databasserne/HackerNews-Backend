@@ -1,4 +1,4 @@
-package com.databasserne.hackernews.resources;
+package com.databasserne.hackernews.resource;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,8 +13,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@Api
 @Path("/v1/post")
-@Api(value = "/v1/post", description = "Manage posts")
 public class PostResource {
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
