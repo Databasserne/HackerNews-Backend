@@ -150,6 +150,18 @@
       <artifactId>bcprov-jdk15on</artifactId>
       <version>1.57</version>
     </dependency>
+
+    <!-- DOCUMENTATION -->
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-core</artifactId>
+      <version>1.5.13</version>
+    </dependency>
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-jersey2-jaxrs</artifactId>
+      <version>1.5.13</version>
+    </dependency>
   </dependencies>
 
   <build>
