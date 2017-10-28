@@ -3,7 +3,6 @@ package com.databasserne.hackernews.repo;
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.impl.UserRepo;
-import com.databasserne.hackernews.service.AuthenticationService;
 import org.junit.*;
 
 import javax.persistence.Persistence;
@@ -13,7 +12,6 @@ import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.mockito.Mockito.mock;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 public class UserRepoTest {
 

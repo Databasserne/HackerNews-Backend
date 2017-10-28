@@ -7,13 +7,13 @@ import com.databasserne.hackernews.service.security.Sha3;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
-public class AuthenticationService implements IAuthenticationService {
+public class Authentication implements IAuthentication {
 
     private IUserRepo userRepo;
 
-    public AuthenticationService() {}
+    public Authentication() {}
 
-    public AuthenticationService(IUserRepo userRepo) {
+    public Authentication(IUserRepo userRepo) {
         this.userRepo = userRepo;
     }
 

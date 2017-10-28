@@ -5,7 +5,7 @@ import com.databasserne.hackernews.model.User;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
-public interface IAuthenticationService {
+public interface IAuthentication {
     /**
      * Tries to login the user.
      *

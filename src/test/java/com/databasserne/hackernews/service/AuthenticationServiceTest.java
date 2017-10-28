@@ -16,7 +16,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class AuthenticationServiceTest {
 
-    private IAuthenticationService authService;
+    private IAuthentication authService;
     private IUserRepo userRepo;
 
     @BeforeClass
@@ -31,7 +31,7 @@ public class AuthenticationServiceTest {
     public void setUp() {
         initMocks(this);
         userRepo = mock(IUserRepo.class);
-        authService = new AuthenticationService(userRepo);
+        authService = new Authentication(userRepo);
     }
 
     @After

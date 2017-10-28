@@ -17,7 +17,7 @@ import static org.mockito.Matchers.isNull;
 
 public class AuthenticationServiceIT {
 
-    private IAuthenticationService authService;
+    private IAuthentication authService;
 
     public AuthenticationServiceIT() {
     }
@@ -32,7 +32,7 @@ public class AuthenticationServiceIT {
 
     @Before
     public void setUp() {
-        authService = new AuthenticationService(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME_TEST)));
+        authService = new Authentication(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME_TEST)));
     }
 
     @After
