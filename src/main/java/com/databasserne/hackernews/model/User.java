@@ -2,10 +2,7 @@ package com.databasserne.hackernews.model;
 
 import com.databasserne.hackernews.service.security.Sha3;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -13,6 +10,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
 
