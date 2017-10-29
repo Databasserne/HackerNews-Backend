@@ -68,4 +68,12 @@ public class AuthenticationResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
     }
+
+    @POST
+    @Path("singup")
+    public Response signup(String content) {
+        
+
+        return null;
+    }
 }
