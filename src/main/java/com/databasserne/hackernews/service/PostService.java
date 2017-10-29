@@ -32,4 +32,9 @@ public class PostService implements IPost {
 
         return post;
     }
+
+    @Override
+    public Post createPost(String title, String body) {
+        return null;
+    }
 }
