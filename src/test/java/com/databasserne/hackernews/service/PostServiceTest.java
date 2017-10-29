@@ -117,4 +117,20 @@ public class PostServiceTest {
 
         postService.createPost(title, body);
     }
+
+    @Test (expected = BadRequestException.class)
+    public void createPostEmptyTitleTest() {
+        String title = "";
+        String body = "haha";
+
+        postService.createPost(title, body);
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void createPostEmptyBodyTest() {
+        String title = "My Title";
+        String body = "";
+
+        postService.createPost(title, body);
+    }
 }
