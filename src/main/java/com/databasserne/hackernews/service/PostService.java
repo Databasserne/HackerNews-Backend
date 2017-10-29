@@ -51,4 +51,9 @@ public class PostService implements IPost {
         if(responsePost == null) throw new BadRequestException();
         return responsePost;
     }
+
+    @Override
+    public Post editPost(String title, String body) {
+        return null;
+    }
 }

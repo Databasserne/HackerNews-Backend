@@ -133,4 +133,49 @@ public class PostServiceTest {
 
         postService.createPost(title, body);
     }
+
+    @Test
+    public void editPostSuccessTest() {
+        String title = "new title";
+        String body = "new body";
+        Post expected = new Post();
+        expected.setTitle(title);
+        expected.setBody(body);
+        when(postRepo.editPost((Post)anyObject())).thenReturn(expected);
+
+        Post result = postService.editPost(title, body);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getTitle(), is(title));
+        assertThat(result.getBody(), is(body));
+    }
+
+    @Test
+    public void editPostTitleTest() {
+        String title = "new title";
+        String body = null;
+        Post expected = new Post();
+        expected.setTitle(title);
+        expected.setBody("old body");
+        when(postRepo.editPost((Post)anyObject())).thenReturn(expected);
+
+        Post result = postService.editPost(title, body);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getTitle(), is(title));
+        assertThat(result.getBody(), is(notNullValue()));
+    }
+
+    @Test
+    public void editPostBodyTest() {
+        String title = null;
+        String body = "new body";
+        Post expected = new Post();
+        expected.setTitle("old title");
+        expected.setBody(body);
+        when(postRepo.editPost((Post)anyObject())).thenReturn(expected);
+
+        Post result = postService.editPost(title, body);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getTitle(), is(notNullValue()));
+        assertThat(result.getBody(), is(body));
+    }
 }
