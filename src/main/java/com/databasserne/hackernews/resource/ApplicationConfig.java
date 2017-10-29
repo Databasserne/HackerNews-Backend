@@ -28,6 +28,7 @@ public class ApplicationConfig extends Application {
     }
 
     private void addResources(Set<Class<?>> resources) {
+        resources.add(AuthenticationResource.class);
         resources.add(PostResource.class);
 
         resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);

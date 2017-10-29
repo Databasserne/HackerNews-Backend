@@ -1,9 +1,9 @@
 package com.databasserne.hackernews.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.databasserne.hackernews.service.security.Sha3;
+import com.google.gson.annotations.Expose;
+
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -11,16 +11,21 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    @Expose
     private int id;
 
-    @Column
+    @Column(unique = true)
+    @Expose
     private String username;
 
     @Column
     private String password;
 
-    @Column String fullname;
+    @Column
+    @Expose
+    private String fullname;
 
     public int getId() {
         return id;
@@ -43,7 +48,7 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Sha3.encode(password);
     }
 
     public String getFullname() {
