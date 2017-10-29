@@ -1,5 +1,9 @@
 package com.databasserne.hackernews.resource;
 
+import com.databasserne.hackernews.config.DatabaseCfg;
+import com.databasserne.hackernews.repo.impl.PostRepo;
+import com.databasserne.hackernews.service.IPost;
+import com.databasserne.hackernews.service.PostService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -7,6 +11,7 @@ import com.google.gson.JsonObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import javax.persistence.Persistence;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Path;
@@ -17,7 +22,8 @@ import javax.ws.rs.core.Response;
 @Path("/v1/post")
 public class PostResource {
 
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+    private IPost postService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -28,13 +34,8 @@ public class PostResource {
             responseContainer = "List"
     )
     public Response getAllPosts() {
-        JsonArray response = new JsonArray();
-        JsonObject postObj = new JsonObject();
-        postObj.addProperty("title", "test title");
-        postObj.addProperty("author_name", "MyName");
-        postObj.addProperty("created_at", "today");
-        response.add(postObj);
+        postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
 
-        return Response.status(Response.Status.OK).entity(gson.toJson(response)).build();
+        return Response.status(Response.Status.OK).entity(gson.toJson(postService.getAllPosts())).build();
     }
 }
