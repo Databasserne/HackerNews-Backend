@@ -53,7 +53,23 @@ public class PostService implements IPost {
     }
 
     @Override
-    public Post editPost(String title, String body) {
-        return null;
+    public Post editPost(int id, String title, String body) {
+        Post post = postRepo.getPostById(id);
+        if(post == null) throw new NotFoundException("Post not found.");
+
+        if(title != null) {
+            if(title.equals("")) throw new BadRequestException("Title cannot be empty.");
+            post.setTitle(title);
+        }
+        if(body != null) {
+            if(body.equals("")) throw new BadRequestException("Body cannot be empty.");
+            post.setBody(body);
+        }
+
+        post.setUpdated(new Date());
+        Post newPost = postRepo.editPost(post);
+        if(newPost == null) throw new BadRequestException();
+
+        return newPost;
     }
 }

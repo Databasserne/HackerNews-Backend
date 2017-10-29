@@ -30,9 +30,10 @@ public interface IPost {
 
     /**
      * Updates a Post
+     * @param id Id of Post to update.
      * @param title New title, or null if no update for this column.
      * @param body New body, or null if no update for this column.
      * @return New updated Post.
      */
-    Post editPost(String title, String body);
+    Post editPost(int id, String title, String body);
 }
