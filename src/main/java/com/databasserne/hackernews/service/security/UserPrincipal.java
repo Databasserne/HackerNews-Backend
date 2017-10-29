@@ -10,17 +10,17 @@ import java.util.List;
  */
 public class UserPrincipal implements Principal {
 
-    private String email;
+    private String username;
     private List<String> roles = new ArrayList<>();
 
-    public UserPrincipal(String email) {
+    public UserPrincipal(String username) {
         super();
-        this.email = email;
+        this.username = username;
     }
 
     @Override
     public String getName() {
-        return email;
+        return username;
     }
 
     public boolean isUserInRole(String role) {

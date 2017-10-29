@@ -2,6 +2,7 @@ package com.databasserne.hackernews.service;
 
 import com.databasserne.hackernews.model.Post;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public interface IPost {
      * @param title New title, or null if no update for this column.
      * @param body New body, or null if no update for this column.
      * @return New updated Post.
+     * @throws NotFoundException If Post could not be found.
+     * @throws BadRequestException If parameters is empty strings or entity could not be updated.
      */
-    Post editPost(int id, String title, String body);
+    Post editPost(int id, String title, String body) throws NotFoundException, BadRequestException;
 }
