@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -50,5 +52,14 @@ public class PostServiceTest {
 
         List<Post> result = postService.getAllPosts();
         assertThat(result.size(), is(2));
+    }
+
+    @Test
+    public void getAllPostsNoPostsTest() {
+        when(postRepo.getAllPosts()).thenReturn(null);
+
+        List<Post> result = postService.getAllPosts();
+        assertThat(result, is(notNullValue()));
+        assertThat(result, is(empty()));
     }
 }

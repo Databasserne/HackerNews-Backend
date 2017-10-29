@@ -3,6 +3,7 @@ package com.databasserne.hackernews.service;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.IPostRepo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostService implements IPost {
@@ -17,6 +18,9 @@ public class PostService implements IPost {
 
     @Override
     public List<Post> getAllPosts() {
-        return postRepo.getAllPosts();
+        List<Post> posts = postRepo.getAllPosts();
+        if(posts == null) posts = new ArrayList<>();
+
+        return posts;
     }
 }
