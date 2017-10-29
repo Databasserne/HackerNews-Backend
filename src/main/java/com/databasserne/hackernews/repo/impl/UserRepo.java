@@ -3,9 +3,7 @@ package com.databasserne.hackernews.repo.impl;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.IUserRepo;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
+import javax.persistence.*;
 
 public class UserRepo implements IUserRepo {
 
@@ -34,6 +32,19 @@ public class UserRepo implements IUserRepo {
 
     @Override
     public User createUser(User user) {
-        return null;
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(user);
+            em.getTransaction().commit();
+
+            return user;
+        } catch (EntityExistsException exist) {
+            throw new EntityExistsException();
+        } catch (RollbackException rollback) {
+            throw new EntityExistsException();
+        } finally {
+            em.close();
+        }
     }
 }
