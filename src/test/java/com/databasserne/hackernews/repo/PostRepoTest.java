@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
 
 public class PostRepoTest {
 
@@ -38,5 +39,20 @@ public class PostRepoTest {
         List<Post> result = postRepo.getAllPosts();
 
         assertThat(result.size(), is(2));
+    }
+
+    @Test
+    public void getPostSuccessTest() {
+        Post p = postRepo.getPostById(1);
+
+        assertThat(p.getId(), is(1));
+        assertThat(p.getTitle(), is("Post1"));
+    }
+
+    @Test
+    public void getPostNotFoundTest() {
+        Post p = postRepo.getPostById(500);
+
+        assertThat(p, is(nullValue()));
     }
 }
