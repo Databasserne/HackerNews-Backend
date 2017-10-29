@@ -6,12 +6,15 @@ import com.databasserne.hackernews.repo.impl.PostRepo;
 import org.junit.*;
 
 import javax.persistence.Persistence;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.junit.Assert.assertEquals;
 
 public class PostIT {
 
@@ -37,7 +40,7 @@ public class PostIT {
     @Test
     public void getAllPostsTest() {
         List<Post> result = postService.getAllPosts();
-        assertThat(result.size(), is(2));
+        assertThat(result.size(), greaterThan(1));
     }
 
     @Test
@@ -52,4 +55,46 @@ public class PostIT {
         postService.getPost(500);
     }
 
+    @Test
+    public void createPostSuccessTest() {
+        String title = "My Title";
+        String body = "haha, test haha";
+
+        Post result = postService.createPost(title, body);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getTitle(), is(title));
+        assertThat(result.getBody(), is(body));
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void createPostNoTitleTest() {
+        String title = null;
+        String body = "haha, test haha";
+
+        postService.createPost(title, body);
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void createPostNoBodyTest() {
+        String title = "My Title";
+        String body = null;
+
+        postService.createPost(title, body);
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void createPostEmptyTitleTest() {
+        String title = "";
+        String body = "haha";
+
+        postService.createPost(title, body);
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void createPostEmptyBodyTest() {
+        String title = "My Title";
+        String body = "";
+
+        postService.createPost(title, body);
+    }
 }

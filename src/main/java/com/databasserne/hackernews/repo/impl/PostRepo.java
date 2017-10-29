@@ -3,8 +3,10 @@ package com.databasserne.hackernews.repo.impl;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.IPostRepo;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 import java.util.List;
 
 public class PostRepo implements IPostRepo {
@@ -38,6 +40,22 @@ public class PostRepo implements IPostRepo {
             return null;
         } finally {
             em.close();
+        }
+    }
+
+    @Override
+    public Post createPost(Post post) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(post);
+            em.getTransaction().commit();
+
+            return post;
+        } catch (EntityExistsException exist) {
+            return null;
+        } catch (RollbackException rollback) {
+            return null;
         }
     }
 }

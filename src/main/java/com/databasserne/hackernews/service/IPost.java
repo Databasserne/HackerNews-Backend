@@ -19,4 +19,12 @@ public interface IPost {
      * @throws NotFoundException If no posts where found.
      */
     Post getPost(int id) throws NotFoundException;
+
+    /**
+     * Creates post
+     * @param title Title of post
+     * @param body Text of post.
+     * @return Post object,
+     */
+    Post createPost(String title, String body);
 }
