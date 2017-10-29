@@ -4,6 +4,7 @@ import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.IUserRepo;
 import org.junit.*;
 
+import javax.persistence.EntityExistsException;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
@@ -101,6 +102,12 @@ public class AuthenticationServiceTest {
         String password = "1234";
         String rep_password = "1234";
         String fullname = "New User";
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setFullname(fullname);
+
+        when(userRepo.createUser((User)anyObject())).thenReturn(user);
 
         User resultUser = authService.register(username, password, rep_password, fullname);
         assertThat(resultUser, is(notNullValue()));
@@ -115,6 +122,8 @@ public class AuthenticationServiceTest {
         String password = "1234";
         String rep_password = "1234";
         String fullname = "New User";
+
+        when(userRepo.createUser((User)anyObject())).thenThrow(EntityExistsException.class);
 
         authService.register(username, password, rep_password, fullname);
     }
