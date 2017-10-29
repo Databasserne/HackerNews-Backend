@@ -3,8 +3,10 @@ package com.databasserne.hackernews.service;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.IPostRepo;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PostService implements IPost {
@@ -35,6 +37,18 @@ public class PostService implements IPost {
 
     @Override
     public Post createPost(String title, String body) {
-        return null;
+        if(title == null || title.equals("")) throw new BadRequestException();
+        if(body == null || body.equals("")) throw new BadRequestException();
+
+        Post post = new Post();
+        post.setTitle(title);
+        post.setBody(body);
+        Date now = new Date();
+        post.setCreated(now);
+        post.setUpdated(now);
+
+        Post responsePost = postRepo.createPost(post);
+        if(responsePost == null) throw new BadRequestException();
+        return responsePost;
     }
 }
