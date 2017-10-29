@@ -81,7 +81,7 @@ public class PostResource {
         } catch (Exception e) {
             response = new JsonObject();
             response.addProperty("error_code", 500);
-            response.addProperty("error_message", e.getMessage());
+            response.addProperty("error_message", "Unknown server error.");
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
     }
