@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "post")
@@ -22,6 +23,16 @@ public class Post implements Serializable {
     @Column(columnDefinition = "LONGTEXT")
     @Expose
     private String body;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Expose
+    private Date created;
+
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    @Expose
+    private Date updated;
 
     public int getId() {
         return id;
@@ -45,5 +56,21 @@ public class Post implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
 }

@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="75caa1e1-ff92-4d8f-98aa-ae59fc61c961" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/Post.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/Post.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -69,13 +70,15 @@
       <file leaf-file-name="Post.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/Post.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+            <state relative-caret-position="405">
+              <caret line="68" column="28" lean-forward="false" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
               <folding>
-                <element signature="e#146#153#0" expanded="false" />
-                <element signature="e#225#228#0" expanded="false" />
-                <element signature="e#334#341#0" expanded="false" />
-                <element signature="e#385#423#0" expanded="false" />
+                <element signature="e#169#176#0" expanded="false" />
+                <element signature="e#248#251#0" expanded="false" />
+                <element signature="e#357#364#0" expanded="false" />
+                <element signature="e#408#446#0" expanded="false" />
+                <element signature="e#489#496#0" expanded="false" />
+                <element signature="e#578#585#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -84,8 +87,8 @@
       <file leaf-file-name="DeploymentCfg.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="50" column="34" lean-forward="false" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+            <state relative-caret-position="408">
+              <caret line="48" column="41" lean-forward="false" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -709,7 +712,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38818000" />
+    <option name="totallyTimeSpent" value="39212000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1210,21 +1213,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/Post.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="25" column="22" lean-forward="false" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+        <state relative-caret-position="405">
+          <caret line="68" column="28" lean-forward="false" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
           <folding>
-            <element signature="e#146#153#0" expanded="false" />
-            <element signature="e#225#228#0" expanded="false" />
-            <element signature="e#334#341#0" expanded="false" />
-            <element signature="e#385#423#0" expanded="false" />
+            <element signature="e#169#176#0" expanded="false" />
+            <element signature="e#248#251#0" expanded="false" />
+            <element signature="e#357#364#0" expanded="false" />
+            <element signature="e#408#446#0" expanded="false" />
+            <element signature="e#489#496#0" expanded="false" />
+            <element signature="e#578#585#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="50" column="34" lean-forward="false" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+        <state relative-caret-position="408">
+          <caret line="48" column="41" lean-forward="false" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.util.Date;
 import java.util.Map;
 
 @WebListener
@@ -38,10 +39,14 @@ public class DeploymentCfg implements ServletContextListener {
             Post post = new Post();
             post.setTitle("Post number 1");
             post.setBody("This is a test text for post number 1");
+            post.setCreated(new Date());
+            post.setUpdated(new Date());
 
             Post post2 = new Post();
             post2.setTitle("Post number 2");
-            post.setBody("This is a test text for second post :-)");
+            post2.setBody("This is a test text for second post :-)");
+            post2.setCreated(new Date());
+            post2.setUpdated(new Date());
 
             try {
                 em.getTransaction().begin();
