@@ -16,4 +16,14 @@ public interface IAuthentication {
      * @throws NotFoundException if user does not exist.
      */
     User login(String username, String password) throws BadRequestException, NotFoundException;
+
+    /**
+     * Register user to the system.
+     * @param username Username of the new user.
+     * @param password Password of the new user.
+     * @param rep_password Password matches first password.
+     * @param fullname Full name of user.
+     * @return User object if registration is success.
+     */
+    User register(String username, String password, String rep_password, String fullname);
 }

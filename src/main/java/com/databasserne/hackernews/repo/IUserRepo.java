@@ -9,4 +9,11 @@ public interface IUserRepo {
      * @return User or null if user doesn't exist.
      */
     User getUserByUsername(String username);
+
+    /**
+     * Creates a new user.
+     * @param user User object to create.
+     * @return User if successfully created.
+     */
+    User createUser(User user);
 }

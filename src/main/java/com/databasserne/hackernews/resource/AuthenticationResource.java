@@ -63,7 +63,41 @@ public class AuthenticationResource {
             e.printStackTrace();
             response = new JsonObject();
             response.addProperty("error_code", 500);
-            response.addProperty("error_message", "Unknown server error");
+            response.addProperty("error_message", "Unknown server error.");
+
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
+        }
+    }
+
+    @POST
+    @Path("signup")
+    public Response signup(String content) {
+        JsonObject response;
+        try {
+            JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
+            String username = null;
+            String password = null;
+            String rep_password = null;
+            String fullname = null;
+            if(inputJson.has("username")) username = inputJson.get("username").getAsString();
+            if(inputJson.has("password")) password = inputJson.get("password").getAsString();
+            if(inputJson.has("rep_password")) rep_password = inputJson.get("rep_password").getAsString();
+            if(inputJson.has("fullname")) fullname = inputJson.get("fullname").getAsString();
+            authService = new Authentication(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+
+            User user = authService.register(username, password, rep_password, fullname);
+
+            return Response.status(Response.Status.OK).entity(gson.toJson(user)).type(MediaType.APPLICATION_JSON).build();
+        } catch (BadRequestException badRequest) {
+            response = new JsonObject();
+            response.addProperty("error_code", 400);
+            response.addProperty("error_message", badRequest.getMessage());
+
+            return Response.status(Response.Status.BAD_REQUEST).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
+        } catch (Exception e) {
+            response = new JsonObject();
+            response.addProperty("error_code", 500);
+            response.addProperty("error_message", "Unknown server error.");
 
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
