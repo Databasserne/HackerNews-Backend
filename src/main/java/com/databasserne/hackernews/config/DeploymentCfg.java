@@ -1,5 +1,6 @@
 package com.databasserne.hackernews.config;
 
+import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 
 import javax.persistence.EntityManager;
@@ -34,10 +35,20 @@ public class DeploymentCfg implements ServletContextListener {
             user.setPassword("1234");
             user.setFullname("Test User");
 
+            Post post = new Post();
+            post.setTitle("Post number 1");
+            post.setBody("This is a test text for post number 1");
+
+            Post post2 = new Post();
+            post2.setTitle("Post number 2");
+            post.setBody("This is a test text for second post :-)");
+
             try {
                 em.getTransaction().begin();
 
                 em.persist(user);
+                em.persist(post);
+                em.persist(post2);
 
                 em.getTransaction().commit();
             } finally {

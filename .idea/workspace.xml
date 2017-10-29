@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75caa1e1-ff92-4d8f-98aa-ae59fc61c961" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/Post.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -68,7 +66,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Post.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Post.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/Post.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
@@ -78,6 +76,18 @@
                 <element signature="e#225#228#0" expanded="false" />
                 <element signature="e#334#341#0" expanded="false" />
                 <element signature="e#385#423#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeploymentCfg.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="282">
+              <caret line="50" column="34" lean-forward="false" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -132,7 +142,6 @@
         <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/TokenServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/security/Secrets.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DatabaseCfg.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/ApplicationConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IAuthentication.java" />
@@ -144,6 +153,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/AuthenticationResource.java" />
         <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/Post.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java" />
       </list>
     </option>
   </component>
@@ -232,6 +242,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="hackernews" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hackernews" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
@@ -690,7 +709,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38534000" />
+    <option name="totallyTimeSpent" value="38818000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1085,6 +1104,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="6" column="31" lean-forward="false" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1162,16 +1182,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/AuthenticationResource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="261">
@@ -1207,6 +1217,16 @@
             <element signature="e#225#228#0" expanded="false" />
             <element signature="e#334#341#0" expanded="false" />
             <element signature="e#385#423#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="50" column="34" lean-forward="false" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
