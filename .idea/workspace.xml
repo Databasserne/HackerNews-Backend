@@ -7,7 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75caa1e1-ff92-4d8f-98aa-ae59fc61c961" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/PostService.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/PostService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -56,32 +57,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PostService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PostResource.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="657">
+              <caret line="82" column="48" lean-forward="false" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
+              <folding>
+                <element signature="method#getAllPosts#0;class#PostResource#0" expanded="false" />
+                <element signature="method#getPost#0;class#PostResource#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/PostService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="447">
               <caret line="51" column="28" lean-forward="false" selection-start-line="51" selection-start-column="28" selection-end-line="51" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PostServiceTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostServiceTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="337">
-              <caret line="119" column="0" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
-              <folding>
-                <element signature="method#setUpClass#0;class#PostServiceTest#0" expanded="false" />
-                <element signature="method#tearDownClass#0;class#PostServiceTest#0" expanded="false" />
-                <element signature="method#setUp#0;class#PostServiceTest#0" expanded="false" />
-                <element signature="method#tearDown#0;class#PostServiceTest#0" expanded="false" />
-                <element signature="method#getAllPostsTest#0;class#PostServiceTest#0" expanded="false" />
-                <element signature="method#getAllPostsNoPostsTest#0;class#PostServiceTest#0" expanded="false" />
-                <element signature="method#getPostSuccessTest#0;class#PostServiceTest#0" expanded="false" />
-                <element signature="method#getPostNotFoundTest#0;class#PostServiceTest#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -147,7 +142,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IToken.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostIT.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/IPostRepo.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/repo/PostRepoTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/impl/PostRepo.java" />
@@ -155,6 +149,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IPost.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/PostService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java" />
       </list>
     </option>
   </component>
@@ -243,6 +238,15 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="hackernews" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hackernews" type="462c0819:PsiDirectoryNode" />
+              <item name="resource" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
@@ -710,7 +714,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47064000" />
+    <option name="totallyTimeSpent" value="47635000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1152,17 +1156,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="43" column="53" lean-forward="false" selection-start-line="43" selection-start-column="53" selection-end-line="43" selection-end-column="53" />
-          <folding>
-            <element signature="method#getAllPosts#0;class#PostResource#0" expanded="false" />
-            <element signature="method#getPost#0;class#PostResource#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostIT.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
@@ -1242,6 +1235,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/PostService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="51" column="28" lean-forward="false" selection-start-line="51" selection-start-column="28" selection-end-line="51" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -1250,12 +1253,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/PostService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="51" column="28" lean-forward="false" selection-start-line="51" selection-start-column="28" selection-end-line="51" selection-end-column="28" />
+        <state relative-caret-position="657">
+          <caret line="82" column="48" lean-forward="false" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="method#getAllPosts#0;class#PostResource#0" expanded="false" />
+            <element signature="method#getPost#0;class#PostResource#0" expanded="false" />
           </folding>
         </state>
       </provider>

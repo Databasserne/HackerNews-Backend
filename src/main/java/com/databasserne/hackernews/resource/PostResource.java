@@ -5,10 +5,7 @@ import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.impl.PostRepo;
 import com.databasserne.hackernews.service.IPost;
 import com.databasserne.hackernews.service.PostService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -57,6 +54,34 @@ public class PostResource {
             response.addProperty("error_code", 500);
             response.addProperty("error_message", "Unknown server error.");
 
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
+        }
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createPost(String content) {
+        JsonObject response;
+        try {
+            JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
+            postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+            String title = null;
+            String body = null;
+            if(inputJson.has("title")) title = inputJson.get("title").getAsString();
+            if(inputJson.has("body")) body = inputJson.get("body").getAsString();
+
+            postService.createPost(title, body);
+            return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
+        } catch (BadRequestException badRequest) {
+            response = new JsonObject();
+            response.addProperty("error_code", 400);
+            response.addProperty("error_message", badRequest.getMessage());
+            return Response.status(Response.Status.BAD_REQUEST).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
+        } catch (Exception e) {
+            response = new JsonObject();
+            response.addProperty("error_code", 500);
+            response.addProperty("error_message", e.getMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
     }
