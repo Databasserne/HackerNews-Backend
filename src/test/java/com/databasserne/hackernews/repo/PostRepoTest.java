@@ -7,10 +7,12 @@ import com.databasserne.hackernews.repo.impl.UserRepo;
 import org.junit.*;
 
 import javax.persistence.Persistence;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
 public class PostRepoTest {
@@ -54,5 +56,18 @@ public class PostRepoTest {
         Post p = postRepo.getPostById(500);
 
         assertThat(p, is(nullValue()));
+    }
+
+    @Test
+    public void createPostSuccessTest() {
+        Post post = new Post();
+        post.setTitle("My test post");
+        post.setBody("Hej med dig, hahaha");
+        post.setCreated(new Date());
+        post.setUpdated(new Date());
+
+        Post result = postRepo.createPost(post);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getTitle(), is("My test post"));
     }
 }

@@ -17,4 +17,11 @@ public interface IPostRepo {
      * @return Post object.
      */
     Post getPostById(int id);
+
+    /**
+     * Creates a new Post
+     * @param post Post object to create.
+     * @return The created Post object.
+     */
+    Post createPost(Post post);
 }
