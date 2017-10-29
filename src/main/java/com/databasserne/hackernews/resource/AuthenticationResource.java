@@ -35,10 +35,14 @@ public class AuthenticationResource {
         JsonObject response;
         try {
             JsonObject input = new JsonParser().parse(content).getAsJsonObject();
+            String username = null;
+            String password = null;
+            if(input.has("username")) username = input.get("username").getAsString();
+            if(input.has("password")) password = input.get("password").getAsString();
             authService = new Authentication(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
             tokenService = new TokenService();
 
-            User user = authService.login(input.get("username").getAsString(), input.get("password").getAsString());
+            User user = authService.login(username, password);
             String token = tokenService.createToken(user);
 
             return Response
