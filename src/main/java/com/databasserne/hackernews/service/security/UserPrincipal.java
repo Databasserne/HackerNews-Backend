@@ -13,10 +13,9 @@ public class UserPrincipal implements Principal {
     private String email;
     private List<String> roles = new ArrayList<>();
 
-    public UserPrincipal(String email, List<String> roles) {
+    public UserPrincipal(String email) {
         super();
         this.email = email;
-        this.roles = roles;
     }
 
     @Override

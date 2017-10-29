@@ -9,6 +9,7 @@ import com.google.gson.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+import javax.annotation.security.PermitAll;
 import javax.persistence.Persistence;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -61,6 +62,7 @@ public class PostResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
+    @PermitAll
     public Response createPost(String content) {
         JsonObject response;
         try {

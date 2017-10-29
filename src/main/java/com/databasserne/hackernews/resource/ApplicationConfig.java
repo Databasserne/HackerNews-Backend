@@ -1,5 +1,7 @@
 package com.databasserne.hackernews.resource;
 
+import com.databasserne.hackernews.resource.filter.CorsFilter;
+import com.databasserne.hackernews.resource.filter.JWTAuthenticationFilter;
 import io.swagger.jaxrs.config.BeanConfig;
 
 import javax.ws.rs.ApplicationPath;
@@ -28,9 +30,15 @@ public class ApplicationConfig extends Application {
     }
 
     private void addResources(Set<Class<?>> resources) {
+        // Resources
         resources.add(AuthenticationResource.class);
         resources.add(PostResource.class);
 
+        // Filters
+        resources.add(CorsFilter.class);
+        resources.add(JWTAuthenticationFilter.class);
+
+        // Swagger
         resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);
         resources.add(io.swagger.jaxrs.listing.SwaggerSerializers.class);
     }
