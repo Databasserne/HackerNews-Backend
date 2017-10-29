@@ -29,4 +29,9 @@ public class Authentication implements IAuthentication {
 
         return user;
     }
+
+    @Override
+    public User register(String username, String password, String rep_password, String fullname) {
+        return null;
+    }
 }

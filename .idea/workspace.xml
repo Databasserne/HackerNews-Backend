@@ -7,7 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75caa1e1-ff92-4d8f-98aa-ae59fc61c961" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/IUserRepo.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/IUserRepo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/impl/UserRepo.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/impl/UserRepo.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/AuthenticationResource.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/AuthenticationResource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/Authentication.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/Authentication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IAuthentication.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IAuthentication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/AuthenticationServiceTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/AuthenticationServiceTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -56,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AuthenticationResource.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AuthenticationResource.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/AuthenticationResource.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="384">
-              <caret line="74" column="8" lean-forward="false" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+              <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -71,20 +77,30 @@
       <file leaf-file-name="Authentication.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/Authentication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="342">
+              <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="20" />
+              <folding>
+                <element signature="e#1085#1086#0" expanded="true" />
+                <element signature="e#1112#1113#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserRepo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/impl/UserRepo.java">
+      <file leaf-file-name="AuthenticationServiceTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/AuthenticationServiceTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+            <state relative-caret-position="762">
+              <caret line="149" column="5" lean-forward="false" selection-start-line="149" selection-start-column="5" selection-end-line="149" selection-end-column="5" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="method#setUpClass#0;class#AuthenticationServiceTest#0" expanded="false" />
+                <element signature="method#tearDownClass#0;class#AuthenticationServiceTest#0" expanded="false" />
+                <element signature="method#setUp#0;class#AuthenticationServiceTest#0" expanded="false" />
+                <element signature="method#tearDown#0;class#AuthenticationServiceTest#0" expanded="false" />
+                <element signature="method#loginUserNotExistTest#0;class#AuthenticationServiceTest#0" expanded="false" />
+                <element signature="method#loginUserWithNullUsernameTest#0;class#AuthenticationServiceTest#0" expanded="false" />
+                <element signature="method#loginUserWithNullPasswordTest#0;class#AuthenticationServiceTest#0" expanded="false" />
+                <element signature="method#loginUserWithWrongPasswordTest#0;class#AuthenticationServiceTest#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -130,12 +146,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resources/ApplicationConfig.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/filter/CorsFilter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/IUserRepo.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IAuthenticationService.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/AuthenticationServiceTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/repo/UserRepoTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/impl/UserRepo.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/AuthenticationServiceIT.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/AuthenticationService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IToken.java" />
@@ -148,6 +161,11 @@
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/User.java" />
         <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/AuthenticationResource.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IAuthentication.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/Authentication.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/IUserRepo.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/AuthenticationServiceTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/impl/UserRepo.java" />
       </list>
     </option>
   </component>
@@ -244,7 +262,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="hackernews" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
+              <item name="repo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
@@ -253,7 +271,8 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="hackernews" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="repo" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
@@ -263,6 +282,15 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="hackernews" type="462c0819:PsiDirectoryNode" />
               <item name="resource" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hackernews" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="backend" type="b2602c69:ProjectViewProjectNode" />
@@ -299,6 +327,15 @@
               <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="hackernews" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Backend" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="hackernews" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -703,7 +740,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30751000" />
+    <option name="totallyTimeSpent" value="32316000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1026,13 +1063,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="11" lean-forward="false" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/filter/CorsFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -1054,31 +1084,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/IUserRepo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="50" lean-forward="false" selection-start-line="8" selection-start-column="50" selection-end-line="8" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IAuthentication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="56" lean-forward="false" selection-start-line="15" selection-start-column="56" selection-end-line="15" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/3ba738da-3c93-4c39-b2bd-7fbe0829f7ac/console.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/AuthenticationServiceTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="38" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -1176,24 +1185,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/Authentication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/impl/UserRepo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -1210,12 +1201,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="11" lean-forward="false" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/IUserRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="44" lean-forward="false" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/impl/UserRepo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="489">
+          <caret line="36" column="8" lean-forward="false" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#988#989#0" expanded="true" />
+            <element signature="e#1015#1016#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IAuthentication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="27" column="90" lean-forward="true" selection-start-line="27" selection-start-column="90" selection-end-line="27" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/AuthenticationResource.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
-          <caret line="74" column="8" lean-forward="false" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="8" />
+          <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/Authentication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="20" />
+          <folding>
+            <element signature="e#1085#1086#0" expanded="true" />
+            <element signature="e#1112#1113#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/AuthenticationServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="762">
+          <caret line="149" column="5" lean-forward="false" selection-start-line="149" selection-start-column="5" selection-end-line="149" selection-end-column="5" />
+          <folding>
+            <element signature="method#setUpClass#0;class#AuthenticationServiceTest#0" expanded="false" />
+            <element signature="method#tearDownClass#0;class#AuthenticationServiceTest#0" expanded="false" />
+            <element signature="method#setUp#0;class#AuthenticationServiceTest#0" expanded="false" />
+            <element signature="method#tearDown#0;class#AuthenticationServiceTest#0" expanded="false" />
+            <element signature="method#loginUserNotExistTest#0;class#AuthenticationServiceTest#0" expanded="false" />
+            <element signature="method#loginUserWithNullUsernameTest#0;class#AuthenticationServiceTest#0" expanded="false" />
+            <element signature="method#loginUserWithNullPasswordTest#0;class#AuthenticationServiceTest#0" expanded="false" />
+            <element signature="method#loginUserWithWrongPasswordTest#0;class#AuthenticationServiceTest#0" expanded="false" />
           </folding>
         </state>
       </provider>

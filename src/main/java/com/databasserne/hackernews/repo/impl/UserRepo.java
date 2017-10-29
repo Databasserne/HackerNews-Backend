@@ -31,4 +31,9 @@ public class UserRepo implements IUserRepo {
             em.close();
         }
     }
+
+    @Override
+    public User createUser(User user) {
+        return null;
+    }
 }

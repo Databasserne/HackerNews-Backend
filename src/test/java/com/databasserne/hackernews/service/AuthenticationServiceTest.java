@@ -10,7 +10,9 @@ import javax.ws.rs.NotFoundException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -91,5 +93,59 @@ public class AuthenticationServiceTest {
         when(userRepo.getUserByUsername(username)).thenReturn(resultUser);
 
         authService.login(username, pass);
+    }
+
+    @Test
+    public void registerUserSuccessTest() {
+        String username = "NewUser";
+        String password = "1234";
+        String rep_password = "1234";
+        String fullname = "New User";
+
+        User resultUser = authService.register(username, password, rep_password, fullname);
+        assertThat(resultUser, is(notNullValue()));
+        assertThat(resultUser.getUsername(), is(username));
+        assertThat(resultUser.getFullname(), is(fullname));
+        verify(userRepo).createUser((User)anyObject());
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void registerUserUsernameAlreadyTakenTest() {
+        String username = "TestUser";
+        String password = "1234";
+        String rep_password = "1234";
+        String fullname = "New User";
+
+        authService.register(username, password, rep_password, fullname);
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void registerUserPasswordMismatchTest() {
+        String username = "NewUser";
+        String password = "1234";
+        String rep_password = "1337";
+        String fullname = "New User";
+
+        authService.register(username, password, rep_password, fullname);
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void registerUserNoUsernameTest() {
+        String username = null;
+        String password = "1234";
+        String rep_password = "1234";
+        String fullname = "Test User";
+
+        authService.register(username, password, rep_password, fullname);
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void registerUserNoPasswordTest() {
+        String username = "NewUser";
+        String password = null;
+        String rep_password = "1234";
+        String fullname = "New User";
+
+        authService.register(username, password, rep_password, fullname);
     }
 }

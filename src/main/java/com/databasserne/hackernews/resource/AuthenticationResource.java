@@ -72,7 +72,7 @@ public class AuthenticationResource {
     @POST
     @Path("singup")
     public Response signup(String content) {
-        
+
 
         return null;
     }
