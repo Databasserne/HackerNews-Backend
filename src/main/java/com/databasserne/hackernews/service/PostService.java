@@ -3,6 +3,7 @@ package com.databasserne.hackernews.service;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.IPostRepo;
 
+import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class PostService implements IPost {
 
     @Override
     public Post getPost(int id) {
-        return null;
+        Post post = postRepo.getPostById(id);
+        if(post == null) throw new NotFoundException();
+
+        return post;
     }
 }

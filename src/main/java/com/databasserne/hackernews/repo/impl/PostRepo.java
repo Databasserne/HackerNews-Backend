@@ -28,4 +28,9 @@ public class PostRepo implements IPostRepo {
             em.close();
         }
     }
+
+    @Override
+    public Post getPostById(int id) {
+        return null;
+    }
 }
