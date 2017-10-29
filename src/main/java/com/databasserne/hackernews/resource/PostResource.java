@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 
 import javax.persistence.Persistence;
 import javax.ws.rs.GET;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
@@ -37,5 +38,14 @@ public class PostResource {
         postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
 
         return Response.status(Response.Status.OK).entity(gson.toJson(postService.getAllPosts())).build();
+    }
+
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPost(@PathParam("id") int id) {
+        postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+
+        return null;
     }
 }
