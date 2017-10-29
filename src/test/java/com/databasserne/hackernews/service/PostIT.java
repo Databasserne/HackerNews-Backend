@@ -1,21 +1,21 @@
-package com.databasserne.hackernews.repo;
+package com.databasserne.hackernews.service;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.impl.PostRepo;
-import com.databasserne.hackernews.repo.impl.UserRepo;
 import org.junit.*;
 
 import javax.persistence.Persistence;
+import javax.ws.rs.NotFoundException;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 
-public class PostRepoTest {
+public class PostIT {
 
-    private IPostRepo postRepo;
+    private IPost postService;
 
     @BeforeClass
     public static void setUpClass() {
@@ -27,7 +27,7 @@ public class PostRepoTest {
 
     @Before
     public void setUp() {
-        postRepo = new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME_TEST));
+        postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME_TEST)));
     }
 
     @After
@@ -35,24 +35,21 @@ public class PostRepoTest {
     }
 
     @Test
-    public void getAllPostsSuccessTest() {
-        List<Post> result = postRepo.getAllPosts();
-
+    public void getAllPostsTest() {
+        List<Post> result = postService.getAllPosts();
         assertThat(result.size(), is(2));
     }
 
     @Test
     public void getPostSuccessTest() {
-        Post p = postRepo.getPostById(1);
-
-        assertThat(p.getId(), is(1));
-        assertThat(p.getTitle(), is("Post1"));
+        Post result = postService.getPost(1);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getId(), is(1));
     }
 
-    @Test
+    @Test (expected = NotFoundException.class)
     public void getPostNotFoundTest() {
-        Post p = postRepo.getPostById(500);
-
-        assertThat(p, is(nullValue()));
+        postService.getPost(500);
     }
+
 }

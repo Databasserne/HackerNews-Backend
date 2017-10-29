@@ -5,6 +5,7 @@ import com.databasserne.hackernews.repo.IPostRepo;
 import com.databasserne.hackernews.repo.impl.PostRepo;
 import org.junit.*;
 
+import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -61,5 +63,24 @@ public class PostServiceTest {
         List<Post> result = postService.getAllPosts();
         assertThat(result, is(notNullValue()));
         assertThat(result, is(empty()));
+    }
+
+    @Test
+    public void getPostSuccessTest() {
+        Post p1 = new Post();
+        p1.setId(1);
+
+        when(postRepo.getPostById(anyInt())).thenReturn(p1);
+
+        Post result = postService.getPost(1);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getId(), is(1));
+    }
+
+    @Test (expected = NotFoundException.class)
+    public void getPostNotFoundTest() {
+        when(postRepo.getPostById(anyInt())).thenReturn(null);
+
+        postService.getPost(500);
     }
 }

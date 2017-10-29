@@ -28,4 +28,16 @@ public class PostRepo implements IPostRepo {
             em.close();
         }
     }
+
+    @Override
+    public Post getPostById(int id) {
+        em = emf.createEntityManager();
+        try {
+            return (Post) em.find(Post.class, id);
+        } catch (IllegalArgumentException argument) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 }
