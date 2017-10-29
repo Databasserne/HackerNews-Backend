@@ -24,4 +24,11 @@ public interface IPostRepo {
      * @return The created Post object.
      */
     Post createPost(Post post);
+
+    /**
+     * Updated the post.
+     * @param post The Post object, which should be updated.
+     * @return new Post object.
+     */
+    Post editPost(Post post);
 }

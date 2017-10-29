@@ -58,4 +58,9 @@ public class PostRepo implements IPostRepo {
             return null;
         }
     }
+
+    @Override
+    public Post editPost(Post post) {
+        return null;
+    }
 }
