@@ -7,8 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75caa1e1-ff92-4d8f-98aa-ae59fc61c961" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java" afterPath="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostIT.java" afterPath="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostIT.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -47,7 +46,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="persistence.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="persistence.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="378">
@@ -57,10 +56,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PostResource.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PostResource.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="657">
+            <state relative-caret-position="531">
               <caret line="82" column="48" lean-forward="false" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
               <folding>
                 <element signature="method#getAllPosts#0;class#PostResource#0" expanded="false" />
@@ -73,10 +72,41 @@
       <file leaf-file-name="PostService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/PostService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="447">
-              <caret line="51" column="28" lean-forward="false" selection-start-line="51" selection-start-column="28" selection-end-line="51" selection-end-column="28" />
+            <state relative-caret-position="336">
+              <caret line="37" column="4" lean-forward="true" selection-start-line="37" selection-start-column="4" selection-end-line="52" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostIT.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostIT.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="303">
+              <caret line="42" column="47" lean-forward="false" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PostServiceTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostServiceTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="88" column="4" lean-forward="true" selection-start-line="88" selection-start-column="4" selection-end-line="134" selection-end-column="5" />
+              <folding>
+                <element signature="method#setUpClass#0;class#PostServiceTest#0" expanded="false" />
+                <element signature="method#tearDownClass#0;class#PostServiceTest#0" expanded="false" />
+                <element signature="method#setUp#0;class#PostServiceTest#0" expanded="false" />
+                <element signature="method#tearDown#0;class#PostServiceTest#0" expanded="false" />
+                <element signature="method#getAllPostsTest#0;class#PostServiceTest#0" expanded="false" />
+                <element signature="method#getAllPostsNoPostsTest#0;class#PostServiceTest#0" expanded="false" />
+                <element signature="method#getPostSuccessTest#0;class#PostServiceTest#0" expanded="false" />
+                <element signature="method#getPostNotFoundTest#0;class#PostServiceTest#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -141,15 +171,15 @@
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/model/Post.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/config/DeploymentCfg.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IToken.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostIT.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/IPostRepo.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/repo/PostRepoTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/impl/PostRepo.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/IPost.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostServiceTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/PostService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostIT.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" />
       </list>
     </option>
   </component>
@@ -357,7 +387,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.PostServiceTest">
+  <component name="RunManager" selected="JUnit.PostIT">
     <configuration name="HackerNews" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.0.27" ALTERNATIVE_JRE_ENABLED="false">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
@@ -646,10 +676,10 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.PostServiceTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.PostRepoTest" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.PostRepoTest.createPostSuccessTest" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.PostIT" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.PostIT" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.PostServiceTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.PostRepoTest" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.PostRepoTest.createPostSuccessTest" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.PostRepoTest.getAllPostsSuccessTest" />
       </list>
     </recent_temporary>
@@ -688,8 +718,14 @@
     <history-entry file="PostIT - 2017.10.29 at 21h 05m 30s.xml">
       <configuration name="PostIT" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PostRepoTest - 2017.10.29 at 20h 50m 35s.xml">
-      <configuration name="PostRepoTest" configurationId="JUnit" />
+    <history-entry file="PostIT - 2017.10.29 at 21h 51m 18s.xml">
+      <configuration name="PostIT" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PostIT - 2017.10.29 at 21h 53m 39s.xml">
+      <configuration name="PostIT" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PostIT - 2017.10.29 at 21h 53m 45s.xml">
+      <configuration name="PostIT" configurationId="JUnit" />
     </history-entry>
     <history-entry file="PostRepoTest - 2017.10.29 at 20h 50m 49s.xml">
       <configuration name="PostRepoTest" configurationId="JUnit" />
@@ -703,18 +739,12 @@
     <history-entry file="PostRepoTest_createPostSuccessTest - 2017.10.29 at 21h 17m 10s.xml">
       <configuration name="PostRepoTest.createPostSuccessTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PostServiceTest - 2017.10.29 at 17h 35m 01s.xml">
-      <configuration name="PostServiceTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PostServiceTest - 2017.10.29 at 20h 42m 49s.xml">
-      <configuration name="PostServiceTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="PostServiceTest - 2017.10.29 at 21h 36m 56s.xml">
       <configuration name="PostServiceTest" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47635000" />
+    <option name="totallyTimeSpent" value="47970000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -748,7 +778,7 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32915717" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Persistence" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -1156,18 +1186,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1296#1297#0" expanded="true" />
-            <element signature="e#1336#1337#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/repo/IPostRepo.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
@@ -1218,10 +1236,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="531">
+          <caret line="82" column="48" lean-forward="false" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
+          <folding>
+            <element signature="method#getAllPosts#0;class#PostResource#0" expanded="false" />
+            <element signature="method#getPost#0;class#PostResource#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/PostService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="37" column="4" lean-forward="true" selection-start-line="37" selection-start-column="4" selection-end-line="52" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="119" column="0" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
+        <state relative-caret-position="210">
+          <caret line="88" column="4" lean-forward="true" selection-start-line="88" selection-start-column="4" selection-end-line="134" selection-end-column="5" />
           <folding>
             <element signature="method#setUpClass#0;class#PostServiceTest#0" expanded="false" />
             <element signature="method#tearDownClass#0;class#PostServiceTest#0" expanded="false" />
@@ -1235,10 +1274,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/service/PostService.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/databasserne/hackernews/service/PostIT.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="51" column="28" lean-forward="false" selection-start-line="51" selection-start-column="28" selection-end-line="51" selection-end-column="28" />
+        <state relative-caret-position="303">
+          <caret line="42" column="47" lean-forward="false" selection-start-line="42" selection-start-column="47" selection-end-line="42" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1250,17 +1289,6 @@
         <state relative-caret-position="378">
           <caret line="24" column="68" lean-forward="false" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/databasserne/hackernews/resource/PostResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="657">
-          <caret line="82" column="48" lean-forward="false" selection-start-line="82" selection-start-column="48" selection-end-line="82" selection-end-column="48" />
-          <folding>
-            <element signature="method#getAllPosts#0;class#PostResource#0" expanded="false" />
-            <element signature="method#getPost#0;class#PostResource#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
