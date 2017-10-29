@@ -1,6 +1,7 @@
 package com.databasserne.hackernews.model;
 
 import com.databasserne.hackernews.service.security.Sha3;
+import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,15 +13,19 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
+    @Expose
     private int id;
 
-    @Column
+    @Column(unique = true)
+    @Expose
     private String username;
 
     @Column
     private String password;
 
-    @Column String fullname;
+    @Column
+    @Expose
+    private String fullname;
 
     public int getId() {
         return id;

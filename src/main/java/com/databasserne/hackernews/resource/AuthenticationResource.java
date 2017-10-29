@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 @Path("v1/auth")
 public class AuthenticationResource {
 
-    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     private IAuthentication authService;
     private IToken tokenService;
 
@@ -35,7 +35,7 @@ public class AuthenticationResource {
         JsonObject response;
         try {
             JsonObject input = new JsonParser().parse(content).getAsJsonObject();
-            authService = new Authentication(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME_DEV)));
+            authService = new Authentication(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
             tokenService = new TokenService();
 
             User user = authService.login(input.get("username").getAsString(), input.get("password").getAsString());
@@ -60,6 +60,7 @@ public class AuthenticationResource {
 
             return Response.status(Response.Status.NOT_FOUND).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         } catch (Exception e) {
+            e.printStackTrace();
             response = new JsonObject();
             response.addProperty("error_code", 500);
             response.addProperty("error_message", "Unknown server error");
