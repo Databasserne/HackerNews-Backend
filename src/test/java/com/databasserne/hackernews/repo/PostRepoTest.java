@@ -70,4 +70,20 @@ public class PostRepoTest {
         assertThat(result, is(notNullValue()));
         assertThat(result.getTitle(), is("My test post"));
     }
+
+    @Test
+    public void editPostSuccessTest() {
+        Post post = new Post();
+        post.setTitle("Created post");
+        post.setBody("haha");
+
+        Post postToEdit = postRepo.createPost(post);
+        postToEdit.setTitle("New edited post");
+        postToEdit.setBody("uhhh");
+
+        Post resultPost = postRepo.editPost(postToEdit);
+        assertThat(resultPost, is(notNullValue()));
+        assertThat(resultPost.getTitle(), is("New edited post"));
+        assertThat(resultPost.getBody(), is("uhhh"));
+    }
 }

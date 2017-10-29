@@ -133,4 +133,93 @@ public class PostServiceTest {
 
         postService.createPost(title, body);
     }
+
+    @Test
+    public void editPostSuccessTest() {
+        String title = "new title";
+        String body = "new body";
+        Post expected = new Post();
+        expected.setId(1);
+        expected.setTitle(title);
+        expected.setBody(body);
+        when(postRepo.getPostById(1)).thenReturn(expected);
+        when(postRepo.editPost((Post)anyObject())).thenReturn(expected);
+
+        Post result = postService.editPost(1, title, body);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getTitle(), is(title));
+        assertThat(result.getBody(), is(body));
+    }
+
+    @Test
+    public void editPostTitleTest() {
+        String title = "new title";
+        String body = null;
+        Post expected = new Post();
+        expected.setId(1);
+        expected.setTitle(title);
+        expected.setBody("old body");
+        when(postRepo.getPostById(1)).thenReturn(expected);
+        when(postRepo.editPost((Post)anyObject())).thenReturn(expected);
+
+        Post result = postService.editPost(1, title, body);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getTitle(), is(title));
+        assertThat(result.getBody(), is(notNullValue()));
+    }
+
+    @Test
+    public void editPostBodyTest() {
+        String title = null;
+        String body = "new body";
+        Post expected = new Post();
+        expected.setId(1);
+        expected.setTitle("old title");
+        expected.setBody(body);
+        when(postRepo.getPostById(1)).thenReturn(expected);
+        when(postRepo.editPost((Post)anyObject())).thenReturn(expected);
+
+        Post result = postService.editPost(1, title, body);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getTitle(), is(notNullValue()));
+        assertThat(result.getBody(), is(body));
+    }
+
+    @Test (expected = NotFoundException.class)
+    public void editPostNotFoundTest() {
+        String title = "new title";
+        String body = "new body";
+
+        when(postRepo.getPostById(1)).thenReturn(null);
+
+        postService.editPost(1, title, body);
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void editPostEmptyTitleTest() {
+        String title = "";
+        String body = "hej";
+        Post p = new Post();
+        p.setId(1);
+        p.setTitle("Hej med dig");
+        p.setBody("wuhuu");
+
+        when(postRepo.getPostById(1)).thenReturn(p);
+
+        postService.editPost(1, title, body);
+    }
+
+    @Test (expected = BadRequestException.class)
+    public void editPostEmptyBodyTest() {
+        String title = "new title";
+        String body = "";
+        Post p = new Post();
+        p.setId(1);
+        p.setTitle("Hej med dig");
+        p.setBody("wuhuu");
+
+        when(postRepo.getPostById(1)).thenReturn(p);
+
+        postService.editPost(1, title, body);
+    }
 }

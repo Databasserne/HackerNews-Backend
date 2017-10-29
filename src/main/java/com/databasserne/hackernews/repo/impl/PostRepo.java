@@ -56,6 +56,24 @@ public class PostRepo implements IPostRepo {
             return null;
         } catch (RollbackException rollback) {
             return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public Post editPost(Post post) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(post);
+            em.getTransaction().commit();
+
+            return post;
+        } catch (IllegalArgumentException argument) {
+            return null;
+        } finally {
+            em.close();
         }
     }
 }
