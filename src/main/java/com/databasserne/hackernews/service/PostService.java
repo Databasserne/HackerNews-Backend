@@ -23,4 +23,9 @@ public class PostService implements IPost {
 
         return posts;
     }
+
+    @Override
+    public Post getPost(int id) {
+        return null;
+    }
 }
