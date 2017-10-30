@@ -31,7 +31,7 @@ public class PostService implements IPost {
 
     @Override
     public List<Post> getUserPosts(User user) {
-        return null;
+        return postRepo.getUserPosts(user);
     }
 
     @Override
