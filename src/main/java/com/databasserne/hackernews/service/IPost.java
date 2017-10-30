@@ -1,6 +1,8 @@
 package com.databasserne.hackernews.service;
 
 import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.User;
+import com.databasserne.hackernews.model.Vote;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
@@ -44,4 +46,13 @@ public interface IPost {
      * @return True if successfully deleted or false if error.
      */
     Post deletePost(Post post);
+
+    /**
+     * Upvotes a Post
+     * @param user User to vote
+     * @param post Post to vote
+     * @param vote vote number
+     * @return The created vote
+     */
+    Vote votePost(User user, Post post, int vote);
 }

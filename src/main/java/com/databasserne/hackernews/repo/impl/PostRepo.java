@@ -1,6 +1,7 @@
 package com.databasserne.hackernews.repo.impl;
 
 import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.IPostRepo;
 
@@ -94,5 +95,10 @@ public class PostRepo implements IPostRepo {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Vote getUserVoteForPost(User user, Post post) {
+        return null;
     }
 }
