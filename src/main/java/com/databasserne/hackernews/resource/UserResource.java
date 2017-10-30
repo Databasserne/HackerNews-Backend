@@ -2,8 +2,11 @@ package com.databasserne.hackernews.resource;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.User;
+import com.databasserne.hackernews.repo.impl.PostRepo;
 import com.databasserne.hackernews.repo.impl.UserRepo;
+import com.databasserne.hackernews.service.IPost;
 import com.databasserne.hackernews.service.IUser;
+import com.databasserne.hackernews.service.PostService;
 import com.databasserne.hackernews.service.UserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,6 +29,7 @@ public class UserResource {
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     private IUser userService;
+    private IPost postService;
 
     @GET
     @Path("me")
@@ -39,6 +43,17 @@ public class UserResource {
         response.addProperty("fullname", user.getFullname());
 
         return Response.status(Response.Status.OK).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
+    }
+
+    @GET
+    @Path("post")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserPosts(@Context SecurityContext securityContext) {
+        userService = new UserService(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+        User user = userService.getUserInfo(Integer.parseInt(securityContext.getUserPrincipal().getName()));
+        postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+
+        return Response.status(Response.Status.OK).entity(gson.toJson(postService.getUserPosts(user))).type(MediaType.APPLICATION_JSON).build();
     }
 
     @PUT

@@ -16,6 +16,13 @@ public interface IPost {
     List<Post> getAllPosts();
 
     /**
+     * Get all posts created by User
+     * @param user Author of posts.
+     * @return List of posts or empty list if user has no posts.
+     */
+    List<Post> getUserPosts(User user);
+
+    /**
      * Get post
      * @param id id of the post.
      * @return Post object.

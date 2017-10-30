@@ -9,6 +9,7 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.RollbackException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostRepo implements IPostRepo {
@@ -74,6 +75,20 @@ public class PostRepo implements IPostRepo {
             return post;
         } catch (IllegalArgumentException argument) {
             return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<Post> getUserPosts(User user) {
+        em = emf.createEntityManager();
+        try {
+            return em.createQuery("SELECT p FROM Post p WHERE p.author = :author")
+                    .setParameter("author", user)
+                    .getResultList();
+        } catch (Exception e) {
+            return new ArrayList<>();
         } finally {
             em.close();
         }

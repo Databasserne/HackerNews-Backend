@@ -30,6 +30,11 @@ public class PostService implements IPost {
     }
 
     @Override
+    public List<Post> getUserPosts(User user) {
+        return postRepo.getUserPosts(user);
+    }
+
+    @Override
     public Post getPost(int id) {
         Post post = postRepo.getPostById(id);
         if(post == null) throw new NotFoundException("Post not found.");
