@@ -46,7 +46,7 @@ public class Post implements Serializable {
     private Date deleted;
 
     @OneToMany
-    @JoinColumn(name = "vote_id", referencedColumnName = "id")
+    @JoinColumn(name = "post_id", referencedColumnName = "id")
     private List<Vote> votes = new ArrayList<>();
 
     public int getId() {
