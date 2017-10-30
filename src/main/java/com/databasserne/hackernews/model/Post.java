@@ -85,4 +85,9 @@ public class Post implements Serializable {
     public void setAuthor(User author) {
         this.author = author;
     }
+
+    public boolean validate(int userId) {
+        if(this.author == null) return false;
+        return this.author.getId() == userId;
+    }
 }

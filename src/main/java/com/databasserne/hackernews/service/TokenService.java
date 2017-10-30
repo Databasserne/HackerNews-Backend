@@ -41,8 +41,9 @@ public class TokenService implements IToken {
         Calendar expDate = date;
         expDate.add(Calendar.HOUR_OF_DAY, 24);
         claim = new JWTClaimsSet.Builder()
-                .subject(user.getUsername())
+                .subject(String.valueOf(user.getId()))
                 .claim("username", user.getUsername())
+                .claim("fullname", user.getFullname())
                 .issueTime(date.getTime())
                 .expirationTime(expDate.getTime())
                 .issuer(ISSUER)

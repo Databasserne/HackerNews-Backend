@@ -145,7 +145,7 @@ public class PostServiceTest {
         when(postRepo.getPostById(1)).thenReturn(expected);
         when(postRepo.editPost((Post)anyObject())).thenReturn(expected);
 
-        Post result = postService.editPost(1, title, body);
+        Post result = postService.editPost(expected);
         assertThat(result, is(notNullValue()));
         assertThat(result.getTitle(), is(title));
         assertThat(result.getBody(), is(body));
@@ -162,7 +162,7 @@ public class PostServiceTest {
         when(postRepo.getPostById(1)).thenReturn(expected);
         when(postRepo.editPost((Post)anyObject())).thenReturn(expected);
 
-        Post result = postService.editPost(1, title, body);
+        Post result = postService.editPost(expected);
         assertThat(result, is(notNullValue()));
         assertThat(result.getTitle(), is(title));
         assertThat(result.getBody(), is(notNullValue()));
@@ -179,20 +179,24 @@ public class PostServiceTest {
         when(postRepo.getPostById(1)).thenReturn(expected);
         when(postRepo.editPost((Post)anyObject())).thenReturn(expected);
 
-        Post result = postService.editPost(1, title, body);
+        Post result = postService.editPost(expected);
         assertThat(result, is(notNullValue()));
         assertThat(result.getTitle(), is(notNullValue()));
         assertThat(result.getBody(), is(body));
     }
 
-    @Test (expected = NotFoundException.class)
+    @Test (expected = BadRequestException.class)
     public void editPostNotFoundTest() {
         String title = "new title";
         String body = "new body";
+        Post p = new Post();
+        p.setId(1);
+        p.setTitle(title);
+        p.setBody(body);
 
         when(postRepo.getPostById(1)).thenReturn(null);
 
-        postService.editPost(1, title, body);
+        postService.editPost(p);
     }
 
     @Test (expected = BadRequestException.class)
@@ -206,7 +210,7 @@ public class PostServiceTest {
 
         when(postRepo.getPostById(1)).thenReturn(p);
 
-        postService.editPost(1, title, body);
+        postService.editPost(p);
     }
 
     @Test (expected = BadRequestException.class)
@@ -220,6 +224,6 @@ public class PostServiceTest {
 
         when(postRepo.getPostById(1)).thenReturn(p);
 
-        postService.editPost(1, title, body);
+        postService.editPost(p);
     }
 }

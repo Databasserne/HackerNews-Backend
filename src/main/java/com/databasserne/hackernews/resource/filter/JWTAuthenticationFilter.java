@@ -58,8 +58,8 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
                     throw new NotAuthorizedException("Your authorization token has timed out, please login again", Response.Status.UNAUTHORIZED);
                 }
 
-                String username = getUsernameFromToken(token);
-                final UserPrincipal user = getPricipalByUserId(username);
+                String id = getUserIdFromToken(token);
+                final UserPrincipal user = getPricipalByUserId(id);
                 if (user == null) {
                     throw new NotAuthorizedException("User could not be authenticated via the provided token", Response.Status.FORBIDDEN);
                 }
@@ -103,9 +103,9 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
 
     private UserPrincipal getPricipalByUserId(String username) throws NoSuchAlgorithmException, InvalidKeySpecException {
         UserRepo userRepo = new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME));
-        User user = userRepo.getUserByUsername(username);
+        User user = userRepo.getUserById(Integer.parseInt(username));
         if (user != null) {
-            return new UserPrincipal(user.getUsername());
+            return new UserPrincipal(String.valueOf(user.getId()));
         }
         return null;
     }
@@ -137,7 +137,7 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
         return false;
     }
 
-    private String getUsernameFromToken(String token) throws ParseException, JOSEException {
+    private String getUserIdFromToken(String token) throws ParseException, JOSEException {
 
         SignedJWT signedJWT = SignedJWT.parse(token);
         JWSVerifier verifier = new MACVerifier(Secrets.TOKEN_SECRET);

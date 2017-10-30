@@ -105,13 +105,20 @@ public class PostResource {
         JsonObject response;
         try {
             JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
+            if(!inputJson.has("title") || inputJson.get("title").getAsString().equals("")) throw new BadRequestException("Title is required.");
+            if(!inputJson.has("body") || inputJson.get("body").getAsString().equals("")) throw new BadRequestException("Body is required.");
             postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
-            String title = null;
-            String body = null;
-            if(inputJson.has("title")) title = inputJson.get("title").getAsString();
-            if(inputJson.has("body")) body = inputJson.get("body").getAsString();
+            Post post = postService.getPost(id);
+            post.setTitle(inputJson.get("title").getAsString());
+            post.setBody(inputJson.get("body").getAsString());
+            if(!post.validate(Integer.parseInt(securityContext.getUserPrincipal().getName()))) {
+                response = new JsonObject();
+                response.addProperty("error_code", 401);
+                response.addProperty("error_message", "Unauthorized.");
+                return Response.status(Response.Status.UNAUTHORIZED).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
+            }
 
-            postService.editPost(id, title, body);
+            postService.editPost(post);
             return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
@@ -126,6 +133,7 @@ public class PostResource {
 
             return Response.status(Response.Status.BAD_REQUEST).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         } catch (Exception e) {
+            e.printStackTrace();
             response = new JsonObject();
             response.addProperty("error_code", 500);
             response.addProperty("error_message", "Unknown server error.");
