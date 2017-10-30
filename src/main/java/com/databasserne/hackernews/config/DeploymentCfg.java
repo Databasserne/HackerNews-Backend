@@ -41,12 +41,14 @@ public class DeploymentCfg implements ServletContextListener {
             post.setBody("This is a test text for post number 1");
             post.setCreated(new Date());
             post.setUpdated(new Date());
+            post.setAuthor(user);
 
             Post post2 = new Post();
             post2.setTitle("Post number 2");
             post2.setBody("This is a test text for second post :-)");
             post2.setCreated(new Date());
             post2.setUpdated(new Date());
+            post2.setAuthor(user);
 
             try {
                 em.getTransaction().begin();

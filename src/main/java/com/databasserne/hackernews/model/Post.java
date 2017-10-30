@@ -34,6 +34,10 @@ public class Post implements Serializable {
     @Expose
     private Date updated;
 
+    @JoinColumn
+    @ManyToOne
+    private User author;
+
     public int getId() {
         return id;
     }
@@ -72,5 +76,13 @@ public class Post implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
