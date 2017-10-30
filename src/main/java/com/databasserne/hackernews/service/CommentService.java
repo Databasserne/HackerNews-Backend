@@ -5,12 +5,18 @@
  */
 package com.databasserne.hackernews.service;
 
+import com.databasserne.hackernews.model.Comment;
+import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.ICommentRepo;
+import com.databasserne.hackernews.repo.impl.CommentRepo;
+import java.util.Date;
 import java.util.List;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
 
 /**
  *
- * @author Kasper S. Worm
+ * @author jonassimonsen
  */
 public class CommentService implements IComment{
     private ICommentRepo commentRepo;
@@ -23,18 +29,29 @@ public class CommentService implements IComment{
     }
 
     @Override
-    public List<IComment> getCommentsForPost(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Comment> getCommentsForPost(int id) {
+        List<Comment> comments = commentRepo.getCommentsForPost(id);
+        if(comments == null) throw new NotFoundException("Comments not found.");
+        
+        return comments;
     }
 
     @Override
-    public IComment createComment(String body) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Comment createComment(String body) {
+        if(body == null || body.equals("")) throw new BadRequestException();
+        
+        Comment comment = new Comment();
+        comment.setComment_text(body);
+        Date now = new Date();
+        comment.setCreated(now);
+        
+        Comment responceComment = commentRepo.createComment(comment);
+        if(responceComment == null) throw new BadRequestException();
+        return responceComment;
+        
     }
 
-    @Override
-    public List<IComment> getSingleCommentAndChildComment(int postId, int userId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-}
+//    @Override
+//    public List<IComment> getSingleCommentAndChildComment(int postId, int userId) {
+//
+//}

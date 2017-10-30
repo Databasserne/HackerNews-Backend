@@ -7,12 +7,8 @@ package com.databasserne.hackernews.resource;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.repo.impl.CommentRepo;
-import com.databasserne.hackernews.repo.impl.PostRepo;
 import com.databasserne.hackernews.service.CommentService;
-import com.databasserne.hackernews.service.IAuthentication;
 import com.databasserne.hackernews.service.IComment;
-import com.databasserne.hackernews.service.IToken;
-import com.databasserne.hackernews.service.PostService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -29,7 +25,7 @@ import javax.ws.rs.core.Response;
 
 /**
  *
- * @author Kasper S. Worm
+ * @author Kasper S. Worm & jonassimonsen
  */
 
 @Api
@@ -47,7 +43,7 @@ public class CommentResource {
         commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
         try {
-            return null;
+            return Response.status(Response.Status.OK).entity(gson.toJson(commentService.getCommentsForPost(id))).type(MediaType.APPLICATION_JSON).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
             response.addProperty("error_code", 400);

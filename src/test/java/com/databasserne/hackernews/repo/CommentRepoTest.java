@@ -7,7 +7,6 @@ package com.databasserne.hackernews.repo;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Comment;
-import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.impl.CommentRepo;
 import java.util.Date;
 import javax.persistence.Persistence;

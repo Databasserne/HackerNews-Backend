@@ -5,11 +5,12 @@
  */
 package com.databasserne.hackernews.service;
 
+import com.databasserne.hackernews.model.Comment;
 import java.util.List;
 
 /**
  *
- * @author Kasper S. Worm
+ * @author jonassimonsen
  */
 public interface IComment {
 
@@ -18,7 +19,7 @@ public interface IComment {
      * @param id
      * @return List of comment objects
      */
-    List<IComment> getCommentsForPost(int id);
+    List<Comment> getCommentsForPost(int id);
 
     /**
      *
@@ -26,7 +27,7 @@ public interface IComment {
      * @param userId
      * @return List of comment objects
      */
-    List<IComment> getSingleCommentAndChildComment(int postId, int userId);
+    List<Comment> getSingleCommentAndChildComment(int postId, int userId);
 
     /**
      * Create Comment
@@ -34,6 +35,6 @@ public interface IComment {
      * @param body Text of Comment
      * @return Created Comment
      */
-    IComment createComment(String body);
+    Comment createComment(String body);
 
 }

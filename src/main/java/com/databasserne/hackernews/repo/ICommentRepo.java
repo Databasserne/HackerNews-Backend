@@ -6,6 +6,7 @@
 package com.databasserne.hackernews.repo;
 
 import com.databasserne.hackernews.model.Comment;
+import com.databasserne.hackernews.service.IComment;
 import java.util.List;
 
 /**
@@ -32,7 +33,7 @@ public interface ICommentRepo {
     /**
      * 
      * @param id
-     * @return 
+     * @return Specific Comment 
      */
     Comment getCommentFromId(int id);
     
@@ -40,9 +41,16 @@ public interface ICommentRepo {
     /**
      * 
      * @param commentId
-     * @return 
+     * @return All childComments to a Comment
      */
     List<Comment> getChildComment(int commentId);
     
+    
+    /**
+     * 
+     * @param postId
+     * @param userId
+     * @return ChildComment to a Comment
+     */
+    List<IComment> getSingleCommentAndChildComment(int postId, int userId);
 }
-
