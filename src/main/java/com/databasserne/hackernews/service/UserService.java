@@ -3,6 +3,7 @@ package com.databasserne.hackernews.service;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.IUserRepo;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 
 public class UserService implements IUser {
@@ -21,5 +22,13 @@ public class UserService implements IUser {
         if(user == null) throw new NotFoundException("User not found.");
 
         return user;
+    }
+
+    @Override
+    public User editUserInfo(User user) {
+        User newUser = userRepo.editUser(user);
+        if(newUser == null) throw new BadRequestException();
+
+        return newUser;
     }
 }
