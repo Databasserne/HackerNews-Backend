@@ -33,6 +33,10 @@ public class User implements Serializable {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private List<Post> posts = new ArrayList<>();
 
+    @OneToMany
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    private List<Vote> votes = new ArrayList<>();
+
     public int getId() {
         return id;
     }
@@ -75,5 +79,17 @@ public class User implements Serializable {
 
     public void addPost(Post post) {
         this.posts.add(post);
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
+    }
+
+    public void addVote(Vote vote) {
+        this.votes.add(vote);
     }
 }
