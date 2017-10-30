@@ -4,7 +4,9 @@ import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -42,6 +44,10 @@ public class Post implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Expose
     private Date deleted;
+
+    @OneToMany
+    @JoinColumn(name = "vote_id", referencedColumnName = "id")
+    private List<Vote> votes = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -97,6 +103,18 @@ public class Post implements Serializable {
 
     public void setDeleted(Date deleted) {
         this.deleted = deleted;
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
+    }
+
+    public void addVote(Vote vote) {
+        this.votes.add(vote);
     }
 
     public boolean validate(int userId) {
