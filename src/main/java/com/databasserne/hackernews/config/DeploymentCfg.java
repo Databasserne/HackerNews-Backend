@@ -36,6 +36,11 @@ public class DeploymentCfg implements ServletContextListener {
             user.setPassword("1234");
             user.setFullname("Test User");
 
+            User user2 = new User();
+            user2.setUsername("Vixo");
+            user2.setPassword("1234");
+            user2.setFullname("Martin");
+
             Post post = new Post();
             post.setTitle("Post number 1");
             post.setBody("This is a test text for post number 1");
@@ -54,6 +59,7 @@ public class DeploymentCfg implements ServletContextListener {
                 em.getTransaction().begin();
 
                 em.persist(user);
+                em.persist(user2);
                 em.persist(post);
                 em.persist(post2);
 

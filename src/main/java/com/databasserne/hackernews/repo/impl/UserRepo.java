@@ -17,6 +17,18 @@ public class UserRepo implements IUserRepo {
     }
 
     @Override
+    public User getUserById(int id) {
+        em = emf.createEntityManager();
+        try {
+            return (User) em.find(User.class, id);
+        } catch (IllegalArgumentException argument) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
     public User getUserByUsername(String username) {
         em = emf.createEntityManager();
         try {

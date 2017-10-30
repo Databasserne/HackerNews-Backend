@@ -9,6 +9,7 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.Persistence;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
@@ -33,6 +34,23 @@ public class UserRepoTest {
 
     @After
     public void tearDown() {
+    }
+
+    @Test
+    public void getUserByIdSuccessTest() {
+        int id = 1;
+        User user = userRepo.getUserById(id);
+
+        assertThat(user, is(notNullValue()));
+        assertThat(user.getId(), is(id));
+    }
+
+    @Test
+    public void getUserByIdNotFoundTest() {
+        int id = 500;
+        User user = userRepo.getUserById(id);
+
+        assertThat(user, is(nullValue()));
     }
 
     @Test

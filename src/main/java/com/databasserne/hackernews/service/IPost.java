@@ -38,5 +38,5 @@ public interface IPost {
      * @throws NotFoundException If Post could not be found.
      * @throws BadRequestException If parameters is empty strings or entity could not be updated.
      */
-    Post editPost(int id, String title, String body) throws NotFoundException, BadRequestException;
+    Post editPost(Post post) throws NotFoundException, BadRequestException;
 }
