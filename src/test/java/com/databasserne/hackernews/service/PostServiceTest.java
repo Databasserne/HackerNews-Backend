@@ -73,6 +73,34 @@ public class PostServiceTest {
     }
 
     @Test
+    public void getUserPostsWithDataTest() {
+        User user = new User();
+        Post p1 = new Post();
+        Post p2 = new Post();
+        List<Post> expected = new ArrayList<>();
+        expected.add(p1);
+        expected.add(p2);
+
+        when(postRepo.getUserPosts(user)).thenReturn(expected);
+
+        List<Post> result = postService.getUserPosts(user);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.size(), is(2));
+    }
+
+    @Test
+    public void getUserPostsWithNoDataTest() {
+        User user = new User();
+        List<Post> expected = new ArrayList<>();
+
+        when(postRepo.getUserPosts(user)).thenReturn(expected);
+
+        List<Post> result = postService.getUserPosts(user);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.size(), is(0));
+    }
+
+    @Test
     public void getPostSuccessTest() {
         Post p1 = new Post();
         p1.setId(1);
