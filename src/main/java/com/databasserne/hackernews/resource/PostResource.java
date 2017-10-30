@@ -141,4 +141,31 @@ public class PostResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
     }
+
+    @DELETE
+    @Path("{id}")
+    @PermitAll
+    public Response deletePost(@Context SecurityContext context, @PathParam("id") int id) {
+        JsonObject response;
+        try {
+            postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+            Post post = postService.getPost(id);
+            post.validate(Integer.parseInt(context.getUserPrincipal().getName()));
+            postService.deletePost(post);
+            return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).build();
+        } catch (BadRequestException badRequest) {
+            response = new JsonObject();
+            response.addProperty("error_code", 400);
+            response.addProperty("error_message", badRequest.getMessage());
+
+            return Response.status(Response.Status.BAD_REQUEST).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new JsonObject();
+            response.addProperty("error_code", 500);
+            response.addProperty("error_message", "Unknown server error.");
+
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(response).type(MediaType.APPLICATION_JSON).build();
+        }
+    }
 }

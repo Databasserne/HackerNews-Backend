@@ -8,10 +8,12 @@ import org.junit.*;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.empty;
 import static org.mockito.Matchers.anyInt;
@@ -225,5 +227,40 @@ public class PostServiceTest {
         when(postRepo.getPostById(1)).thenReturn(p);
 
         postService.editPost(p);
+    }
+
+    @Test
+    public void deletePostSuccessTest() {
+        Post post = new Post();
+        post.setId(500);
+        post.setTitle("Hej");
+        post.setBody("haha");
+        post.setCreated(new Date());
+        post.setUpdated(new Date());
+
+        Post expected = post;
+        expected.setDeleted(new Date());
+
+        when(postRepo.editPost(post)).thenReturn(expected);
+
+        Post result = postService.deletePost(post);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getId(), is(post.getId()));
+        assertThat(result.getDeleted(), is(notNullValue()));
+    }
+
+    @Test
+    public void deletePostAlreadyDeletedTest() {
+        Post post = new Post();
+        post.setId(500);
+        post.setTitle("Hello");
+        post.setBody("haha");
+        post.setCreated(new Date());
+        post.setUpdated(new Date());
+        post.setDeleted(new Date());
+
+        Post result = postService.deletePost(post);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getDeleted(), is(post.getDeleted()));
     }
 }
