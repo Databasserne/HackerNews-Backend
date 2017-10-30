@@ -86,4 +86,24 @@ public class PostRepoTest {
         assertThat(resultPost.getTitle(), is("New edited post"));
         assertThat(resultPost.getBody(), is("uhhh"));
     }
+
+    @Test
+    public void removePostSuccessTest() {
+        Post post = new Post();
+        post.setTitle("Hej");
+        post.setBody("haha");
+
+        Post createdPost = postRepo.createPost(post);
+        boolean result = postRepo.removePost(createdPost);
+
+        assertThat(result, is(true));
+    }
+
+    @Test
+    public void removePostNotExistTest() {
+        Post post = new Post();
+        boolean result = postRepo.removePost(post);
+
+        assertThat(result, is(false));
+    }
 }

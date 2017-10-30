@@ -31,4 +31,11 @@ public interface IPostRepo {
      * @return new Post object.
      */
     Post editPost(Post post);
+
+    /**
+     * Deletes Post from database.
+     * @param post Post to delete.
+     * @return true if success or false if something went wrong.
+     */
+    boolean removePost(Post post);
 }
