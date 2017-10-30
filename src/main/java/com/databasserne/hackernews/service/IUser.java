@@ -1,5 +1,7 @@
 package com.databasserne.hackernews.service;
 
-public interface IUser {
+import com.databasserne.hackernews.model.User;
 
+public interface IUser {
+    public User getUserInfo(int id);
 }
