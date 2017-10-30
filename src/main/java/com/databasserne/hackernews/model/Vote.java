@@ -3,6 +3,8 @@ package com.databasserne.hackernews.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name = "vote")
 public class Vote implements Serializable {
 
     @Id

@@ -1,6 +1,8 @@
 package com.databasserne.hackernews.repo.impl;
 
 import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.User;
+import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.IPostRepo;
 
 import javax.persistence.EntityExistsException;
@@ -75,5 +77,28 @@ public class PostRepo implements IPostRepo {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Vote createVote(Vote vote) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(vote);
+            em.getTransaction().commit();
+
+            return vote;
+        } catch (EntityExistsException exist) {
+            return null;
+        } catch (RollbackException rollback) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public Vote getUserVoteForPost(User user, Post post) {
+        return null;
     }
 }
