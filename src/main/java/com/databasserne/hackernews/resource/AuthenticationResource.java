@@ -45,11 +45,15 @@ public class AuthenticationResource {
             User user = authService.login(username, password);
             String token = tokenService.createToken(user);
 
+            response = new JsonObject();
+            response.addProperty("token", token);
+            response.addProperty("username",user.getUsername());
+            response.addProperty("fullname", user.getFullname());
+
             return Response
                     .status(Response.Status.OK)
-                    .entity(gson.toJson(user))
+                    .entity(gson.toJson(response))
                     .type(MediaType.APPLICATION_JSON)
-                    .header("HackerToken", token)
                     .build();
         } catch (BadRequestException badRequest) {
             response = new JsonObject();
