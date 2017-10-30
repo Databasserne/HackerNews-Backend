@@ -2,6 +2,7 @@ package com.databasserne.hackernews.repo;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.impl.PostRepo;
 import org.junit.*;
 
@@ -85,5 +86,15 @@ public class PostRepoTest {
         assertThat(resultPost, is(notNullValue()));
         assertThat(resultPost.getTitle(), is("New edited post"));
         assertThat(resultPost.getBody(), is("uhhh"));
+    }
+
+    @Test
+    public void createVoteSuccessTest() {
+        Vote vote = new Vote();
+        vote.setVote(1);
+
+        Vote result = postRepo.createVote(vote);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getVote(), is(1));
     }
 }

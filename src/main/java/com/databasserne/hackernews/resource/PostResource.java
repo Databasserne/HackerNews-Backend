@@ -168,4 +168,13 @@ public class PostResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(response).type(MediaType.APPLICATION_JSON).build();
         }
     }
+
+    @POST
+    @Path("{id}/upvote")
+    @PermitAll
+    public Response upvotePost(@Context SecurityContext context, @PathParam("id") int id) {
+
+
+        return null;
+    }
 }

@@ -1,6 +1,7 @@
 package com.databasserne.hackernews.repo;
 
 import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.Vote;
 
 import java.util.List;
 
@@ -31,4 +32,11 @@ public interface IPostRepo {
      * @return new Post object.
      */
     Post editPost(Post post);
+
+    /**
+     * Creates a new Vote
+     * @param vote Vote to create.
+     * @return The created Vote object.
+     */
+    Vote createVote(Vote vote);
 }
