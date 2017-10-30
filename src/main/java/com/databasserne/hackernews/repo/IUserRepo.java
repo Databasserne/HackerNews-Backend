@@ -24,4 +24,11 @@ public interface IUserRepo {
      * @return User if successfully created.
      */
     User createUser(User user);
+
+    /**
+     * Edits a user
+     * @param user User to update
+     * @return Updated user or null if update failed.
+     */
+    User editUser(User user);
 }

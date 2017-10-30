@@ -59,4 +59,9 @@ public class UserRepo implements IUserRepo {
             em.close();
         }
     }
+
+    @Override
+    public User editUser(User user) {
+        return null;
+    }
 }
