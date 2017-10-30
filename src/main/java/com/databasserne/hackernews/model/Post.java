@@ -40,6 +40,7 @@ public class Post implements Serializable {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
+    @Expose
     private Date deleted;
 
     public int getId() {
