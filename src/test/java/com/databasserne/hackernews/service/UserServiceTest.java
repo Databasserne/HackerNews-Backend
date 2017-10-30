@@ -54,4 +54,22 @@ public class UserServiceTest {
 
         userService.getUserInfo(500);
     }
+
+    @Test
+    public void editUserInfoSuccessTest() {
+        User user = new User();
+        user.setUsername("MyUser");
+        user.setFullname("Hej alle");
+
+        User expected = new User();
+        expected.setUsername("MyUser");
+        expected.setFullname("Whaaat");
+
+        when(userRepo.editUser(user)).thenReturn(expected);
+
+        User result = userService.editUserInfo(user);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getUsername(), is("MyUser"));
+        assertThat(result.getFullname(), is("Whaaat"));
+    }
 }
