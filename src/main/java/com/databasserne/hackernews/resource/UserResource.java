@@ -41,6 +41,14 @@ public class UserResource {
         return Response.status(Response.Status.OK).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
     }
 
+    @GET
+    @Path("post")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserPosts(@Context SecurityContext securityContext) {
+        userService = new UserService(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+        return null;
+    }
+
     @PUT
     @Path("edit")
     @Produces(MediaType.APPLICATION_JSON)

@@ -35,6 +35,13 @@ public interface IPostRepo {
     Post editPost(Post post);
 
     /**
+     * Returns a list of Posts, created by specific user.
+     * @param user Author of posts.
+     * @return List of Post objects or empty list, if user has not created any posts.
+     */
+    List<Post> getUserPosts(User user);
+
+    /**
      * Creates a new Vote
      * @param vote Vote to create.
      * @return The created Vote object or null if not created.

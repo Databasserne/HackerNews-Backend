@@ -80,6 +80,11 @@ public class PostRepo implements IPostRepo {
     }
 
     @Override
+    public List<Post> getUserPosts(User user) {
+        return null;
+    }
+
+    @Override
     public Vote createVote(Vote vote) {
         em = emf.createEntityManager();
         try {
