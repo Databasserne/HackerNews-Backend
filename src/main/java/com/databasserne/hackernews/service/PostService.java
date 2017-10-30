@@ -60,4 +60,15 @@ public class PostService implements IPost {
 
         return newPost;
     }
+
+    @Override
+    public Post deletePost(Post post) {
+        if(post.getDeleted() != null) return post;
+
+        post.setDeleted(new Date());
+        post = postRepo.editPost(post);
+        if(post == null) throw new BadRequestException();
+
+        return post;
+    }
 }

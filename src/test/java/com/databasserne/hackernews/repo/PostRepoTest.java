@@ -3,7 +3,6 @@ package com.databasserne.hackernews.repo;
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.impl.PostRepo;
-import com.databasserne.hackernews.repo.impl.UserRepo;
 import org.junit.*;
 
 import javax.persistence.Persistence;
@@ -14,6 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.Mockito.when;
 
 public class PostRepoTest {
 
@@ -85,25 +85,5 @@ public class PostRepoTest {
         assertThat(resultPost, is(notNullValue()));
         assertThat(resultPost.getTitle(), is("New edited post"));
         assertThat(resultPost.getBody(), is("uhhh"));
-    }
-
-    @Test
-    public void removePostSuccessTest() {
-        Post post = new Post();
-        post.setTitle("Hej");
-        post.setBody("haha");
-
-        Post createdPost = postRepo.createPost(post);
-        boolean result = postRepo.removePost(createdPost);
-
-        assertThat(result, is(true));
-    }
-
-    @Test
-    public void removePostNotExistTest() {
-        Post post = new Post();
-        boolean result = postRepo.removePost(post);
-
-        assertThat(result, is(false));
     }
 }

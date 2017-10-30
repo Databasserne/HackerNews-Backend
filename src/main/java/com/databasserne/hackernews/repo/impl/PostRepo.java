@@ -76,22 +76,4 @@ public class PostRepo implements IPostRepo {
             em.close();
         }
     }
-
-    @Override
-    public boolean removePost(Post post) {
-        em = emf.createEntityManager();
-        try {
-            Post realPost = em.find(Post.class, post.getId());
-
-            em.getTransaction().begin();
-            em.remove(realPost);
-            em.getTransaction().commit();
-
-            return true;
-        } catch (IllegalArgumentException argument) {
-            return false;
-        } finally {
-            em.close();
-        }
-    }
 }

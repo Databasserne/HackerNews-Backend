@@ -38,6 +38,10 @@ public class Post implements Serializable {
     @ManyToOne
     private User author;
 
+    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deleted;
+
     public int getId() {
         return id;
     }
@@ -84,6 +88,14 @@ public class Post implements Serializable {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public Date getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Date deleted) {
+        this.deleted = deleted;
     }
 
     public boolean validate(int userId) {

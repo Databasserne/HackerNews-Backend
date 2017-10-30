@@ -31,12 +31,17 @@ public interface IPost {
 
     /**
      * Updates a Post
-     * @param id Id of Post to update.
-     * @param title New title, or null if no update for this column.
-     * @param body New body, or null if no update for this column.
+     * @param post New Post with updated fields to update.
      * @return New updated Post.
      * @throws NotFoundException If Post could not be found.
      * @throws BadRequestException If parameters is empty strings or entity could not be updated.
      */
     Post editPost(Post post) throws NotFoundException, BadRequestException;
+
+    /**
+     * Deletes Post.
+     * @param post Post to delete.
+     * @return True if successfully deleted or false if error.
+     */
+    Post deletePost(Post post);
 }
