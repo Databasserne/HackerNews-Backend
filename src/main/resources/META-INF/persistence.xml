@@ -2,6 +2,7 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="com.databasserne.hackernews.repo.PU_DEV" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>com.databasserne.hackernews.model.Comment</class>
         <class>com.databasserne.hackernews.model.User</class>
         <class>com.databasserne.hackernews.model.Post</class>
         <class>com.databasserne.hackernews.model.Vote</class>
@@ -16,6 +17,7 @@
     </persistence-unit>
     <persistence-unit name="com.databasserne.hackernews.repo.PU_TEST" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>com.databasserne.hackernews.model.Comment</class>
         <class>com.databasserne.hackernews.model.User</class>
         <class>com.databasserne.hackernews.model.Post</class>
         <class>com.databasserne.hackernews.model.Vote</class>
