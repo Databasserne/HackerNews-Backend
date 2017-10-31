@@ -59,4 +59,20 @@ public class UserRepo implements IUserRepo {
             em.close();
         }
     }
+
+    @Override
+    public User editUser(User user) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(user);
+            em.getTransaction().commit();
+
+            return user;
+        } catch (IllegalArgumentException argument) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 }

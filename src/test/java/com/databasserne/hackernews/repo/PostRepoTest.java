@@ -2,6 +2,8 @@ package com.databasserne.hackernews.repo;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.User;
+import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.impl.PostRepo;
 import org.junit.*;
 
@@ -10,9 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
 
 public class PostRepoTest {
@@ -85,5 +85,35 @@ public class PostRepoTest {
         assertThat(resultPost, is(notNullValue()));
         assertThat(resultPost.getTitle(), is("New edited post"));
         assertThat(resultPost.getBody(), is("uhhh"));
+    }
+
+    @Test
+    public void getUserPostsWithDataTest() {
+        User user = new User();
+        user.setId(1);
+        List<Post> result = postRepo.getUserPosts(user);
+
+        assertThat(result, is(notNullValue()));
+        assertThat(result.size(), greaterThan(1));
+    }
+
+    @Test
+    public void getUserPostsWithNoDataTest() {
+        User user = new User();
+        user.setId(500);
+        List<Post> result = postRepo.getUserPosts(user);
+
+        assertThat(result, is(notNullValue()));
+        assertThat(result.size(), is(0));
+    }
+
+    @Test
+    public void createVoteSuccessTest() {
+        Vote vote = new Vote();
+        vote.setVote(1);
+
+        Vote result = postRepo.createVote(vote);
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getVote(), is(1));
     }
 }

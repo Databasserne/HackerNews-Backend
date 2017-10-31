@@ -90,4 +90,22 @@ public class UserRepoTest {
 
         userRepo.createUser(user);;
     }
+
+    @Test
+    public void editUserSuccessTest() {
+        User usr = new User();
+        usr.setUsername("MyTest");
+        usr.setFullname("Hej alle");
+
+        usr = userRepo.createUser(usr);
+
+        assertThat(usr.getUsername(), is("MyTest"));
+
+        usr.setUsername("NewName");
+        User result = userRepo.createUser(usr);
+
+        assertThat(result, is(notNullValue()));
+        assertThat(result.getId(), is(usr.getId()));
+        assertThat(result.getUsername(), is("NewName"));
+    }
 }

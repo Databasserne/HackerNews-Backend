@@ -1,6 +1,8 @@
 package com.databasserne.hackernews.repo;
 
 import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.User;
+import com.databasserne.hackernews.model.Vote;
 
 import java.util.List;
 
@@ -31,4 +33,26 @@ public interface IPostRepo {
      * @return new Post object.
      */
     Post editPost(Post post);
+
+    /**
+     * Returns a list of Posts, created by specific user.
+     * @param user Author of posts.
+     * @return List of Post objects or empty list, if user has not created any posts.
+     */
+    List<Post> getUserPosts(User user);
+
+    /**
+     * Creates a new Vote
+     * @param vote Vote to create.
+     * @return The created Vote object or null if not created.
+     */
+    Vote createVote(Vote vote);
+
+    /**
+     * Get users vote for specific Post.
+     * @param user User who has voted.
+     * @param post Post which is voted on.
+     * @return Vote or null, if users has not voted.
+     */
+    Vote getUserVoteForPost(User user, Post post);
 }

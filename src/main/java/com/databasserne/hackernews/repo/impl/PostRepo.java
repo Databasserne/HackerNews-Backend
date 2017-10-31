@@ -1,12 +1,15 @@
 package com.databasserne.hackernews.repo.impl;
 
 import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.User;
+import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.IPostRepo;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.RollbackException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostRepo implements IPostRepo {
@@ -75,5 +78,42 @@ public class PostRepo implements IPostRepo {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<Post> getUserPosts(User user) {
+        em = emf.createEntityManager();
+        try {
+            return em.createQuery("SELECT p FROM Post p WHERE p.author = :author")
+                    .setParameter("author", user)
+                    .getResultList();
+        } catch (Exception e) {
+            return new ArrayList<>();
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public Vote createVote(Vote vote) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(vote);
+            em.getTransaction().commit();
+
+            return vote;
+        } catch (EntityExistsException exist) {
+            return null;
+        } catch (RollbackException rollback) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public Vote getUserVoteForPost(User user, Post post) {
+        return null;
     }
 }

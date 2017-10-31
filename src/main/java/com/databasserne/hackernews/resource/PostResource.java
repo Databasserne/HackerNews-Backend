@@ -168,4 +168,76 @@ public class PostResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(response).type(MediaType.APPLICATION_JSON).build();
         }
     }
+
+    @POST
+    @Path("{id}/upvote")
+    @PermitAll
+    public Response upvotePost(@Context SecurityContext context, @PathParam("id") int id) {
+        JsonObject response;
+        try {
+            User user = new User();
+            user.setId(Integer.parseInt(context.getUserPrincipal().getName()));
+            postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+            Post p = new Post();
+            p.setId(id);
+
+            postService.votePost(user, p, 1);
+
+            return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
+        } catch (BadRequestException badRequest) {
+            response = new JsonObject();
+            response.addProperty("error_code", 400);
+            response.addProperty("error_message", badRequest.getMessage());
+
+            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).build();
+        } catch (NotFoundException notFound) {
+            response = new JsonObject();
+            response.addProperty("error_code", 404);
+            response.addProperty("error_message", notFound.getMessage());
+
+            return Response.status(Response.Status.NOT_FOUND).type(MediaType.APPLICATION_JSON).build();
+        } catch (Exception e) {
+            response = new JsonObject();
+            response.addProperty("error_code", 500);
+            response.addProperty("error_meesage", "Unknown server error.");
+
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON).build();
+        }
+    }
+
+    @POST
+    @Path("{id}/downvote")
+    @PermitAll
+    public Response downvotePost(@Context SecurityContext context, @PathParam("id") int id) {
+        JsonObject response;
+        try {
+            User user = new User();
+            user.setId(Integer.parseInt(context.getUserPrincipal().getName()));
+            postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+            Post p = new Post();
+            p.setId(id);
+
+            postService.votePost(user, p, -1);
+
+            return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
+        } catch (BadRequestException badRequest) {
+            response = new JsonObject();
+            response.addProperty("error_code", 400);
+            response.addProperty("error_message", badRequest.getMessage());
+
+            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).build();
+        } catch (NotFoundException notFound) {
+            response = new JsonObject();
+            response.addProperty("error_code", 404);
+            response.addProperty("error_message", notFound.getMessage());
+
+            return Response.status(Response.Status.NOT_FOUND).type(MediaType.APPLICATION_JSON).build();
+        } catch (Exception e) {
+            response = new JsonObject();
+            response.addProperty("error_code", 500);
+            response.addProperty("error_meesage", "Unknown server error.");
+
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON).build();
+        }
+    }
 }
