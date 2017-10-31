@@ -24,17 +24,18 @@ public interface IComment {
     /**
      *
      * @param postId
-     * @param userId
+     * @param commentId
      * @return List of comment objects
      */
-    List<Comment> getSingleCommentAndChildComment(int postId, int userId);
+    List<Comment> getSingleCommentAndChildComment(int postId, int commentId);
 
     /**
      * Create Comment
      *
+     * @param postId Id of post 
      * @param body Text of Comment
-     * @return Created Comment
+     * @return Create Comment
      */
-    Comment createComment(String body);
+    Comment createComment(String body, int postId);
 
 }

@@ -7,6 +7,7 @@ package com.databasserne.hackernews.repo.impl;
 
 import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.repo.ICommentRepo;
+import com.databasserne.hackernews.service.IComment;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -78,6 +79,21 @@ public class CommentRepo implements ICommentRepo{
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public List<IComment> getSingleCommentAndChildComment(int postId, int commentId) {
+        em = emf.createEntityManager();
+        try {
+            em.createQuery("SELECT ");
+            
+            
+        } catch (IllegalArgumentException argument) {
+            return null;
+        } finally {
+            em.close();
+        }
+        return null;
     }
 }
 

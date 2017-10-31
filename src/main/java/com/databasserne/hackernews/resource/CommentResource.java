@@ -6,12 +6,14 @@
 package com.databasserne.hackernews.resource;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
+import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.repo.impl.CommentRepo;
 import com.databasserne.hackernews.service.CommentService;
 import com.databasserne.hackernews.service.IComment;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.swagger.annotations.Api;
 import javax.persistence.Persistence;
 import javax.ws.rs.GET;
@@ -63,6 +65,7 @@ public class CommentResource {
     @Path("comment/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCommentsFromUser(@PathParam("id") int id) {
+        
         JsonObject response;
 
         try {
@@ -85,11 +88,11 @@ public class CommentResource {
     @POST
     @Path("comment")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response postComment(@PathParam("id") int id) {
-        JsonObject response;
-
+    public Response postComment(@PathParam("id") int id, String content) {
+        JsonObject response;  
         try {
-            return null;
+            JsonObject json = new JsonParser().parse(content).getAsJsonObject();
+            return Response.status(Response.Status.OK).entity(gson.toJson(commentService.getCommentsForPost(id))).type(MediaType.APPLICATION_JSON).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
             response.addProperty("error_code", 400);
@@ -104,6 +107,4 @@ public class CommentResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
     }
-    
-    
 }

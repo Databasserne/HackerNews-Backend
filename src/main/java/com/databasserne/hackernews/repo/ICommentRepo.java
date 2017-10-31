@@ -49,8 +49,8 @@ public interface ICommentRepo {
     /**
      * 
      * @param postId
-     * @param userId
+     * @param commentId
      * @return ChildComment to a Comment
      */
-    List<IComment> getSingleCommentAndChildComment(int postId, int userId);
+    List<IComment> getSingleCommentAndChildComment(int postId, int commentId);
 }

@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -48,9 +49,9 @@ public class Comment implements Serializable{
     @Expose
     private int parentCommentId;
     
-    @JoinColumn
-    @ManyToOne
-    private Post post_id;
+    @Column
+    @Expose
+    private int post_id;
     
     @JoinColumn
     @OneToOne
@@ -88,11 +89,11 @@ public class Comment implements Serializable{
         this.parentCommentId = parentCommentId;
     }
 
-    public Post getPost_id() {
+    public int getPost_id() {
         return post_id;
     }
 
-    public void setPost_id(Post post_id) {
+    public void setPost_id(int post_id) {
         this.post_id = post_id;
     }
 
@@ -103,7 +104,4 @@ public class Comment implements Serializable{
     public void setAuthor(User author) {
         this.author = author;
     }
-    
-    
-    
 }
