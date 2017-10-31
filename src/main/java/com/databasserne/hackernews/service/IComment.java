@@ -23,11 +23,10 @@ public interface IComment {
 
     /**
      *
-     * @param postId
      * @param commentId
      * @return List of comment objects
      */
-    List<Comment> getCommentsAndChildComments(int postId, int commentId);
+    List<Comment> getCommentsAndChildComments(int commentId);
 
     /**
      * Create Comment

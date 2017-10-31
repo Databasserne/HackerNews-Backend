@@ -6,7 +6,6 @@
 package com.databasserne.hackernews.resource;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
-import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.repo.impl.CommentRepo;
 import com.databasserne.hackernews.service.CommentService;
 import com.databasserne.hackernews.service.IComment;
@@ -14,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import io.swagger.annotations.Api;
 import javax.persistence.Persistence;
 import javax.ws.rs.GET;
@@ -29,15 +29,13 @@ import javax.ws.rs.core.Response;
  *
  * @author Kasper S. Worm & jonassimonsen
  */
-
 @Api
 @Path("v1/post/{id}")
 public class CommentResource {
-    
+
     private Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     private IComment commentService;
-    
-    
+
     @GET
     @Path("comment")
     @Produces(MediaType.APPLICATION_JSON)
@@ -60,16 +58,16 @@ public class CommentResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
     }
-    
+
     @GET
     @Path("comment/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCommentsFromUser(@PathParam("id") int id) {
-        
+    public Response getCommentsAndChildComments(@PathParam("id") int id) {
+        commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
 
         try {
-            return null;
+            return Response.status(Response.Status.OK).entity(gson.toJson(commentService.getCommentsAndChildComments(id))).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
             response.addProperty("error_code", 400);
@@ -84,22 +82,30 @@ public class CommentResource {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
     }
-    
+
     @POST
     @Path("comment")
     @Produces(MediaType.APPLICATION_JSON)
     public Response postComment(@PathParam("id") int id, String content) {
-        JsonObject response;  
+        commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+        JsonObject response;
         try {
-            JsonObject json = new JsonParser().parse(content).getAsJsonObject();
-            return Response.status(Response.Status.OK).entity(gson.toJson(commentService.getCommentsForPost(id))).type(MediaType.APPLICATION_JSON).build();
+
+            JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
+            String comment = null;
+            if (inputJson.has("comment")) {
+                comment = inputJson.get("comment").getAsString();
+            }
+
+            commentService.createComment(comment, id);
+            return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
             response.addProperty("error_code", 400);
             response.addProperty("error_message", notFound.getMessage());
 
             return Response.status(Response.Status.BAD_REQUEST).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
-        } catch (Exception e) {
+        } catch (JsonSyntaxException e) {
             response = new JsonObject();
             response.addProperty("error_code", 500);
             response.addProperty("error_message", "Unknown server error.");

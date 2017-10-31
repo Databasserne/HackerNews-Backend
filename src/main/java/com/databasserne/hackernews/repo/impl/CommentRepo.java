@@ -86,12 +86,12 @@ public class CommentRepo implements ICommentRepo {
     }
 
     @Override
-    public List<Comment> getCommentsAndChildComments(int postId, int commentId) {
+    public List<Comment> getCommentsAndChildComments(int commentId) {
         em = emf.createEntityManager();
         try {
-            return em.createNativeQuery("SELECT * FROM comment WHERE ID = " + postId + "\n"
+            return em.createNativeQuery("SELECT * FROM comment WHERE ID = " + commentId + "\n"
                     + "UNION\n"
-                    + "SELECT * FROM comment WHERE PARENTCOMMENTID = " + postId + "", Comment.class)
+                    + "SELECT * FROM comment WHERE PARENTCOMMENTID = " + commentId + "", Comment.class)
                     .getResultList();
 
         } catch (IllegalArgumentException argument) {

@@ -44,14 +44,18 @@ public class CommentService implements IComment{
         comment.setCreated(now);
         comment.setPost_id(postId);
         
-        Comment responceComment = commentRepo.createComment(comment);
-        if(responceComment == null) throw new BadRequestException();
-        return responceComment;
+        Comment responseComment = commentRepo.createComment(comment);
+        if(responseComment == null) throw new BadRequestException();
+        return responseComment;
         
     }
 
     @Override
-    public List<Comment> getCommentsAndChildComments(int postId, int commentId) {
-        return null;
+    public List<Comment> getCommentsAndChildComments(int commentId) {
+        List<Comment> comments = commentRepo.getCommentsAndChildComments(commentId);
+        if(comments == null){
+            throw new NotFoundException("No comments found.");
+        }
+        return comments;
     }
 }

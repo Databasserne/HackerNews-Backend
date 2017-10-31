@@ -29,28 +29,25 @@ public interface ICommentRepo {
      * @return Created Comment
      */
     Comment createComment(Comment comment);
-    
+
     /**
-     * 
+     *
      * @param id
-     * @return Specific Comment 
+     * @return Specific Comment
      */
     Comment getCommentFromId(int id);
-    
-    
+
     /**
-     * 
+     *
      * @param commentId
      * @return All childComments to a Comment
      */
     List<Comment> getChildComment(int commentId);
-    
-    
+
     /**
-     * 
-     * @param postId
+     *
      * @param commentId
      * @return ChildComment to a Comment
      */
-    List<Comment> getCommentsAndChildComments(int postId, int commentId);
+    List<Comment> getCommentsAndChildComments(int commentId);
 }

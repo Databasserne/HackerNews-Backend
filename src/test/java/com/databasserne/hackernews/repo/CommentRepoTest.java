@@ -8,8 +8,6 @@ package com.databasserne.hackernews.repo;
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.repo.impl.CommentRepo;
-import com.databasserne.hackernews.service.IComment;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Persistence;
@@ -84,14 +82,14 @@ public class CommentRepoTest {
 
     @Test
     public void getCommentsAndChildCommentsTest() {
-        List<Comment> res = commentRepo.getCommentsAndChildComments(1, 0);
+        List<Comment> res = commentRepo.getCommentsAndChildComments(1);
 
         assertThat(res, is(notNullValue()));
         assertThat(res.size(), is(3));
     }
-    
+
     @Test
-    public void getChildCommentsTest(){
+    public void getChildCommentsTest() {
         List<Comment> res = commentRepo.getChildComment(1);
 
         assertThat(res, is(notNullValue()));
@@ -104,18 +102,18 @@ public class CommentRepoTest {
 
         assertThat(c.getId(), is(1));
     }
-    
+
     @Test
     public void getCommentFailureTest() {
         Comment c = commentRepo.getCommentFromId(999);
 
         assertThat(c, is(nullValue()));
     }
-    
+
     @Test
-    public void getCommentForPost(){
+    public void getCommentForPost() {
         List<Comment> res = commentRepo.getCommentsForPost(1);
-        
+
         assertThat(res.size(), is(4));
     }
 }
