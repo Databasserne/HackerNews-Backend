@@ -16,54 +16,58 @@ import javax.persistence.EntityManagerFactory;
  *
  * @author jonassimonsen
  */
-public class CommentRepo implements ICommentRepo{
+public class CommentRepo implements ICommentRepo {
+
     private EntityManagerFactory emf;
     private EntityManager em;
 
     public CommentRepo(EntityManagerFactory emf) {
         this.emf = emf;
-    }     
-        
+    }
+
     @Override
     public List<Comment> getCommentsForPost(int id) {
         em = emf.createEntityManager();
         try {
-            return em.createQuery("SELECT c FROM Comment c WHERE c.post_id = :postid").setParameter("postid", id).getResultList();
-            
+            return em.createQuery("SELECT c FROM Comment c WHERE c.post_id = :postid")
+                    .setParameter("postid", id)
+                    .getResultList();
+
         } catch (IllegalArgumentException argument) {
             return null;
         } finally {
             em.close();
         }
     }
-    
-    @Override 
+
+    @Override
     public Comment getCommentFromId(int id) {
         em = emf.createEntityManager();
         try {
-            
-        return (Comment) em.find(Comment.class, id);
-        
-    } catch (IllegalArgumentException argument) {
+
+            return (Comment) em.find(Comment.class, id);
+
+        } catch (IllegalArgumentException argument) {
             return null;
         } finally {
             em.close();
         }
     }
-    
-    
+
     @Override
     public List<Comment> getChildComment(int commentId) {
         em = emf.createEntityManager();
         try {
-            return em.createQuery("SELECT c FROM Comment c WHERE c.parentCommentId = :parentCommentId").setParameter("parentCommentId", commentId).getResultList();
+            return em.createQuery("SELECT c FROM Comment c WHERE c.parentCommentId = :parentCommentId")
+                    .setParameter("parentCommentId", commentId)
+                    .getResultList();
         } catch (IllegalArgumentException argument) {
             return null;
         } finally {
             em.close();
-        }    
+        }
     }
-        
+
     @Override
     public Comment createComment(Comment comment) {
         em = emf.createEntityManager();
@@ -71,9 +75,9 @@ public class CommentRepo implements ICommentRepo{
             em.getTransaction().begin();
             em.persist(comment);
             em.getTransaction().commit();
-            
+
             return comment;
-            
+
         } catch (IllegalArgumentException argument) {
             return null;
         } finally {
@@ -82,19 +86,18 @@ public class CommentRepo implements ICommentRepo{
     }
 
     @Override
-    public List<IComment> getSingleCommentAndChildComment(int postId, int commentId) {
+    public List<Comment> getCommentsAndChildComments(int postId, int commentId) {
         em = emf.createEntityManager();
         try {
-            em.createQuery("SELECT ");
-            
-            
+            return em.createNativeQuery("SELECT * FROM comment WHERE ID = " + postId + "\n"
+                    + "UNION\n"
+                    + "SELECT * FROM comment WHERE PARENTCOMMENTID = " + postId + "", Comment.class)
+                    .getResultList();
+
         } catch (IllegalArgumentException argument) {
             return null;
         } finally {
             em.close();
         }
-        return null;
     }
 }
-
-   

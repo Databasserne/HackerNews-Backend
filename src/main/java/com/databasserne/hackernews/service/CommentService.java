@@ -51,7 +51,7 @@ public class CommentService implements IComment{
     }
 
     @Override
-    public List<Comment> getSingleCommentAndChildComment(int postId, int commentId) {
+    public List<Comment> getCommentsAndChildComments(int postId, int commentId) {
         return null;
     }
 }

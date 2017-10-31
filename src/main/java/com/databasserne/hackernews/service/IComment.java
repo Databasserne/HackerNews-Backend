@@ -27,7 +27,7 @@ public interface IComment {
      * @param commentId
      * @return List of comment objects
      */
-    List<Comment> getSingleCommentAndChildComment(int postId, int commentId);
+    List<Comment> getCommentsAndChildComments(int postId, int commentId);
 
     /**
      * Create Comment
