@@ -9,6 +9,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Api
+@Path("")
 public class SimulatorResource {
 
     @GET

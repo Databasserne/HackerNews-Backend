@@ -3,6 +3,7 @@ package com.databasserne.hackernews.service;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.model.Vote;
+import com.google.gson.JsonArray;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
@@ -13,7 +14,7 @@ public interface IPost {
      * Get all posts
      * @return List of Post objects.
      */
-    List<Post> getAllPosts();
+    JsonArray getAllPosts(int userId);
 
     /**
      * Get all posts created by User

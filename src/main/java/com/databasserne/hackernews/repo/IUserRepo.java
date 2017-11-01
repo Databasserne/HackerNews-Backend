@@ -31,4 +31,11 @@ public interface IUserRepo {
      * @return Updated user or null if update failed.
      */
     User editUser(User user);
+
+    /**
+     * Retreives amount of karma for specific user.
+     * @param user
+     * @return
+     */
+    int getUserKarma(User user);
 }

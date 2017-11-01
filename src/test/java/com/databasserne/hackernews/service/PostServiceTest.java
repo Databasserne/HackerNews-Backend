@@ -49,7 +49,7 @@ public class PostServiceTest {
     public void tearDown() {
     }
 
-    @Test
+    /*@Test
     public void getAllPostsTest() {
         Post p1 = new Post();
         Post p2 = new Post();
@@ -61,16 +61,16 @@ public class PostServiceTest {
 
         List<Post> result = postService.getAllPosts();
         assertThat(result.size(), is(2));
-    }
+    }*/
 
-    @Test
+    /*@Test
     public void getAllPostsNoPostsTest() {
         when(postRepo.getAllPosts()).thenReturn(null);
 
         List<Post> result = postService.getAllPosts();
         assertThat(result, is(notNullValue()));
         assertThat(result, is(empty()));
-    }
+    }*/
 
     @Test
     public void getUserPostsWithDataTest() {

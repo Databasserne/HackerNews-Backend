@@ -22,12 +22,44 @@ public class PostRepo implements IPostRepo {
     }
 
     @Override
-    public List<Post> getAllPosts() {
+    public List<Object[]> getAllPosts() {
         em = emf.createEntityManager();
         try {
-            return em.createQuery("SELECT p FROM Post p")
+            return em.createNativeQuery("SELECT p.id, p.title, p.body, p.created, u.username, 0 AS hasUpvoted, " +
+                    "0 AS hasDownvoted, " +
+                    "(SELECT IFNULL(SUM(vote),0) FROM vote WHERE post_id = p.id) AS votes " +
+                    "FROM post AS p " +
+                    "JOIN User AS u ON u.ID = p.author_id")
                     .getResultList();
         } catch (Exception e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<Object[]> getAllPosts(int userId) {
+        em = emf.createEntityManager();
+        try {
+            return em.createNativeQuery("SELECT p.id, p.title, p.body, p.created, u.username, (CASE WHEN " +
+                    "(EXISTS " +
+                    "(SELECT v.vote FROM vote AS v WHERE author_id = ?userId " +
+                    "AND v.vote = 1 " +
+                    "AND v.post_id = p.id)) " +
+                    "THEN 1 ELSE 0 END) AS hasUpvoted, " +
+                    "(CASE WHEN " +
+                    "(EXISTS " +
+                    "(SELECT '' FROM vote AS v WHERE author_id = ?userId " +
+                    "AND v.vote = -1 " +
+                    "AND v.post_id = p.id)) " +
+                    "THEN 1 ELSE 0 END) AS hasDownvoted, " +
+                    "(SELECT IFNULL(SUM(vote),0) FROM vote WHERE post_id = p.id) AS votes " +
+                    "FROM post AS p " +
+                    "JOIN User AS u ON u.ID = p.author_id")
+                    .setParameter("userId", userId)
+                    .getResultList();
+        } catch (IllegalArgumentException argument) {
             return null;
         } finally {
             em.close();

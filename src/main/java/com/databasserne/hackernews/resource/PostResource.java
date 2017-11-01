@@ -5,10 +5,7 @@ import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.impl.PostRepo;
 import com.databasserne.hackernews.repo.impl.UserRepo;
-import com.databasserne.hackernews.service.Authentication;
-import com.databasserne.hackernews.service.IAuthentication;
-import com.databasserne.hackernews.service.IPost;
-import com.databasserne.hackernews.service.PostService;
+import com.databasserne.hackernews.service.*;
 import com.google.gson.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
+import java.util.List;
 
 @Api
 @Path("/v1/post")
@@ -29,6 +27,7 @@ public class PostResource {
     private Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     private IPost postService;
     private IAuthentication authService;
+    private IUser userService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,20 +37,36 @@ public class PostResource {
             response = JsonObject.class,
             responseContainer = "List"
     )
-    public Response getAllPosts() {
-        postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+    public Response getAllPosts(@Context SecurityContext context) {
 
-        return Response.status(Response.Status.OK).entity(gson.toJson(postService.getAllPosts())).build();
+        postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+        JsonArray response;
+        if(context.getUserPrincipal() == null) {
+            response = postService.getAllPosts(-1);
+        } else {
+            response = postService.getAllPosts(Integer.parseInt(context.getUserPrincipal().getName()));
+        }
+
+        return Response.status(Response.Status.OK).entity(gson.toJson(response)).build();
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPost(@PathParam("id") int id) {
+    public Response getPost(@Context SecurityContext context, @PathParam("id") int id) {
         postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
         try {
-            return Response.status(Response.Status.OK).entity(gson.toJson(postService.getPost(id))).type(MediaType.APPLICATION_JSON).build();
+            Post post = postService.getPost(id);
+            response = new JsonObject();
+            response.addProperty("title", post.getTitle());
+            response.addProperty("body", post.getBody());
+            String author = "";
+            if(post.getAuthor() != null) author = post.getAuthor().getUsername();
+            response.addProperty("author_name", author);
+            response.addProperty("created_at", post.getCreated().toString());
+
+            return Response.status(Response.Status.OK).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
             response.addProperty("error_code", 400);
@@ -183,7 +198,7 @@ public class PostResource {
 
             postService.votePost(user, p, 1);
 
-            return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).build();
         } catch (BadRequestException badRequest) {
             response = new JsonObject();
             response.addProperty("error_code", 400);
@@ -219,7 +234,7 @@ public class PostResource {
 
             postService.votePost(user, p, -1);
 
-            return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).build();
         } catch (BadRequestException badRequest) {
             response = new JsonObject();
             response.addProperty("error_code", 400);

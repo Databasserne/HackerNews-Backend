@@ -4,6 +4,9 @@ import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.IPostRepo;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import io.swagger.models.auth.In;
 
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
@@ -22,11 +25,31 @@ public class PostService implements IPost {
     }
 
     @Override
-    public List<Post> getAllPosts() {
-        List<Post> posts = postRepo.getAllPosts();
-        if(posts == null) posts = new ArrayList<>();
+    public JsonArray getAllPosts(int userId) {
+        List<Object[]> posts;
+        if(userId == -1) {
+            posts = postRepo.getAllPosts();
+        } else {
+            posts = postRepo.getAllPosts(userId);
+        }
+        if(posts == null) return new JsonArray();
 
-        return posts;
+        JsonArray array = new JsonArray();
+        for (Object[] row : posts) {
+            JsonObject json = new JsonObject();
+            json.addProperty("id", Integer.parseInt(row[0].toString()));
+            json.addProperty("title", row[1].toString());
+            json.addProperty("body", row[2].toString());
+            json.addProperty("created_at", row[3].toString());
+            json.addProperty("author_name", row[4].toString());
+            json.addProperty("hasUpvoted", Integer.parseInt(row[5].toString()));
+            json.addProperty("hasDownvoted", Integer.parseInt(row[6].toString()));
+            json.addProperty("votes", Integer.parseInt(row[7].toString()));
+
+            array.add(json);
+        }
+
+        return array;
     }
 
     @Override
