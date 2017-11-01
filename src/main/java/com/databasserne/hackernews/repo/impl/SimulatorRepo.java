@@ -54,15 +54,23 @@ public class SimulatorRepo implements ISimulatorRepo {
 
     @Override
     public Post createPost(Post post, String username, String password) {
+        System.out.println("Making post 1");
         User user = simulatorLogin(username, password);
-        post.setAuthor(user);
-        
+        System.out.println("got user");
+        try {
+            post.setAuthor(user);
+
+        } catch (Exception e) {
+            System.out.println("Something is wrong...");
+        }
+        System.out.println("set author");
+
         em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(post);
             em.getTransaction().commit();
-
+            System.out.println("this is the post: " + post);
             return post;
         } catch (EntityExistsException | RollbackException exist) {
             return null;
@@ -73,7 +81,21 @@ public class SimulatorRepo implements ISimulatorRepo {
 
     @Override
     public Comment createComment(Comment comment, String username, String password) {
-        return null;
+        User user = simulatorLogin(username, password);
+        comment.setAuthor(user);
+
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(comment);
+            em.getTransaction().commit();
+
+            return comment;
+        } catch (IllegalArgumentException argument) {
+            return null;
+        } finally {
+            em.close();
+        }
     }
 
     /**
@@ -92,6 +114,13 @@ public class SimulatorRepo implements ISimulatorRepo {
         return latest;
     }
 
+    /**
+     * Simulator login call
+     *
+     * @param username username
+     * @param password password
+     * @return User if found
+     */
     private User simulatorLogin(String username, String password) {
         if (username == null || username.isEmpty()) {
             throw new BadRequestException();
@@ -114,10 +143,6 @@ public class SimulatorRepo implements ISimulatorRepo {
 
         if (user == null) {
             throw new NotFoundException();
-        }
-
-        if (!user.getPassword().equals(Sha3.encode(password))) {
-            throw new BadRequestException();
         }
 
         return user;

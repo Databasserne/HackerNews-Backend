@@ -44,7 +44,7 @@ public class SimulatorResource {
     @Path("post")
     @PermitAll
     public Response createPost(String content) {
-        JsonObject response;
+        JsonObject response = null;
         try {
             simulatorService = new SimulatorService(new SimulatorRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
             JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();

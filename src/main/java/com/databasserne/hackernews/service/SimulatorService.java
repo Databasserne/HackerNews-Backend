@@ -50,18 +50,27 @@ public class SimulatorService implements ISimulator {
             throw new BadRequestException();
         }
 
-        //SIMULATE LOGIN - get author id
-        
+        //Create Post or Comment and save to DB
         if ("story".equals(type)) {
+            System.out.println("Making post");
             Post post = new Post();
-            //CREATE POST
+            post.setBody(text);
+            Date now = new Date();
+            post.setCreated(now);
+            post.setUpdated(now);
+            post.setTitle(title);
             simulatorRepo.createPost(post, username, password);
         } else {
+            System.out.println("Making comment");
             Comment comment = new Comment();
-            //CREATE COMMENT
+            comment.setComment_text(text);
+            Date now = new Date();
+            comment.setCreated(now);
+            comment.setParentCommentId(parentId);
+            comment.setPost_id(hanesstId);
             simulatorRepo.createComment(comment, username, password);
         }
-        
+
         //Return all content we got.
         SimulatorPost simpost = new SimulatorPost();
         simpost.setPost_text(text);
