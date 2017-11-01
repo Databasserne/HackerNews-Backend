@@ -4,7 +4,6 @@ import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.impl.PostRepo;
-import com.databasserne.hackernews.repo.impl.UserRepo;
 import com.databasserne.hackernews.service.*;
 import com.google.gson.*;
 import io.swagger.annotations.Api;

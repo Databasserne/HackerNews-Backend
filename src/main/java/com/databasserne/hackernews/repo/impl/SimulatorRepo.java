@@ -35,8 +35,7 @@ public class SimulatorRepo implements ISimulatorRepo {
     public int getLatest() {
         em = emf.createEntityManager();
         try {
-            List<Post> posts = em.createQuery("SELECT p FROM Post p")
-                    .getResultList();
+            List<Post> posts = em.createNativeQuery("SELECT * FROM post", Post.class).getResultList();
 
             return findLatestPost(posts);
         } catch (Exception e) {
@@ -60,7 +59,7 @@ public class SimulatorRepo implements ISimulatorRepo {
         } finally {
             em.close();
         }
-        
+
     }
 
     /**
@@ -76,7 +75,7 @@ public class SimulatorRepo implements ISimulatorRepo {
                 latest = post.getId();
             }
         }
-        return 0;
+        return latest;
     }
 
 }
