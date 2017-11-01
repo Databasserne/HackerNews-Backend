@@ -37,11 +37,11 @@ public class PostIT {
     public void tearDown() {
     }
 
-    @Test
+    /*@Test
     public void getAllPostsTest() {
         List<Post> result = postService.getAllPosts();
         assertThat(result.size(), greaterThan(1));
-    }
+    }*/
 
     @Test
     public void getPostSuccessTest() {

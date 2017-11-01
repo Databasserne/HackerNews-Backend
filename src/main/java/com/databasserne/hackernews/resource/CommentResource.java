@@ -30,14 +30,14 @@ import javax.ws.rs.core.Response;
  * @author Kasper S. Worm & jonassimonsen
  */
 @Api
-@Path("v1/post/{id}")
+@Path("v1/post")
 public class CommentResource {
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     private IComment commentService;
 
     @GET
-    @Path("comment")
+    @Path("{id}/comment")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getComments(@PathParam("id") int id) {
         commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
@@ -60,9 +60,9 @@ public class CommentResource {
     }
 
     @GET
-    @Path("comment/{id}")
+    @Path("{id}/comment/{commentId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCommentsAndChildComments(@PathParam("id") int id) {
+    public Response getCommentsAndChildComments(@PathParam("commentId") int id) {
         commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
 
@@ -84,7 +84,7 @@ public class CommentResource {
     }
 
     @POST
-    @Path("comment")
+    @Path("{id}/comment")
     @Produces(MediaType.APPLICATION_JSON)
     public Response postComment(@PathParam("id") int id, String content) {
         commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));

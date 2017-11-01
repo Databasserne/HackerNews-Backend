@@ -11,7 +11,14 @@ public interface IPostRepo {
      * Retreives all posts.
      * @return List of Post objects or null, if nothing is found.
      */
-    List<Post> getAllPosts();
+    List<Object[]> getAllPosts();
+
+    /**
+     * Reteives all posts with "hasDowned" and "hasUpvoted".
+     * @param userId
+     * @return
+     */
+    List<Object[]> getAllPosts(int userId);
 
     /**
      * Get single Post from id
@@ -19,6 +26,7 @@ public interface IPostRepo {
      * @return Post object.
      */
     Post getPostById(int id);
+
 
     /**
      * Creates a new Post

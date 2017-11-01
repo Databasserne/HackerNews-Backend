@@ -98,6 +98,57 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
             } catch (Exception en) {
                 en.printStackTrace();
             }
+        } else {
+            String authorizationHeader = request.getHeaderString("Authorization");
+            if (authorizationHeader == null) {
+                return;
+            }
+            String token = request.getHeaderString("Authorization").substring("Bearer ".length());
+            try {
+                if (tokenIsExpired(token)) {
+                    return;
+                }
+
+                String id = getUserIdFromToken(token);
+                final UserPrincipal user = getPricipalByUserId(id);
+                if (user == null) {
+                    return;
+                }
+
+                request.setSecurityContext(new SecurityContext() {
+
+                    @Override
+                    public boolean isUserInRole(String role) {
+                        return user.isUserInRole(role);
+                    }
+
+                    @Override
+                    public boolean isSecure() {
+                        return false;
+                    }
+
+                    @Override
+                    public Principal getUserPrincipal() {
+                        return user;
+                    }
+
+                    @Override
+                    public String getAuthenticationScheme() {
+                        return SecurityContext.BASIC_AUTH;
+                    }
+                });
+
+            } catch (ParseException | JOSEException e) {
+                return;
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(JWTAuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+            } catch (InvalidKeySpecException ex) {
+                Logger.getLogger(JWTAuthenticationFilter.class.getName()).log(Level.SEVERE, null, ex);
+                ex.printStackTrace();
+            } catch (Exception en) {
+                en.printStackTrace();
+            }
         }
     }
 

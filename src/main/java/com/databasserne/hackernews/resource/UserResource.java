@@ -65,7 +65,9 @@ public class UserResource {
             JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
             if(!inputJson.has("fullname") || inputJson.get("fullname").getAsString().equals("")) throw new BadRequestException("Fullname is required.");
             userService = new UserService(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
-            userService.getUserInfo(Integer.parseInt(context.getUserPrincipal().getName()));
+            User user = userService.getUserInfo(Integer.parseInt(context.getUserPrincipal().getName()));
+            user.setFullname(inputJson.get("fullname").getAsString());
+            userService.editUserInfo(user);
 
             return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).build();
         } catch (BadRequestException badRequest) {
