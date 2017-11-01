@@ -112,7 +112,7 @@ public class CommentRepoTest {
 
     @Test
     public void getCommentForPost() {
-        List<Comment> res = commentRepo.getCommentsForPost(1);
+        List<Object[]> res = commentRepo.getCommentsForPost(1);
 
         assertThat(res.size(), is(4));
     }

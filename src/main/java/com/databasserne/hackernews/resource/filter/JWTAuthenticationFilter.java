@@ -97,6 +97,7 @@ public class JWTAuthenticationFilter implements ContainerRequestFilter {
                 ex.printStackTrace();
             } catch (Exception en) {
                 en.printStackTrace();
+                throw new NotAuthorizedException("You are not authorized to perform this action", Response.Status.UNAUTHORIZED);
             }
         } else {
             String authorizationHeader = request.getHeaderString("Authorization");

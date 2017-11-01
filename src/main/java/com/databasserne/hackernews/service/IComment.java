@@ -9,6 +9,8 @@ import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.model.Vote;
+import com.google.gson.JsonArray;
+
 import java.util.List;
 
 /**
@@ -22,7 +24,7 @@ public interface IComment {
      * @param id
      * @return List of comment objects
      */
-    List<Comment> getCommentsForPost(int id);
+    JsonArray getCommentsForPost(int id, int userId);
 
     /**
      *
@@ -38,7 +40,16 @@ public interface IComment {
      * @param body Text of Comment
      * @return Create Comment
      */
-    Comment createComment(String body, int postId);
+    Comment createComment(String body, User user, int postId);
+
+    /**
+     * Create Comment
+     * @param body
+     * @param postId
+     * @param commentId
+     * @return
+     */
+    Comment createComment(String body, User user, int postId, int commentId);
     
     /**
      * Upvotes a Post

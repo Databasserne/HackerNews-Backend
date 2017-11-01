@@ -59,6 +59,7 @@ public class PostResource {
         try {
             Post post = postService.getPost(id);
             response = new JsonObject();
+            response.addProperty("id", post.getId());
             response.addProperty("title", post.getTitle());
             response.addProperty("body", post.getBody());
             String author = "";
