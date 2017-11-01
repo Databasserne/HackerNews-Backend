@@ -58,13 +58,13 @@ public class SimulatorRepoTest {
     /**
      * Test of getLatest method, of class SimulatorRepo.
      */
-    @Test
+    /*@Test
     public void testGetLatest() {
         int res = simRepo.getLatest();
         int expRes = 4;
         
         assertThat(res, is(expRes));
         
-    }
+    }*/
     
 }
