@@ -6,6 +6,9 @@
 package com.databasserne.hackernews.service;
 
 import com.databasserne.hackernews.model.Comment;
+import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.User;
+import com.databasserne.hackernews.model.Vote;
 import java.util.List;
 
 /**
@@ -36,5 +39,14 @@ public interface IComment {
      * @return Create Comment
      */
     Comment createComment(String body, int postId);
+    
+    /**
+     * Upvotes a Post
+     * @param user User to vote
+     * @param comment Comment to vote
+     * @param vote vote number
+     * @return The created vote
+     */
+    Vote voteComment(User user, Comment comment, int vote);
 
 }

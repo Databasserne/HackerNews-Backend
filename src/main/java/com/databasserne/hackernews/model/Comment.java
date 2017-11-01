@@ -7,14 +7,15 @@ package com.databasserne.hackernews.model;
 
 import com.google.gson.annotations.Expose;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -56,6 +57,10 @@ public class Comment implements Serializable{
     @JoinColumn
     @OneToOne
     private User author;
+    
+    @OneToMany
+    @JoinColumn(name = "comment_id", referencedColumnName = "id")
+    private List<Vote> votes = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -104,4 +109,16 @@ public class Comment implements Serializable{
     public void setAuthor(User author) {
         this.author = author;
     }
-}
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(List<Vote> votes) {
+        this.votes = votes;
+    }
+    
+    public void addVote(Vote vote) {
+        this.votes.add(vote);
+    }
+}   

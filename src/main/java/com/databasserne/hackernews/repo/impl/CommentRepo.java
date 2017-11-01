@@ -6,11 +6,14 @@
 package com.databasserne.hackernews.repo.impl;
 
 import com.databasserne.hackernews.model.Comment;
+import com.databasserne.hackernews.model.User;
+import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.ICommentRepo;
-import com.databasserne.hackernews.service.IComment;
 import java.util.List;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 
 /**
  *
@@ -99,5 +102,28 @@ public class CommentRepo implements ICommentRepo {
         } finally {
             em.close();
         }
+    }
+    
+    @Override
+    public Vote createVote(Vote vote) {
+        em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(vote);
+            em.getTransaction().commit();
+
+            return vote;
+        } catch (EntityExistsException exist) {
+            return null;
+        } catch (RollbackException rollback) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    
+    @Override
+    public Vote getUserVoteForComment(User user, Comment comment) {
+        return null;
     }
 }

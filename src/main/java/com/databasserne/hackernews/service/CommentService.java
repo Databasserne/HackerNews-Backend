@@ -6,6 +6,9 @@
 package com.databasserne.hackernews.service;
 
 import com.databasserne.hackernews.model.Comment;
+import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.User;
+import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.ICommentRepo;
 import java.util.Date;
 import java.util.List;
@@ -57,5 +60,22 @@ public class CommentService implements IComment{
             throw new NotFoundException("No comments found.");
         }
         return comments;
+    }
+    
+    @Override
+    public Vote voteComment(User user, Comment comment, int vote) {
+        if(vote != 1 && vote != -1) throw new BadRequestException("Wrong vote number.");
+        comment = commentRepo.getCommentFromId(comment.getId());
+        if(comment == null) throw new NotFoundException("Comment not found.");
+        Vote v = commentRepo.getUserVoteForComment(user, comment);
+        if(v != null) throw new BadRequestException("Comment already voted.");
+
+        v = new Vote();
+        v.setVote(vote);
+        v.setComment(comment);
+        v.setAuthor(user);
+        v = commentRepo.createVote(v);
+        if(v == null) throw new BadRequestException();
+        return v;
     }
 }

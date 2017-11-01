@@ -17,6 +17,10 @@ public class Vote implements Serializable {
     @ManyToOne
     @JoinColumn
     private Post post;
+    
+    @ManyToOne
+    @JoinColumn
+    private Comment comment;
 
     @ManyToOne
     @JoinColumn
@@ -46,6 +50,14 @@ public class Vote implements Serializable {
         this.post = post;
     }
 
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
     public User getAuthor() {
         return author;
     }
@@ -54,3 +66,5 @@ public class Vote implements Serializable {
         this.author = author;
     }
 }
+
+    
