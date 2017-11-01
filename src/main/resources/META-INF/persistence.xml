@@ -32,4 +32,21 @@
             <property name="javax.persistence.sql-load-script-source" value="scripts/populate_db.sql"/>
         </properties>
     </persistence-unit>
+    <persistence-unit name="com.databasserne.hackernews.repo.PU_PROD" transaction-type="RESOURCE_LOCAL">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>com.databasserne.hackernews.model.Comment</class>
+        <class>com.databasserne.hackernews.model.User</class>
+        <class>com.databasserne.hackernews.model.Post</class>
+        <class>com.databasserne.hackernews.model.Vote</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/hackernews_prod?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.password" value="ultrapassword"/>
+            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="eclipselink.canonicalmodel.subpackage" value="prod"/>
+            <property name="javax.persistence.sql-load-script-source" value="scripts/populate_db.sql"/>
+        </properties>
+    </persistence-unit>
 </persistence>
