@@ -6,6 +6,8 @@
 package com.databasserne.hackernews.resource;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
+import com.databasserne.hackernews.model.Comment;
+import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.impl.CommentRepo;
 import com.databasserne.hackernews.service.CommentService;
 import com.databasserne.hackernews.service.IComment;
@@ -15,15 +17,19 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import io.swagger.annotations.Api;
+import javax.annotation.security.PermitAll;
 import javax.persistence.Persistence;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 
 /**
  *
@@ -111,6 +117,78 @@ public class CommentResource {
             response.addProperty("error_message", "Unknown server error.");
 
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
+        }
+    }
+    
+    @POST
+    @Path("{id}/upvote")
+    @PermitAll
+    public Response upvoteComment(@Context SecurityContext context, @PathParam("id") int id) {
+        JsonObject response;
+        try {
+            User user = new User();
+            user.setId(Integer.parseInt(context.getUserPrincipal().getName()));
+            commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+            Comment c = new Comment();
+            c.setId(id);
+
+            commentService.voteComment(user, c, 1);
+
+            return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
+        } catch (BadRequestException badRequest) {
+            response = new JsonObject();
+            response.addProperty("error_code", 400);
+            response.addProperty("error_message", badRequest.getMessage());
+
+            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).build();
+        } catch (NotFoundException notFound) {
+            response = new JsonObject();
+            response.addProperty("error_code", 404);
+            response.addProperty("error_message", notFound.getMessage());
+
+            return Response.status(Response.Status.NOT_FOUND).type(MediaType.APPLICATION_JSON).build();
+        } catch (Exception e) {
+            response = new JsonObject();
+            response.addProperty("error_code", 500);
+            response.addProperty("error_meesage", "Unknown server error.");
+
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON).build();
+        }
+    }
+
+    @POST
+    @Path("{id}/downvote")
+    @PermitAll
+    public Response downvoteComment(@Context SecurityContext context, @PathParam("id") int id) {
+        JsonObject response;
+        try {
+            User user = new User();
+            user.setId(Integer.parseInt(context.getUserPrincipal().getName()));
+            commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+            Comment c = new Comment();
+            c.setId(id);
+
+            commentService.voteComment(user, c, -1);
+
+            return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
+        } catch (BadRequestException badRequest) {
+            response = new JsonObject();
+            response.addProperty("error_code", 400);
+            response.addProperty("error_message", badRequest.getMessage());
+
+            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).build();
+        } catch (NotFoundException notFound) {
+            response = new JsonObject();
+            response.addProperty("error_code", 404);
+            response.addProperty("error_message", notFound.getMessage());
+
+            return Response.status(Response.Status.NOT_FOUND).type(MediaType.APPLICATION_JSON).build();
+        } catch (Exception e) {
+            response = new JsonObject();
+            response.addProperty("error_code", 500);
+            response.addProperty("error_meesage", "Unknown server error.");
+
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON).build();
         }
     }
 }
