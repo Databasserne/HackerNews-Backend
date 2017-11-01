@@ -109,10 +109,10 @@ public class PostService implements IPost {
         if(vote != 1 && vote != -1) throw new BadRequestException("Wrong vote number.");
         post = postRepo.getPostById(post.getId());
         if(post == null) throw new NotFoundException("Post not found.");
-        Vote v = postRepo.getUserVoteForPost(user, post);
-        if(v != null) throw new BadRequestException("Post already voted.");
+        List<Object[]> votes = postRepo.getUserVoteForPost(user, post);
+        if(votes != null && votes.size() > 0) throw new BadRequestException("Post already voted.");
 
-        v = new Vote();
+        Vote v = new Vote();
         v.setVote(vote);
         v.setPost(post);
         v.setAuthor(user);
