@@ -1,6 +1,5 @@
 package com.databasserne.hackernews.resource;
 
-import com.databasserne.hackernews.repo.impl.UserRepo;
 import com.databasserne.hackernews.resource.filter.CorsFilter;
 import com.databasserne.hackernews.resource.filter.JWTAuthenticationFilter;
 import io.swagger.jaxrs.config.BeanConfig;
@@ -35,7 +34,7 @@ public class ApplicationConfig extends Application {
         resources.add(AuthenticationResource.class);
         resources.add(UserResource.class);
         resources.add(PostResource.class);
-        resources.add(SimulatorResource.class);
+//        resources.add(SimulatorResource.class);
         resources.add(CommentResource.class);
 
         // Filters
