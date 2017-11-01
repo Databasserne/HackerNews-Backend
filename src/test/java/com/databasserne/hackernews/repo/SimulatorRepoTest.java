@@ -6,8 +6,6 @@
 package com.databasserne.hackernews.repo;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
-import com.databasserne.hackernews.model.Comment;
-import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.impl.SimulatorRepo;
 import javax.persistence.Persistence;
 import static org.hamcrest.CoreMatchers.is;
@@ -63,7 +61,7 @@ public class SimulatorRepoTest {
     @Test
     public void testGetLatest() {
         int res = simRepo.getLatest();
-        int expRes = 2;
+        int expRes = 4;
         
         assertThat(res, is(expRes));
         
