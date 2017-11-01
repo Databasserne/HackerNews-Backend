@@ -348,7 +348,7 @@ public class PostServiceTest {
     @Test (expected = BadRequestException.class)
     public void votePostAlreadyVotedTest() {
         Post p = new Post();
-        Vote v = new Vote();
+        List<Object[]> v = new ArrayList<>();
         User u = new User();
 
         when(postRepo.getPostById(anyInt())).thenReturn(p);

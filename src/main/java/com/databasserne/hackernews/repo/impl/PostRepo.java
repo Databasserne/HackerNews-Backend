@@ -146,8 +146,17 @@ public class PostRepo implements IPostRepo {
     }
 
     @Override
-    public Vote getUserVoteForPost(User user, Post post) {
-        return null;
+    public List<Object[]> getUserVoteForPost(User user, Post post) {
+        em = emf.createEntityManager();
+        try {
+            return em.createNativeQuery("SELECT * FROM vote AS v " +
+                    "WHERE v.author_id = ?userId AND v.post_id = ?postId")
+                    .setParameter("userId", user.getId())
+                    .setParameter("postId", post.getId())
+                    .getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     @Override
@@ -159,7 +168,10 @@ public class PostRepo implements IPostRepo {
                     .setParameter("userId", userId)
                     .getSingleResult();
             return value.intValue();
-        } finally {
+        } catch (Exception e) {
+            return 0;
+        }
+        finally {
             em.close();
         }
     }

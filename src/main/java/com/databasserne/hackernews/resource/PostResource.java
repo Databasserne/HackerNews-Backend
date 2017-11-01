@@ -204,19 +204,19 @@ public class PostResource {
             response.addProperty("error_code", 400);
             response.addProperty("error_message", badRequest.getMessage());
 
-            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
             response.addProperty("error_code", 404);
             response.addProperty("error_message", notFound.getMessage());
 
-            return Response.status(Response.Status.NOT_FOUND).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         } catch (Exception e) {
             response = new JsonObject();
             response.addProperty("error_code", 500);
             response.addProperty("error_meesage", "Unknown server error.");
 
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
     }
 
@@ -240,19 +240,19 @@ public class PostResource {
             response.addProperty("error_code", 400);
             response.addProperty("error_message", badRequest.getMessage());
 
-            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
             response.addProperty("error_code", 404);
             response.addProperty("error_message", notFound.getMessage());
 
-            return Response.status(Response.Status.NOT_FOUND).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         } catch (Exception e) {
             response = new JsonObject();
             response.addProperty("error_code", 500);
             response.addProperty("error_meesage", "Unknown server error.");
 
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
     }
 }
