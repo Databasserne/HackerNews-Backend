@@ -30,8 +30,9 @@ public interface ISimulator {
     /**
      * Simulator create post
      *
-     * @param post Post to create
+     * @param title title of post
+     * @param body body of post
      * @return the created post
      */
-    public Post createPost(Post post);
+    public Post createPost(String title, String body);
 }

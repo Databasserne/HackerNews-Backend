@@ -17,8 +17,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-import java.security.Principal;
-import java.util.List;
 
 @Api
 @Path("/v1/post")
@@ -41,7 +39,7 @@ public class PostResource {
 
         postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonArray response;
-        if(context.getUserPrincipal() == null) {
+        if (context.getUserPrincipal() == null) {
             response = postService.getAllPosts(-1);
         } else {
             response = postService.getAllPosts(Integer.parseInt(context.getUserPrincipal().getName()));
@@ -62,7 +60,9 @@ public class PostResource {
             response.addProperty("title", post.getTitle());
             response.addProperty("body", post.getBody());
             String author = "";
-            if(post.getAuthor() != null) author = post.getAuthor().getUsername();
+            if (post.getAuthor() != null) {
+                author = post.getAuthor().getUsername();
+            }
             response.addProperty("author_name", author);
             response.addProperty("created_at", post.getCreated().toString());
 
@@ -93,8 +93,12 @@ public class PostResource {
             postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
             String title = null;
             String body = null;
-            if(inputJson.has("title")) title = inputJson.get("title").getAsString();
-            if(inputJson.has("body")) body = inputJson.get("body").getAsString();
+            if (inputJson.has("title")) {
+                title = inputJson.get("title").getAsString();
+            }
+            if (inputJson.has("body")) {
+                body = inputJson.get("body").getAsString();
+            }
 
             postService.createPost(title, body);
             return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
@@ -120,13 +124,17 @@ public class PostResource {
         JsonObject response;
         try {
             JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
-            if(!inputJson.has("title") || inputJson.get("title").getAsString().equals("")) throw new BadRequestException("Title is required.");
-            if(!inputJson.has("body") || inputJson.get("body").getAsString().equals("")) throw new BadRequestException("Body is required.");
+            if (!inputJson.has("title") || inputJson.get("title").getAsString().equals("")) {
+                throw new BadRequestException("Title is required.");
+            }
+            if (!inputJson.has("body") || inputJson.get("body").getAsString().equals("")) {
+                throw new BadRequestException("Body is required.");
+            }
             postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
             Post post = postService.getPost(id);
             post.setTitle(inputJson.get("title").getAsString());
             post.setBody(inputJson.get("body").getAsString());
-            if(!post.validate(Integer.parseInt(securityContext.getUserPrincipal().getName()))) {
+            if (!post.validate(Integer.parseInt(securityContext.getUserPrincipal().getName()))) {
                 response = new JsonObject();
                 response.addProperty("error_code", 401);
                 response.addProperty("error_message", "Unauthorized.");

@@ -7,6 +7,8 @@ package com.databasserne.hackernews.service;
 
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.ISimulatorRepo;
+import java.util.Date;
+import javax.ws.rs.BadRequestException;
 
 /**
  *
@@ -30,12 +32,30 @@ public class SimulatorService implements ISimulator {
 
     @Override
     public int getLatest() {
-        return 0;
+        return simulatorRepo.getLatest();
     }
 
     @Override
-    public Post createPost(Post post) {
-        return null;
+    public Post createPost(String title, String body) {
+        if (title == null || title.equals("")) {
+            throw new BadRequestException();
+        }
+        if (body == null || body.equals("")) {
+            throw new BadRequestException();
+        }
+
+        Post post = new Post();
+        post.setTitle(title);
+        post.setBody(body);
+        Date now = new Date();
+        post.setCreated(now);
+        post.setUpdated(now);
+
+        Post responsePost = simulatorRepo.createPost(post);
+        if (responsePost == null) {
+            throw new BadRequestException();
+        }
+        return responsePost;
     }
 
 }
