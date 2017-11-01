@@ -34,7 +34,7 @@ public class ApplicationConfig extends Application {
         resources.add(AuthenticationResource.class);
         resources.add(UserResource.class);
         resources.add(PostResource.class);
-        resources.add(SimulatorResource.class);
+//        resources.add(SimulatorResource.class);
         resources.add(CommentResource.class);
 
         // Filters

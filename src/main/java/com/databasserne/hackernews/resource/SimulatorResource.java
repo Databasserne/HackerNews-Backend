@@ -32,7 +32,7 @@ import javax.ws.rs.core.Response;
  * @author Kasper S. Worm
  */
 @Api
-@Path("v1/")
+@Path("")
 public class SimulatorResource {
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
