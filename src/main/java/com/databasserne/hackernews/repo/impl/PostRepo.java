@@ -57,7 +57,7 @@ public class PostRepo implements IPostRepo {
                     "THEN 1 ELSE 0 END) AS hasDownvoted, " +
                     "(SELECT IFNULL(SUM(vote),0) FROM vote WHERE post_id = p.id) AS votes " +
                     "FROM post AS p " +
-                    "JOIN User AS u ON u.ID = p.author_id")
+                    "JOIN user AS u ON u.ID = p.author_id")
                     .setParameter("userId", userId)
                     .getResultList();
         } catch (IllegalArgumentException argument) {
