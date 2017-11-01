@@ -5,7 +5,7 @@
  */
 package com.databasserne.hackernews.repo;
 
-import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.SimulatorPost;
 
 /**
  *
@@ -33,6 +33,6 @@ public interface ISimulatorRepo {
      * @param post post to create
      * @return created post
      */
-    public Post createPost(Post post);
+    public SimulatorPost createPost(SimulatorPost post);
 
 }

@@ -6,12 +6,18 @@
 package com.databasserne.hackernews.repo.impl;
 
 import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.SimulatorPost;
+import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.ISimulatorRepo;
+import com.databasserne.hackernews.service.security.Sha3;
 import java.util.List;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.RollbackException;
+import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
 
 /**
  *
@@ -46,7 +52,11 @@ public class SimulatorRepo implements ISimulatorRepo {
     }
 
     @Override
-    public Post createPost(Post post) {
+    public SimulatorPost createPost(SimulatorPost post) {
+        //TODO login - get authorId
+
+        //Check type - story/comment/w.e
+        //Post it
         em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -59,7 +69,39 @@ public class SimulatorRepo implements ISimulatorRepo {
         } finally {
             em.close();
         }
+    }
 
+    private boolean checkSimulatorLogin(String username, String password) {
+        if (username == null || username.isEmpty()) {
+            throw new BadRequestException();
+        }
+        if (password == null || password.isEmpty()) {
+            throw new BadRequestException();
+        }
+
+//        User user = userRepo.getUserByUsername(username);
+        User user = null;
+        if (user == null) {
+            throw new NotFoundException();
+        }
+
+        if (!user.getPassword().equals(Sha3.encode(password))) {
+            throw new BadRequestException();
+        }
+
+        em = emf.createEntityManager();
+        try {
+            em.createQuery("SELECT u FROM User u WHERE u.username = :username")
+                    .setParameter("username", username)
+                    .getSingleResult();
+            return true;
+        } catch (NoResultException e) {
+            return false;
+        } finally {
+            em.close();
+        }
+
+//        return false;
     }
 
     /**

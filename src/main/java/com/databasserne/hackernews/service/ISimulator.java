@@ -5,7 +5,8 @@
  */
 package com.databasserne.hackernews.service;
 
-import com.databasserne.hackernews.model.Post;
+import com.databasserne.hackernews.model.SimulatorPost;
+
 
 /**
  *
@@ -34,5 +35,5 @@ public interface ISimulator {
      * @param body body of post
      * @return the created post
      */
-    public Post createPost(String title, String body);
+    public SimulatorPost createPost(String title, String body);
 }

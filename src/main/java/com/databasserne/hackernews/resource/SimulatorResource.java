@@ -50,12 +50,15 @@ public class SimulatorResource {
             JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
             String title = null;
             String body = null;
-            if (inputJson.has("title")) {
-                title = inputJson.get("title").getAsString();
+            
+            if (inputJson.has("post_title")) {
+                title = inputJson.get("post_title").getAsString();
             }
-            if (inputJson.has("body")) {
-                body = inputJson.get("body").getAsString();
+            if (inputJson.has("post_text")) {
+                body = inputJson.get("post_text").getAsString();
             }
+            System.out.println(title);
+            System.out.println(body);
 
             simulatorService.createPost(title, body);
             return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
