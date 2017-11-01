@@ -5,6 +5,7 @@
  */
 package com.databasserne.hackernews.repo.impl;
 
+import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.SimulatorPost;
 import com.databasserne.hackernews.model.User;
@@ -52,11 +53,10 @@ public class SimulatorRepo implements ISimulatorRepo {
     }
 
     @Override
-    public SimulatorPost createPost(SimulatorPost post) {
-        //TODO login - get authorId
-
-        //Check type - story/comment/w.e
-        //Post it
+    public Post createPost(Post post, String username, String password) {
+        User user = simulatorLogin(username, password);
+        post.setAuthor(user);
+        
         em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -71,37 +71,9 @@ public class SimulatorRepo implements ISimulatorRepo {
         }
     }
 
-    private boolean checkSimulatorLogin(String username, String password) {
-        if (username == null || username.isEmpty()) {
-            throw new BadRequestException();
-        }
-        if (password == null || password.isEmpty()) {
-            throw new BadRequestException();
-        }
-
-//        User user = userRepo.getUserByUsername(username);
-        User user = null;
-        if (user == null) {
-            throw new NotFoundException();
-        }
-
-        if (!user.getPassword().equals(Sha3.encode(password))) {
-            throw new BadRequestException();
-        }
-
-        em = emf.createEntityManager();
-        try {
-            em.createQuery("SELECT u FROM User u WHERE u.username = :username")
-                    .setParameter("username", username)
-                    .getSingleResult();
-            return true;
-        } catch (NoResultException e) {
-            return false;
-        } finally {
-            em.close();
-        }
-
-//        return false;
+    @Override
+    public Comment createComment(Comment comment, String username, String password) {
+        return null;
     }
 
     /**
@@ -118,6 +90,38 @@ public class SimulatorRepo implements ISimulatorRepo {
             }
         }
         return latest;
+    }
+
+    private User simulatorLogin(String username, String password) {
+        if (username == null || username.isEmpty()) {
+            throw new BadRequestException();
+        }
+        if (password == null || password.isEmpty()) {
+            throw new BadRequestException();
+        }
+        User user = null;
+        em = emf.createEntityManager();
+        try {
+            user = (User) em.createQuery("SELECT u FROM User u WHERE u.username = :username")
+                    .setParameter("username", username)
+                    .getSingleResult();
+
+        } catch (NoResultException e) {
+            throw new NotFoundException();
+        } finally {
+            em.close();
+        }
+
+        if (user == null) {
+            throw new NotFoundException();
+        }
+
+        if (!user.getPassword().equals(Sha3.encode(password))) {
+            throw new BadRequestException();
+        }
+
+        return user;
+
     }
 
 }

@@ -5,64 +5,46 @@
  */
 package com.databasserne.hackernews.model;
 
-import com.google.gson.annotations.Expose;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author Kasper S. Worm
  */
-@Entity
-@Table(name = "simulatorPost")
 public class SimulatorPost implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    @Expose
     private int id;
-
-    @Column
-    @Expose
     private String username;
-
-    @Column(columnDefinition = "LONGTEXT")
-    @Expose
     private String post_text;
-
-    @Column
-    @Expose
     private String post_type;
-
-    @Column
-    @Expose
     private String post_url;
-
-    @JoinColumn
-    @Expose
     private String post_title;
-
-    @Column
-    @Expose
     private String pwd_hash;
-    
-    @Column
-    @Expose
     private int hanesst_id;
+    private int post_parent;
+
+    public SimulatorPost(int id, String username, String post_text, String post_type, String post_url, String post_title, String pwd_hash, int hanesst_id, int post_parent) {
+        this.id = id;
+        this.username = username;
+        this.post_text = post_text;
+        this.post_type = post_type;
+        this.post_url = post_url;
+        this.post_title = post_title;
+        this.pwd_hash = pwd_hash;
+        this.hanesst_id = hanesst_id;
+        this.post_parent = post_parent;
+    }
+
+    public SimulatorPost() {
+    }
+
+    public int getPost_parent() {
+        return post_parent;
+    }
+
+    public void setPost_parent(int post_parent) {
+        this.post_parent = post_parent;
+    }
 
     public int getId() {
         return id;
@@ -128,5 +110,4 @@ public class SimulatorPost implements Serializable {
         this.hanesst_id = hanesst_id;
     }
 
-    
 }

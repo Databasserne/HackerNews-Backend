@@ -49,18 +49,40 @@ public class SimulatorResource {
             simulatorService = new SimulatorService(new SimulatorRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
             JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
             String title = null;
-            String body = null;
-            
+            String text = null;
+            String username = null;
+            String password = null;
+            String url = null;
+            String type = null;
+            int parentId = 0;
+            int hanesst = 0;
+
             if (inputJson.has("post_title")) {
                 title = inputJson.get("post_title").getAsString();
             }
             if (inputJson.has("post_text")) {
-                body = inputJson.get("post_text").getAsString();
+                text = inputJson.get("post_text").getAsString();
             }
-            System.out.println(title);
-            System.out.println(body);
+            if (inputJson.has("username")) {
+                username = inputJson.get("username").getAsString();
+            }
+            if (inputJson.has("pwd_hash")) {
+                password = inputJson.get("pwd_hash").getAsString();
+            }
+            if (inputJson.has("post_url")) {
+                url = inputJson.get("post_url").getAsString();
+            }
+            if (inputJson.has("post_type")) {
+                type = inputJson.get("post_type").getAsString();
+            }
+            if (inputJson.has("post_parent")) {
+                parentId = inputJson.get("post_parent").getAsInt();
+            }
+            if (inputJson.has("hanesst_id")) {
+                hanesst = inputJson.get("hanesst_id").getAsInt();
+            }
 
-            simulatorService.createPost(title, body);
+            simulatorService.simulatorPost(title, text, url, username, password, type, hanesst, parentId);
             return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
         } catch (BadRequestException badRequest) {
             response = new JsonObject();

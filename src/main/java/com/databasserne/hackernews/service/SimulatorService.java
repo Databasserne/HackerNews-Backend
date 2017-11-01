@@ -5,11 +5,16 @@
  */
 package com.databasserne.hackernews.service;
 
+import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.SimulatorPost;
+import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.ISimulatorRepo;
+import com.databasserne.hackernews.service.security.Sha3;
 import java.util.Date;
+import javax.persistence.NoResultException;
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
 
 /**
  *
@@ -28,7 +33,7 @@ public class SimulatorService implements ISimulator {
 
     @Override
     public String getStatus() {
-        return null;
+        return "ITS ALIVE!!!";
     }
 
     @Override
@@ -37,29 +42,40 @@ public class SimulatorService implements ISimulator {
     }
 
     @Override
-    public SimulatorPost createPost(String title, String body) {
+    public SimulatorPost simulatorPost(String title, String text, String url, String username, String password, String type, int hanesstId, int parentId) {
         if (title == null || title.equals("")) {
             throw new BadRequestException();
         }
-        if (body == null || body.equals("")) {
+        if (text == null || text.equals("")) {
             throw new BadRequestException();
         }
 
-        Post post = new Post();
-        post.setTitle(title);
-        post.setBody(body);
-        Date now = new Date();
-        post.setCreated(now);
-        post.setUpdated(now);
+        //SIMULATE LOGIN - get author id
         
+        if ("story".equals(type)) {
+            Post post = new Post();
+            //CREATE POST
+            simulatorRepo.createPost(post, username, password);
+        } else {
+            Comment comment = new Comment();
+            //CREATE COMMENT
+            simulatorRepo.createComment(comment, username, password);
+        }
+        
+        //Return all content we got.
         SimulatorPost simpost = new SimulatorPost();
-        
-        SimulatorPost responsePost = simulatorRepo.createPost(simpost);
-        if (responsePost == null) {
+        simpost.setPost_text(text);
+        simpost.setPost_title(title);
+        simpost.setHanesst_id(hanesstId);
+        simpost.setPost_parent(parentId);
+        simpost.setPost_type(type);
+        simpost.setPost_url(url);
+        simpost.setUsername(username);
+        simpost.setPwd_hash(password);
+        if (simpost == null) {
             throw new BadRequestException();
         }
-        return null;
-//        return responsePost;
+        return simpost;
     }
 
 }
