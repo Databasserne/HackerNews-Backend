@@ -3,6 +3,7 @@ package com.databasserne.hackernews.service;
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.repo.impl.PostRepo;
+import com.google.gson.JsonArray;
 import org.junit.*;
 
 import javax.persistence.Persistence;
@@ -37,11 +38,11 @@ public class PostIT {
     public void tearDown() {
     }
 
-    /*@Test
+    @Test
     public void getAllPostsTest() {
-        List<Post> result = postService.getAllPosts();
+        JsonArray result = postService.getAllPosts(-1);
         assertThat(result.size(), greaterThan(1));
-    }*/
+    }
 
     @Test
     public void getPostSuccessTest() {

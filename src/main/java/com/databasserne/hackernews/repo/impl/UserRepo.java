@@ -75,14 +75,4 @@ public class UserRepo implements IUserRepo {
             em.close();
         }
     }
-
-    @Override
-    public int getUserKarma(User user) {
-        em = emf.createEntityManager();
-        try {
-            return 0;
-        } finally {
-            em.close();
-        }
-    }
 }
