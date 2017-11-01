@@ -89,7 +89,7 @@ public class SimulatorResource {
             response.addProperty("error_code", 400);
             response.addProperty("error_message", badRequest.getMessage());
             return Response.status(Response.Status.BAD_REQUEST).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
-        } catch (Exception e) {
+         } catch (Exception e) {
             response = new JsonObject();
             response.addProperty("error_code", 500);
             response.addProperty("error_message", "Unknown server error.");

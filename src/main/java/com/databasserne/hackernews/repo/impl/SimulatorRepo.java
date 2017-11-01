@@ -55,7 +55,13 @@ public class SimulatorRepo implements ISimulatorRepo {
     @Override
     public Post createPost(Post post, String username, String password) {
         System.out.println("Making post 1");
-        User user = simulatorLogin(username, password);
+        User user = null;
+        try {
+            user = simulatorLogin(username, password);
+        } catch (BadRequestException e) {
+            throw new BadRequestException();
+        }
+
         System.out.println("got user");
         try {
             post.setAuthor(user);
@@ -81,7 +87,12 @@ public class SimulatorRepo implements ISimulatorRepo {
 
     @Override
     public Comment createComment(Comment comment, String username, String password) {
-        User user = simulatorLogin(username, password);
+        User user;
+        try {
+            user = simulatorLogin(username, password);
+        } catch (BadRequestException e) {
+            throw new BadRequestException();
+        }
         comment.setAuthor(user);
 
         em = emf.createEntityManager();
@@ -143,6 +154,10 @@ public class SimulatorRepo implements ISimulatorRepo {
 
         if (user == null) {
             throw new NotFoundException();
+        }
+
+        if (!password.equals(user.getPassword())) {
+            throw new BadRequestException();
         }
 
         return user;
