@@ -33,7 +33,8 @@ public class PostService implements IPost {
             posts = postRepo.getAllPosts(userId);
         }
         if(posts == null) return new JsonArray();
-
+        int karma = postRepo.getUserKarma(userId);
+        boolean canDownvote = karma > 500;
         JsonArray array = new JsonArray();
         for (Object[] row : posts) {
             JsonObject json = new JsonObject();
@@ -45,6 +46,7 @@ public class PostService implements IPost {
             json.addProperty("hasUpvoted", Integer.parseInt(row[5].toString()));
             json.addProperty("hasDownvoted", Integer.parseInt(row[6].toString()));
             json.addProperty("votes", Integer.parseInt(row[7].toString()));
+            json.addProperty("canDownvote", canDownvote);
 
             array.add(json);
         }

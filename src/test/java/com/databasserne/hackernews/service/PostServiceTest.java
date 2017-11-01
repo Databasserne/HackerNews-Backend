@@ -5,6 +5,7 @@ import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.IPostRepo;
 import com.databasserne.hackernews.repo.impl.PostRepo;
+import com.google.gson.JsonArray;
 import org.junit.*;
 
 import javax.ws.rs.BadRequestException;
@@ -49,28 +50,26 @@ public class PostServiceTest {
     public void tearDown() {
     }
 
-    /*@Test
+    @Test
     public void getAllPostsTest() {
-        Post p1 = new Post();
-        Post p2 = new Post();
-        List<Post> expected = new ArrayList<>();
-        expected.add(p1);
-        expected.add(p2);
+        List<Object[]> expected = new ArrayList<>();
+        expected.add(new Object[] {1, "Test title", "body body", "2017-08-07", "Martin", "0", "0", "5", false});
+        expected.add(new Object[] {1, "Test title", "body body", "2017-08-07", "Martin", "0", "0", "5", false});
 
         when(postRepo.getAllPosts()).thenReturn(expected);
 
-        List<Post> result = postService.getAllPosts();
+        JsonArray result = postService.getAllPosts(-1);
         assertThat(result.size(), is(2));
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void getAllPostsNoPostsTest() {
         when(postRepo.getAllPosts()).thenReturn(null);
 
-        List<Post> result = postService.getAllPosts();
+        JsonArray result = postService.getAllPosts(-1);
         assertThat(result, is(notNullValue()));
-        assertThat(result, is(empty()));
-    }*/
+        assertThat(result.size(), is(0));
+    }
 
     @Test
     public void getUserPostsWithDataTest() {

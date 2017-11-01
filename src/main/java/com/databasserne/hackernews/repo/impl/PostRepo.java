@@ -9,6 +9,7 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.RollbackException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,5 +148,19 @@ public class PostRepo implements IPostRepo {
     @Override
     public Vote getUserVoteForPost(User user, Post post) {
         return null;
+    }
+
+    @Override
+    public int getUserKarma(int userId) {
+        em = emf.createEntityManager();
+        try {
+            BigDecimal value = (BigDecimal) em.createNativeQuery("SELECT IFNULL(SUM(v.vote),0) AS karma FROM vote AS v\n" +
+                    "JOIN post AS p ON p.id = v.post_id AND p.AUTHOR_ID = ?userId")
+                    .setParameter("userId", userId)
+                    .getSingleResult();
+            return value.intValue();
+        } finally {
+            em.close();
+        }
     }
 }

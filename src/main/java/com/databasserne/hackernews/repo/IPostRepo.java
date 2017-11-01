@@ -63,4 +63,12 @@ public interface IPostRepo {
      * @return Vote or null, if users has not voted.
      */
     Vote getUserVoteForPost(User user, Post post);
+
+
+    /**
+     * Retreives amount of karma for specific user.
+     * @param user
+     * @return
+     */
+    int getUserKarma(int userId);
 }
