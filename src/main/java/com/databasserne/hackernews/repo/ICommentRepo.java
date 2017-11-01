@@ -21,7 +21,14 @@ public interface ICommentRepo {
      * @param id
      * @return List of comment objects
      */
-    List<Comment> getCommentsForPost(int id);
+    List<Object[]> getCommentsForPost(int id, int userId);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    List<Object[]> getCommentsForPost(int id);
 
     /**
      * Create Comment
@@ -62,8 +69,8 @@ public interface ICommentRepo {
     /**
      * Get users vote for specific Post.
      * @param user User who has voted.
-     * @param post Post which is voted on.
+     * @param comment Post which is voted on.
      * @return Vote or null, if users has not voted.
      */
-    Vote getUserVoteForComment(User user, Comment comment);
+    List<Object[]> getUserVoteForComment(User user, Comment comment);
 }

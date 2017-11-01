@@ -29,11 +29,48 @@ public class CommentRepo implements ICommentRepo {
     }
 
     @Override
-    public List<Comment> getCommentsForPost(int id) {
+    public List<Object[]> getCommentsForPost(int id, int userId) {
         em = emf.createEntityManager();
         try {
-            return em.createQuery("SELECT c FROM Comment c WHERE c.post_id = :postid")
-                    .setParameter("postid", id)
+            return em.createNativeQuery("SELECT c.id, c.comment_text, c.created, c.parentcommentid, u.username, (CASE WHEN " +
+                    "(EXISTS " +
+                    "(SELECT v.vote FROM vote AS v WHERE author_id = ?userId " +
+                    "AND v.vote = 1 " +
+                    "AND v.comment_id = c.id)) " +
+                    "THEN 1 ELSE 0 END) AS hasUpvoted, " +
+                    "(CASE WHEN " +
+                    "(EXISTS " +
+                    "(SELECT '' FROM vote AS v WHERE author_id = ?userId " +
+                    "AND v.vote = -1 " +
+                    "AND v.comment_id = c.id)) " +
+                    "THEN 1 ELSE 0 END) AS hasDownvoted, " +
+                    "(SELECT IFNULL(SUM(vote), 0) FROM vote WHERE comment_id = c.id) AS votes " +
+                    "FROM comment AS c " +
+                    "JOIN User AS u ON u.ID = c.author_id " +
+                    "WHERE c.post_id = ?postId")
+                    .setParameter("userId", userId)
+                    .setParameter("postId", id)
+                    .getResultList();
+
+        } catch (IllegalArgumentException argument) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    @Override
+    public List<Object[]> getCommentsForPost(int id) {
+        em = emf.createEntityManager();
+        try {
+            return em.createNativeQuery("SELECT c.id, c.comment_text, c.created, c.parentcommentid, u.username, " +
+                    "0 AS hasUpvoted, " +
+                    "0 AS hasDownvoted, " +
+                    "(SELECT IFNULL(SUM(vote), 0) FROM vote WHERE comment_id = c.id) AS votes " +
+                    "FROM comment AS c " +
+                    "JOIN User AS u ON u.ID = c.author_id " +
+                    "WHERE c.post_id = ?postId")
+                    .setParameter("postId", id)
                     .getResultList();
 
         } catch (IllegalArgumentException argument) {
@@ -123,7 +160,16 @@ public class CommentRepo implements ICommentRepo {
     }
     
     @Override
-    public Vote getUserVoteForComment(User user, Comment comment) {
-        return null;
+    public List<Object[]> getUserVoteForComment(User user, Comment comment) {
+        em = emf.createEntityManager();
+        try {
+            return em.createNativeQuery("SELECT * FROM vote AS v " +
+                    "WHERE v.author_id = ?userId AND v.comment_id = ?commentId")
+                    .setParameter("userId", user.getId())
+                    .setParameter("commentId", comment.getId())
+                    .getResultList();
+        } finally {
+            em.close();
+        }
     }
 }
