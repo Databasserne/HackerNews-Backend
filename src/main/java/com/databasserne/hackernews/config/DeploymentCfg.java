@@ -26,7 +26,6 @@ public class DeploymentCfg implements ServletContextListener {
         } else {
             DatabaseCfg.PU_NAME = DatabaseCfg.PU_NAME_DEV;
         }
-        DatabaseCfg.PU_NAME = DatabaseCfg.PU_NAME_PROD;
 
         try {
             ServletContext context = servletContextEvent.getServletContext();
