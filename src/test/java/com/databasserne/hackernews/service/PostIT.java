@@ -38,11 +38,11 @@ public class PostIT {
     public void tearDown() {
     }
 
-    @Test
+    /*@Test
     public void getAllPostsTest() {
         JsonArray result = postService.getAllPosts(-1);
         assertThat(result.size(), greaterThan(1));
-    }
+    }*/
 
     @Test
     public void getPostSuccessTest() {
