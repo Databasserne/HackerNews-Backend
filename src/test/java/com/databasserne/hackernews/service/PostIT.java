@@ -61,7 +61,7 @@ public class PostIT {
         String title = "My Title";
         String body = "haha, test haha";
 
-        Post result = postService.createPost(title, body);
+        Post result = postService.createPost(title, body, 1);
         assertThat(result, is(notNullValue()));
         assertThat(result.getTitle(), is(title));
         assertThat(result.getBody(), is(body));
@@ -72,7 +72,7 @@ public class PostIT {
         String title = null;
         String body = "haha, test haha";
 
-        postService.createPost(title, body);
+        postService.createPost(title, body, 1);
     }
 
     @Test (expected = BadRequestException.class)
@@ -80,7 +80,7 @@ public class PostIT {
         String title = "My Title";
         String body = null;
 
-        postService.createPost(title, body);
+        postService.createPost(title, body, 1);
     }
 
     @Test (expected = BadRequestException.class)
@@ -88,7 +88,7 @@ public class PostIT {
         String title = "";
         String body = "haha";
 
-        postService.createPost(title, body);
+        postService.createPost(title, body, 1);
     }
 
     @Test (expected = BadRequestException.class)
@@ -96,6 +96,6 @@ public class PostIT {
         String title = "My Title";
         String body = "";
 
-        postService.createPost(title, body);
+        postService.createPost(title, body, 1);
     }
 }

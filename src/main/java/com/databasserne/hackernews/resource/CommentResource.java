@@ -9,6 +9,7 @@ import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.impl.CommentRepo;
+import com.databasserne.hackernews.repo.impl.PostRepo;
 import com.databasserne.hackernews.repo.impl.UserRepo;
 import com.databasserne.hackernews.service.CommentService;
 import com.databasserne.hackernews.service.IComment;
@@ -41,7 +42,8 @@ public class CommentResource {
     @Path("{id}/comment")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getComments(@Context SecurityContext context, @PathParam("id") int id) {
-        commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+        commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)),
+                new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
         try {
             JsonArray result;
@@ -104,17 +106,18 @@ public class CommentResource {
             User user = userService.getUserInfo(Integer.parseInt(context.getUserPrincipal().getName()));
             JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
             String comment = null;
-            if (inputJson.has("comment")) {
-                comment = inputJson.get("comment").getAsString();
+            if (inputJson.has("comment_text")) {
+                comment = inputJson.get("comment_text").getAsString();
             }
+            Comment com = null;
             if(inputJson.has("comment_id")) {
-                commentService.createComment(comment, user, id, inputJson.get("comment_id").getAsInt());
+                com = commentService.createComment(comment, user, id, inputJson.get("comment_id").getAsInt());
             } else {
-                commentService.createComment(comment, user, id);
+                com = commentService.createComment(comment, user, id);
             }
 
 
-            return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.CREATED).entity(gson.toJson(com)).type(MediaType.APPLICATION_JSON).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
             response.addProperty("error_code", 400);
@@ -178,7 +181,8 @@ public class CommentResource {
         try {
             User user = new User();
             user.setId(Integer.parseInt(context.getUserPrincipal().getName()));
-            commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+            commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)),
+                    new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
             Comment c = new Comment();
             c.setId(id);
 
@@ -190,19 +194,19 @@ public class CommentResource {
             response.addProperty("error_code", 400);
             response.addProperty("error_message", badRequest.getMessage());
 
-            return Response.status(Response.Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
             response.addProperty("error_code", 404);
             response.addProperty("error_message", notFound.getMessage());
 
-            return Response.status(Response.Status.NOT_FOUND).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.NOT_FOUND).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         } catch (Exception e) {
             response = new JsonObject();
             response.addProperty("error_code", 500);
             response.addProperty("error_meesage", "Unknown server error.");
 
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
     }
 }

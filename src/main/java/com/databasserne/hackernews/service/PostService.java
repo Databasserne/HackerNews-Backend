@@ -4,6 +4,7 @@ import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.IPostRepo;
+import com.databasserne.hackernews.repo.IUserRepo;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import io.swagger.models.auth.In;
@@ -17,11 +18,17 @@ import java.util.List;
 public class PostService implements IPost {
 
     private IPostRepo postRepo;
+    private IUserRepo userRepo;
 
     public PostService() {}
 
     public PostService(IPostRepo postRepo) {
         this.postRepo = postRepo;
+    }
+
+    public PostService(IPostRepo postRepo, IUserRepo userRepo) {
+        this.postRepo = postRepo;
+        this.userRepo = userRepo;
     }
 
     @Override
@@ -55,8 +62,23 @@ public class PostService implements IPost {
     }
 
     @Override
-    public List<Post> getUserPosts(User user) {
-        return postRepo.getUserPosts(user);
+    public JsonArray getUserPosts(User user) {
+        List<Object[]> posts = postRepo.getUserPosts(user);
+        if(posts == null) return new JsonArray();
+        JsonArray array = new JsonArray();
+        for (Object[] row : posts) {
+            JsonObject json = new JsonObject();
+            json.addProperty("id", Integer.parseInt(row[0].toString()));
+            json.addProperty("title", row[1].toString());
+            json.addProperty("body", row[2].toString());
+            json.addProperty("created_at", row[3].toString());
+            json.addProperty("author_name", row[4].toString());
+            json.addProperty("votes", Integer.parseInt(row[5].toString()));
+
+            array.add(json);
+        }
+
+        return array;
     }
 
     @Override
@@ -68,7 +90,7 @@ public class PostService implements IPost {
     }
 
     @Override
-    public Post createPost(String title, String body) {
+    public Post createPost(String title, String body, int authorId) {
         if(title == null || title.equals("")) throw new BadRequestException();
         if(body == null || body.equals("")) throw new BadRequestException();
 
@@ -78,6 +100,7 @@ public class PostService implements IPost {
         Date now = new Date();
         post.setCreated(now);
         post.setUpdated(now);
+        post.setAuthor(userRepo.getUserById(authorId));
 
         Post responsePost = postRepo.createPost(post);
         if(responsePost == null) throw new BadRequestException();
@@ -111,6 +134,10 @@ public class PostService implements IPost {
         if(post == null) throw new NotFoundException("Post not found.");
         List<Object[]> votes = postRepo.getUserVoteForPost(user, post);
         if(votes != null && votes.size() > 0) throw new BadRequestException("Post already voted.");
+        if(vote == -1) {
+            int userKarma = postRepo.getUserKarma(user.getId());
+            if(userKarma < 500) throw new BadRequestException("Not enough karma for downvote.");
+        }
 
         Vote v = new Vote();
         v.setVote(vote);

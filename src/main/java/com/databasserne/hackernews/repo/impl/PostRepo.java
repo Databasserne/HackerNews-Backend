@@ -30,7 +30,8 @@ public class PostRepo implements IPostRepo {
                     "0 AS hasDownvoted, " +
                     "(SELECT IFNULL(SUM(vote),0) FROM vote WHERE post_id = p.id) AS votes " +
                     "FROM post AS p " +
-                    "JOIN user AS u ON u.ID = p.author_id")
+                    "JOIN user AS u ON u.ID = p.author_id " +
+                    "WHERE p.deleted IS NULL")
                     .getResultList();
         } catch (Exception e) {
             return null;
@@ -57,7 +58,8 @@ public class PostRepo implements IPostRepo {
                     "THEN 1 ELSE 0 END) AS hasDownvoted, " +
                     "(SELECT IFNULL(SUM(vote),0) FROM vote WHERE post_id = p.id) AS votes " +
                     "FROM post AS p " +
-                    "JOIN user AS u ON u.ID = p.author_id")
+                    "JOIN user AS u ON u.ID = p.author_id " +
+                    "WHERE p.deleted IS NULL")
                     .setParameter("userId", userId)
                     .getResultList();
         } catch (IllegalArgumentException argument) {
@@ -114,11 +116,15 @@ public class PostRepo implements IPostRepo {
     }
 
     @Override
-    public List<Post> getUserPosts(User user) {
+    public List<Object[]> getUserPosts(User user) {
         em = emf.createEntityManager();
         try {
-            return em.createQuery("SELECT p FROM Post p WHERE p.author = :author")
-                    .setParameter("author", user)
+            return em.createNativeQuery("SELECT p.id, p.title, p.body, p.created, u.username, " +
+                    "(SELECT IFNULL(SUM(vote),0) FROM vote WHERE post_id = p.id) AS votes " +
+                    "FROM post AS p " +
+                    "JOIN user AS u ON u.ID = p.author_id " +
+                    "WHERE p.deleted IS NULL AND p.author_id = ?userId")
+                    .setParameter("userId", user.getId())
                     .getResultList();
         } catch (Exception e) {
             return new ArrayList<>();

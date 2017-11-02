@@ -8,6 +8,7 @@ import com.databasserne.hackernews.repo.impl.PostRepo;
 import com.google.gson.JsonArray;
 import org.junit.*;
 
+import javax.json.Json;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
@@ -74,15 +75,13 @@ public class PostServiceTest {
     @Test
     public void getUserPostsWithDataTest() {
         User user = new User();
-        Post p1 = new Post();
-        Post p2 = new Post();
-        List<Post> expected = new ArrayList<>();
-        expected.add(p1);
-        expected.add(p2);
+        List<Object[]> expected = new ArrayList<>();
+        expected.add(new Object[] {});
+        expected.add(new Object[] {});
 
         when(postRepo.getUserPosts(user)).thenReturn(expected);
 
-        List<Post> result = postService.getUserPosts(user);
+        JsonArray result = postService.getUserPosts(user);
         assertThat(result, is(notNullValue()));
         assertThat(result.size(), is(2));
     }
@@ -90,11 +89,11 @@ public class PostServiceTest {
     @Test
     public void getUserPostsWithNoDataTest() {
         User user = new User();
-        List<Post> expected = new ArrayList<>();
+        List<Object[]> expected = new ArrayList<>();
 
         when(postRepo.getUserPosts(user)).thenReturn(expected);
 
-        List<Post> result = postService.getUserPosts(user);
+        JsonArray result = postService.getUserPosts(user);
         assertThat(result, is(notNullValue()));
         assertThat(result.size(), is(0));
     }
@@ -128,7 +127,7 @@ public class PostServiceTest {
 
         when(postRepo.createPost((Post)anyObject())).thenReturn(expected);
 
-        Post result = postService.createPost(title, body);
+        Post result = postService.createPost(title, body, 1);
         assertThat(result, is(notNullValue()));
         assertThat(result.getTitle(), is(title));
         assertThat(result.getBody(), is(body));
@@ -139,7 +138,7 @@ public class PostServiceTest {
         String title = null;
         String body = "haha, test haha";
 
-        postService.createPost(title, body);
+        postService.createPost(title, body, 1);
     }
 
     @Test (expected = BadRequestException.class)
@@ -147,7 +146,7 @@ public class PostServiceTest {
         String title = "My Title";
         String body = null;
 
-        postService.createPost(title, body);
+        postService.createPost(title, body, 1);
     }
 
     @Test (expected = BadRequestException.class)
@@ -155,7 +154,7 @@ public class PostServiceTest {
         String title = "";
         String body = "haha";
 
-        postService.createPost(title, body);
+        postService.createPost(title, body, 1);
     }
 
     @Test (expected = BadRequestException.class)
@@ -163,7 +162,7 @@ public class PostServiceTest {
         String title = "My Title";
         String body = "";
 
-        postService.createPost(title, body);
+        postService.createPost(title, body, 1);
     }
 
     @Test

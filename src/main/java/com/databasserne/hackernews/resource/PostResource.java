@@ -4,6 +4,7 @@ import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.impl.PostRepo;
+import com.databasserne.hackernews.repo.impl.UserRepo;
 import com.databasserne.hackernews.service.*;
 import com.google.gson.*;
 import io.swagger.annotations.Api;
@@ -47,6 +48,11 @@ public class PostResource {
         return Response.status(Response.Status.OK).entity(gson.toJson(response)).build();
     }
 
+    @OPTIONS
+    public Response optionsAllPosts() {
+        return Response.status(Response.Status.OK).build();
+    }
+
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -86,11 +92,12 @@ public class PostResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
-    public Response createPost(String content) {
+    public Response createPost(@Context SecurityContext securityContext, String content) {
         JsonObject response;
         try {
             JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
-            postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+            postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)),
+                    new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
             String title = null;
             String body = null;
             if (inputJson.has("title")) {
@@ -100,7 +107,7 @@ public class PostResource {
                 body = inputJson.get("body").getAsString();
             }
 
-            postService.createPost(title, body);
+            postService.createPost(title, body, Integer.parseInt(securityContext.getUserPrincipal().getName()));
             return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
         } catch (BadRequestException badRequest) {
             response = new JsonObject();
