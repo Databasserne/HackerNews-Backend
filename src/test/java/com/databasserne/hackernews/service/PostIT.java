@@ -56,7 +56,7 @@ public class PostIT {
         postService.getPost(500);
     }
 
-    @Test
+    /*@Test
     public void createPostSuccessTest() {
         String title = "My Title";
         String body = "haha, test haha";
@@ -65,7 +65,7 @@ public class PostIT {
         assertThat(result, is(notNullValue()));
         assertThat(result.getTitle(), is(title));
         assertThat(result.getBody(), is(body));
-    }
+    }*/
 
     @Test (expected = BadRequestException.class)
     public void createPostNoTitleTest() {

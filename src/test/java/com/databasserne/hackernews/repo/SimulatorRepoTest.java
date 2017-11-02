@@ -50,7 +50,7 @@ public class SimulatorRepoTest {
     @Test
     public void testGetStatus() {
         String res = simRepo.getStatus();
-        String expRes = "ITS ALIVE!!!";
+        String expRes = "Alive";
         
         assertThat(res, is(expRes));
     }
