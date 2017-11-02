@@ -7,10 +7,8 @@ package com.databasserne.hackernews.repo.impl;
 
 import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.model.Post;
-import com.databasserne.hackernews.model.SimulatorPost;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.ISimulatorRepo;
-import com.databasserne.hackernews.service.security.Sha3;
 import java.util.List;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -35,7 +33,7 @@ public class SimulatorRepo implements ISimulatorRepo {
 
     @Override
     public String getStatus() {
-        return "ITS ALIVE!!!";
+        return "Alive";
     }
 
     @Override
