@@ -23,6 +23,7 @@
         <setting name="provider-name" value="EclipseLink" />
         <datasource-mapping>
           <factory-entry name="com.databasserne.hackernews.repo.PU_DEV" />
+          <factory-entry name="com.databasserne.hackernews.repo.PU_PROD" />
           <factory-entry name="com.databasserne.hackernews.repo.PU_TEST" />
           <factory-entry name="com.databasserne.hackernews.repo.PU_dev" />
           <factory-entry name="com.databasserne.hackernews.repo.PU_test" />
