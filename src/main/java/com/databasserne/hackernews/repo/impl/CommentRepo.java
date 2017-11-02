@@ -46,7 +46,7 @@ public class CommentRepo implements ICommentRepo {
                     "THEN 1 ELSE 0 END) AS hasDownvoted, " +
                     "(SELECT IFNULL(SUM(vote), 0) FROM vote WHERE comment_id = c.id) AS votes " +
                     "FROM comment AS c " +
-                    "JOIN User AS u ON u.ID = c.author_id " +
+                    "JOIN user AS u ON u.ID = c.author_id " +
                     "WHERE c.post_id = ?postId")
                     .setParameter("userId", userId)
                     .setParameter("postId", id)
@@ -68,7 +68,7 @@ public class CommentRepo implements ICommentRepo {
                     "0 AS hasDownvoted, " +
                     "(SELECT IFNULL(SUM(vote), 0) FROM vote WHERE comment_id = c.id) AS votes " +
                     "FROM comment AS c " +
-                    "JOIN User AS u ON u.ID = c.author_id " +
+                    "JOIN user AS u ON u.ID = c.author_id " +
                     "WHERE c.post_id = ?postId")
                     .setParameter("postId", id)
                     .getResultList();

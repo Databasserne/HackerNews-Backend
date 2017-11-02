@@ -10,6 +10,7 @@ import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.model.Vote;
 import com.databasserne.hackernews.repo.ICommentRepo;
+import com.databasserne.hackernews.repo.IPostRepo;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -24,12 +25,18 @@ import javax.ws.rs.NotFoundException;
  */
 public class CommentService implements IComment{
     private ICommentRepo commentRepo;
+    private IPostRepo postRepo;
 
     public CommentService() {
     }
 
     public CommentService(ICommentRepo commentRepo) {
         this.commentRepo = commentRepo;
+    }
+
+    public CommentService(ICommentRepo commentRepo, IPostRepo postRepo) {
+        this.commentRepo = commentRepo;
+        this.postRepo = postRepo;
     }
 
     @Override
@@ -40,7 +47,8 @@ public class CommentService implements IComment{
         } else {
             comments = commentRepo.getCommentsForPost(id, userId);
         }
-        if(comments == null || comments.size() <= 0) throw new NotFoundException("Comments not found.");
+        if(comments == null || comments.size() <= 0) return new JsonArray();
+        int karma = postRepo.getUserKarma(userId);
 
         JsonArray array = new JsonArray();
         for(Object[] obj : comments) {
@@ -55,6 +63,7 @@ public class CommentService implements IComment{
             json.addProperty("has_upvoted", Integer.parseInt(obj[5].toString()));
             json.addProperty("has_downvoted", Integer.parseInt(obj[6].toString()));
             json.addProperty("votes", Integer.parseInt(obj[7].toString()));
+            json.addProperty("canDownvote", (karma > 500));
 
             array.add(json);
         }
@@ -112,6 +121,10 @@ public class CommentService implements IComment{
         if(comment == null) throw new NotFoundException("Comment not found.");
         List<Object[]> votes = commentRepo.getUserVoteForComment(user, comment);
         if(votes != null && votes.size() > 0) throw new BadRequestException("Comment already voted.");
+        if(vote == -1) {
+            int userKarma = postRepo.getUserKarma(user.getId());
+            if(userKarma < 500) throw new BadRequestException("Not enough karma for downvote.");
+        }
 
         Vote v = new Vote();
         v.setVote(vote);

@@ -47,7 +47,7 @@ public interface IPostRepo {
      * @param user Author of posts.
      * @return List of Post objects or empty list, if user has not created any posts.
      */
-    List<Post> getUserPosts(User user);
+    List<Object[]> getUserPosts(User user);
 
     /**
      * Creates a new Vote

@@ -91,7 +91,7 @@ public class PostRepoTest {
     public void getUserPostsWithDataTest() {
         User user = new User();
         user.setId(1);
-        List<Post> result = postRepo.getUserPosts(user);
+        List<Object[]> result = postRepo.getUserPosts(user);
 
         assertThat(result, is(notNullValue()));
         assertThat(result.size(), greaterThan(1));
@@ -101,7 +101,7 @@ public class PostRepoTest {
     public void getUserPostsWithNoDataTest() {
         User user = new User();
         user.setId(500);
-        List<Post> result = postRepo.getUserPosts(user);
+        List<Object[]> result = postRepo.getUserPosts(user);
 
         assertThat(result, is(notNullValue()));
         assertThat(result.size(), is(0));

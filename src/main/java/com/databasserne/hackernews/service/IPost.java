@@ -21,7 +21,7 @@ public interface IPost {
      * @param user Author of posts.
      * @return List of posts or empty list if user has no posts.
      */
-    List<Post> getUserPosts(User user);
+    JsonArray getUserPosts(User user);
 
     /**
      * Get post
@@ -37,7 +37,7 @@ public interface IPost {
      * @param body Text of post.
      * @return Post object,
      */
-    Post createPost(String title, String body);
+    Post createPost(String title, String body, int authorId);
 
     /**
      * Updates a Post

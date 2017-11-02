@@ -1,6 +1,7 @@
 package com.databasserne.hackernews.resource;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
+import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.impl.PostRepo;
 import com.databasserne.hackernews.repo.impl.UserRepo;
@@ -8,10 +9,7 @@ import com.databasserne.hackernews.service.IPost;
 import com.databasserne.hackernews.service.IUser;
 import com.databasserne.hackernews.service.PostService;
 import com.databasserne.hackernews.service.UserService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import io.swagger.annotations.Api;
 
 import javax.annotation.security.PermitAll;
@@ -21,6 +19,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
+import java.util.List;
 
 @Api
 @Path("v1/user")

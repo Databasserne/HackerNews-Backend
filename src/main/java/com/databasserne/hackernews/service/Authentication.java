@@ -33,9 +33,9 @@ public class Authentication implements IAuthentication {
 
     @Override
     public User register(String username, String password, String rep_password, String fullname) {
-        if(username == null || username.isEmpty()) throw new BadRequestException();
-        if(password == null || password.isEmpty()) throw new BadRequestException();
-        if(!rep_password.equals(password)) throw new BadRequestException();
+        if(username == null || username.isEmpty()) throw new BadRequestException("Username is required.");
+        if(password == null || password.isEmpty()) throw new BadRequestException("Password is required.");
+        if(!rep_password.equals(password)) throw new BadRequestException("Passwords does not match.");
 
         try {
             User user = new User();
@@ -44,7 +44,7 @@ public class Authentication implements IAuthentication {
             user.setFullname(fullname);
             return userRepo.createUser(user);
         } catch (EntityExistsException exist) {
-            throw new BadRequestException();
+            throw new BadRequestException("Username already in use.");
         }
     }
 }
