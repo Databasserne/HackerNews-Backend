@@ -8,13 +8,9 @@ package com.databasserne.hackernews.service;
 import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.SimulatorPost;
-import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.ISimulatorRepo;
-import com.databasserne.hackernews.service.security.Sha3;
 import java.util.Date;
-import javax.persistence.NoResultException;
 import javax.ws.rs.BadRequestException;
-import javax.ws.rs.NotFoundException;
 
 /**
  *
@@ -33,7 +29,7 @@ public class SimulatorService implements ISimulator {
 
     @Override
     public String getStatus() {
-        return "ITS ALIVE!!!";
+        return "Alive";
     }
 
     @Override
