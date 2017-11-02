@@ -30,7 +30,7 @@ public class PostRepo implements IPostRepo {
                     "0 AS hasDownvoted, " +
                     "(SELECT IFNULL(SUM(vote),0) FROM vote WHERE post_id = p.id) AS votes " +
                     "FROM post AS p " +
-                    "JOIN User AS u ON u.ID = p.author_id")
+                    "JOIN user AS u ON u.ID = p.author_id")
                     .getResultList();
         } catch (Exception e) {
             return null;
