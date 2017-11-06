@@ -31,7 +31,8 @@ public class PostRepo implements IPostRepo {
                     "(SELECT IFNULL(SUM(vote),0) FROM vote WHERE post_id = p.id) AS votes " +
                     "FROM post AS p " +
                     "JOIN user AS u ON u.ID = p.author_id " +
-                    "WHERE p.deleted IS NULL")
+                    "WHERE p.deleted IS NULL " + 
+                    "ORDER BY CREATED DESC")
                     .getResultList();
         } catch (Exception e) {
             return null;
@@ -59,7 +60,8 @@ public class PostRepo implements IPostRepo {
                     "(SELECT IFNULL(SUM(vote),0) FROM vote WHERE post_id = p.id) AS votes " +
                     "FROM post AS p " +
                     "JOIN user AS u ON u.ID = p.author_id " +
-                    "WHERE p.deleted IS NULL")
+                    "WHERE p.deleted IS NULL " + 
+                    "ORDER BY CREATED DESC")
                     .setParameter("userId", userId)
                     .getResultList();
         } catch (IllegalArgumentException argument) {
@@ -123,7 +125,8 @@ public class PostRepo implements IPostRepo {
                     "(SELECT IFNULL(SUM(vote),0) FROM vote WHERE post_id = p.id) AS votes " +
                     "FROM post AS p " +
                     "JOIN user AS u ON u.ID = p.author_id " +
-                    "WHERE p.deleted IS NULL AND p.author_id = ?userId")
+                    "WHERE p.deleted IS NULL AND p.author_id = ?userId " + 
+                    "ORDER BY CREATED DESC")
                     .setParameter("userId", user.getId())
                     .getResultList();
         } catch (Exception e) {
