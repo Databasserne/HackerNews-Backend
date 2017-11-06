@@ -127,7 +127,7 @@ public class SimulatorResource {
         simulatorService = new SimulatorService(new SimulatorRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
         try {
-            return Response.status(Response.Status.OK).entity(gson.toJson(simulatorService.getStatus())).build();
+            return Response.status(Response.Status.OK).entity(simulatorService.getStatus()).build();
         } catch (NotFoundException notFound) {
             response = new JsonObject();
             response.addProperty("error_code", 400);
