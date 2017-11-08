@@ -13,6 +13,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.prometheus.client.CollectorRegistry;
+import io.prometheus.client.Histogram;
 import io.swagger.annotations.Api;
 import javax.annotation.security.PermitAll;
 import javax.persistence.Persistence;
@@ -26,6 +28,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.StringWriter;
 
 /**
  *
@@ -100,7 +103,7 @@ public class SimulatorResource {
     @GET
     @Path("latest")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response simulatorLatest(@PathParam("id") int id) {
+    public Response simulatorLatest() {
         simulatorService = new SimulatorService(new SimulatorRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
         try {
@@ -123,7 +126,7 @@ public class SimulatorResource {
     @GET
     @Path("status")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response simulatorStatus(@PathParam("id") int id) {
+    public Response simulatorStatus() {
         simulatorService = new SimulatorService(new SimulatorRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
         try {
