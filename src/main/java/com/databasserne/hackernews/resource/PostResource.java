@@ -7,6 +7,9 @@ import com.databasserne.hackernews.repo.impl.PostRepo;
 import com.databasserne.hackernews.repo.impl.UserRepo;
 import com.databasserne.hackernews.service.*;
 import com.google.gson.*;
+import io.prometheus.client.CollectorRegistry;
+import io.prometheus.client.Counter;
+import io.prometheus.client.Histogram;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -17,10 +20,15 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
+import java.io.IOException;
+import java.io.StringWriter;
 
 @Api
 @Path("/v1/post")
 public class PostResource {
+
+    private static final Histogram histogram = Histogram.build()
+            .name("post_request").help("Post requests.").register();
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     private IPost postService;
@@ -36,16 +44,30 @@ public class PostResource {
             responseContainer = "List"
     )
     public Response getAllPosts(@Context SecurityContext context) {
-
+        Histogram.Timer requestTimer = histogram.startTimer();
         postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonArray response;
         if (context.getUserPrincipal() == null) {
+            requestTimer.observeDuration();
             response = postService.getAllPosts(-1);
         } else {
+            requestTimer.observeDuration();
             response = postService.getAllPosts(Integer.parseInt(context.getUserPrincipal().getName()));
         }
 
+        requestTimer.observeDuration();
         return Response.status(Response.Status.OK).entity(gson.toJson(response)).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("metrics")
+    public String getAllPostsMetric(@Context SecurityContext context) throws IOException {
+        StringWriter stringWriter = new StringWriter();
+        io.prometheus.client.exporter.common.TextFormat.write004(
+            stringWriter, CollectorRegistry.defaultRegistry.metricFamilySamples());
+
+        return stringWriter.toString();
     }
 
     @OPTIONS
