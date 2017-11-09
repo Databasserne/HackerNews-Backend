@@ -6,6 +6,7 @@
 package com.databasserne.hackernews.repo.impl;
 
 import com.databasserne.hackernews.model.Comment;
+import com.databasserne.hackernews.model.Harnest;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.ISimulatorRepo;
@@ -40,9 +41,10 @@ public class SimulatorRepo implements ISimulatorRepo {
     public int getLatest() {
         em = emf.createEntityManager();
         try {
-            List<Post> posts = em.createNativeQuery("SELECT * FROM post", Post.class).getResultList();
+            return (int) em.createNativeQuery("SELECT id FROM harnest ORDER BY ID DESC LIMIT 1;").getSingleResult();
+            //List<Post> posts = em.createNativeQuery("SELECT id FROM harnest ORDER BY ID DESC LIMIT 1;", Post.class).getResultList();
 
-            return findLatestPost(posts);
+//            return findLatestPost(posts);
         } catch (Exception e) {
             return 0;
         } finally {
@@ -52,7 +54,6 @@ public class SimulatorRepo implements ISimulatorRepo {
 
     @Override
     public Post createPost(Post post, String username, String password) {
-        System.out.println("Making post 1");
         User user = null;
         try {
             user = simulatorLogin(username, password);
@@ -60,21 +61,23 @@ public class SimulatorRepo implements ISimulatorRepo {
             throw new BadRequestException();
         }
 
-        System.out.println("got user");
         try {
             post.setAuthor(user);
 
         } catch (Exception e) {
             System.out.println("Something is wrong...");
         }
-        System.out.println("set author");
 
         em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(post);
+            
+            Harnest harn = new Harnest();
+            harn.setPost(post);
+            em.persist(harn);
+            
             em.getTransaction().commit();
-            System.out.println("this is the post: " + post);
             return post;
         } catch (EntityExistsException | RollbackException exist) {
             return null;
@@ -97,6 +100,11 @@ public class SimulatorRepo implements ISimulatorRepo {
         try {
             em.getTransaction().begin();
             em.persist(comment);
+            
+            Harnest harn = new Harnest();
+            harn.setComment(comment);
+            em.persist(harn);
+            
             em.getTransaction().commit();
 
             return comment;
