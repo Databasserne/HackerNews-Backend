@@ -7,6 +7,7 @@ package com.databasserne.hackernews.repo;
 
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.Comment;
+import com.databasserne.hackernews.model.Harnest;
 
 /**
  *
@@ -44,4 +45,6 @@ public interface ISimulatorRepo {
      */
     public Comment createComment(Comment comment, String username, String password);
 
+    public Harnest getHarnest(int id);
+    
 }

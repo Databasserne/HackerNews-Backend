@@ -6,8 +6,10 @@
 package com.databasserne.hackernews.service;
 
 import com.databasserne.hackernews.model.Comment;
+import com.databasserne.hackernews.model.Harnest;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.SimulatorPost;
+import com.databasserne.hackernews.repo.ICommentRepo;
 import com.databasserne.hackernews.repo.ISimulatorRepo;
 import java.util.Date;
 import javax.ws.rs.BadRequestException;
@@ -19,12 +21,18 @@ import javax.ws.rs.BadRequestException;
 public class SimulatorService implements ISimulator {
 
     private ISimulatorRepo simulatorRepo;
+    private ICommentRepo commentRepo;
 
     public SimulatorService() {
     }
 
     public SimulatorService(ISimulatorRepo simulatorRepo) {
         this.simulatorRepo = simulatorRepo;
+    }
+
+    public SimulatorService(ISimulatorRepo simulatorRepo, ICommentRepo commentRepo) {
+        this.simulatorRepo = simulatorRepo;
+        this.commentRepo = commentRepo;
     }
 
     @Override
@@ -57,13 +65,21 @@ public class SimulatorService implements ISimulator {
             post.setTitle(title);
             simulatorRepo.createPost(post, username, password);
         } else {
-            System.out.println("Making comment");
+            Harnest harn = simulatorRepo.getHarnest(hanesstId);
             Comment comment = new Comment();
+            int post_id;
+            if (harn.getPost() == null) {
+                post_id = commentRepo.getCommentFromId(harn.getComment().getId()).getPost_id();
+                comment.setParentCommentId(harn.getComment().getId());
+            } else {
+                post_id = harn.getPost().getId();
+            }
+
+            System.out.println("Making comment");
             comment.setComment_text(text);
             Date now = new Date();
             comment.setCreated(now);
-            comment.setParentCommentId(parentId);
-            comment.setPost_id(hanesstId);
+            comment.setPost_id(post_id);
             simulatorRepo.createComment(comment, username, password);
         }
 
