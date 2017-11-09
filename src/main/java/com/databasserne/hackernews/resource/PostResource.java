@@ -1,5 +1,6 @@
 package com.databasserne.hackernews.resource;
 
+import com.bluetrainsoftware.prometheus.Prometheus;
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
@@ -7,8 +8,6 @@ import com.databasserne.hackernews.repo.impl.PostRepo;
 import com.databasserne.hackernews.repo.impl.UserRepo;
 import com.databasserne.hackernews.service.*;
 import com.google.gson.*;
-import io.prometheus.client.CollectorRegistry;
-import io.prometheus.client.Counter;
 import io.prometheus.client.Histogram;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,15 +19,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-import java.io.IOException;
-import java.io.StringWriter;
 
 @Api
 @Path("/v1/post")
 public class PostResource {
-
-    private static final Histogram histogram = Histogram.build()
-            .name("post_request").help("Post requests.").register();
 
     private Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
     private IPost postService;
@@ -43,31 +37,17 @@ public class PostResource {
             response = JsonObject.class,
             responseContainer = "List"
     )
+    @Prometheus(name = "request_all_posts", help = "All Posts API.")
     public Response getAllPosts(@Context SecurityContext context) {
-        Histogram.Timer requestTimer = histogram.startTimer();
         postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonArray response;
         if (context.getUserPrincipal() == null) {
-            requestTimer.observeDuration();
             response = postService.getAllPosts(-1);
         } else {
-            requestTimer.observeDuration();
             response = postService.getAllPosts(Integer.parseInt(context.getUserPrincipal().getName()));
         }
 
-        requestTimer.observeDuration();
         return Response.status(Response.Status.OK).entity(gson.toJson(response)).build();
-    }
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("metrics")
-    public String getAllPostsMetric(@Context SecurityContext context) throws IOException {
-        StringWriter stringWriter = new StringWriter();
-        io.prometheus.client.exporter.common.TextFormat.write004(
-            stringWriter, CollectorRegistry.defaultRegistry.metricFamilySamples());
-
-        return stringWriter.toString();
     }
 
     @OPTIONS
@@ -78,6 +58,7 @@ public class PostResource {
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Prometheus(name = "request_post", help = "Post API.")
     public Response getPost(@Context SecurityContext context, @PathParam("id") int id) {
         postService = new PostService(new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
@@ -114,6 +95,7 @@ public class PostResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
+    @Prometheus(name = "request_create_post", help = "Create Post API.")
     public Response createPost(@Context SecurityContext securityContext, String content) {
         JsonObject response;
         try {
@@ -149,6 +131,7 @@ public class PostResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
+    @Prometheus(name = "request_edit_post", help = "Edit Post API.")
     public Response editPost(@Context SecurityContext securityContext, @PathParam("id") int id, String content) {
         JsonObject response;
         try {
@@ -197,6 +180,7 @@ public class PostResource {
     @DELETE
     @Path("{id}")
     @PermitAll
+    @Prometheus(name = "request_delete_post", help = "Delete Post API.")
     public Response deletePost(@Context SecurityContext context, @PathParam("id") int id) {
         JsonObject response;
         try {
@@ -224,6 +208,7 @@ public class PostResource {
     @POST
     @Path("{id}/upvote")
     @PermitAll
+    @Prometheus(name = "request_post_upvote", help = "Upvote Post API.")
     public Response upvotePost(@Context SecurityContext context, @PathParam("id") int id) {
         JsonObject response;
         try {
@@ -260,6 +245,7 @@ public class PostResource {
     @POST
     @Path("{id}/downvote")
     @PermitAll
+    @Prometheus(name = "request_post_downvote", help = "Status API.")
     public Response downvotePost(@Context SecurityContext context, @PathParam("id") int id) {
         JsonObject response;
         try {

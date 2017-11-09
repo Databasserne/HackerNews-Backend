@@ -1,5 +1,6 @@
 package com.databasserne.hackernews.resource;
 
+import com.bluetrainsoftware.prometheus.Prometheus;
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Post;
 import com.databasserne.hackernews.model.User;
@@ -33,6 +34,7 @@ public class UserResource {
     @GET
     @Path("me")
     @Produces(MediaType.APPLICATION_JSON)
+    @Prometheus(name = "request_user", help = "User API.")
     public Response getUserInfo(@Context SecurityContext context) {
         userService = new UserService(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         User user = userService.getUserInfo(Integer.parseInt(context.getUserPrincipal().getName()));
@@ -47,6 +49,7 @@ public class UserResource {
     @GET
     @Path("post")
     @Produces(MediaType.APPLICATION_JSON)
+    @Prometheus(name = "request_user_posts", help = "User Post API.")
     public Response getUserPosts(@Context SecurityContext securityContext) {
         userService = new UserService(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         User user = userService.getUserInfo(Integer.parseInt(securityContext.getUserPrincipal().getName()));
@@ -58,6 +61,7 @@ public class UserResource {
     @PUT
     @Path("edit")
     @Produces(MediaType.APPLICATION_JSON)
+    @Prometheus(name = "request_edit_user", help = "Edit User API.")
     public Response editUserInfo(@Context SecurityContext context, String content) {
         JsonObject response;
         try {

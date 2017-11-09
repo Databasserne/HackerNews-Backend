@@ -27,6 +27,10 @@ public class SimulaterConfig extends Application {
     }
 
     private void addResources(Set<Class<?>> resources) {
+        // Filters
+        //resources.add(PrometheusFilter.class);
+        resources.add(com.bluetrainsoftware.prometheus.PrometheusFilter.class);
+
         // Resources
         resources.add(SimulatorResource.class);
     }

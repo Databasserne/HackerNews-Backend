@@ -5,6 +5,7 @@
  */
 package com.databasserne.hackernews.resource;
 
+import com.bluetrainsoftware.prometheus.Prometheus;
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.Comment;
 import com.databasserne.hackernews.model.User;
@@ -41,6 +42,7 @@ public class CommentResource {
     @GET
     @Path("{id}/comment")
     @Produces(MediaType.APPLICATION_JSON)
+    @Prometheus(name = "request_comments", help = "Comments API.")
     public Response getComments(@Context SecurityContext context, @PathParam("id") int id) {
         commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)),
                 new PostRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
@@ -72,6 +74,7 @@ public class CommentResource {
     @GET
     @Path("{id}/comment/{commentId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @Prometheus(name = "request_child_comments", help = "Child Comments API.")
     public Response getCommentsAndChildComments(@PathParam("commentId") int id) {
         commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
@@ -98,6 +101,7 @@ public class CommentResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
+    @Prometheus(name = "request_post_comment", help = "Post Comment API.")
     public Response postComment(@Context SecurityContext context, @PathParam("id") int id, String content) {
         commentService = new CommentService(new CommentRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         userService = new UserService(new UserRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
@@ -138,6 +142,7 @@ public class CommentResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
+    @Prometheus(name = "request_post_upvote", help = "Upvote Comment API.")
     public Response upvoteComment(@Context SecurityContext context, @PathParam("commentId") int id) {
         JsonObject response;
         try {
@@ -176,6 +181,7 @@ public class CommentResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
+    @Prometheus(name = "request_comment_downvote", help = "Downvote Comment API.")
     public Response downvoteComment(@Context SecurityContext context, @PathParam("commentId") int id) {
         JsonObject response;
         try {

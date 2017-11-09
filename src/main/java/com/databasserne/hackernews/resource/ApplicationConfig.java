@@ -38,8 +38,10 @@ public class ApplicationConfig extends Application {
         resources.add(CommentResource.class);
 
         // Filters
+        //resources.add(PrometheusFilter.class);
         resources.add(CorsFilter.class);
         resources.add(JWTAuthenticationFilter.class);
+        resources.add(com.bluetrainsoftware.prometheus.PrometheusFilter.class);
 
         // Swagger
         resources.add(io.swagger.jaxrs.listing.ApiListingResource.class);

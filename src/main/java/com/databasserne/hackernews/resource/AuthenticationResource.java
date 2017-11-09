@@ -1,5 +1,6 @@
 package com.databasserne.hackernews.resource;
 
+import com.bluetrainsoftware.prometheus.Prometheus;
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.model.User;
 import com.databasserne.hackernews.repo.impl.UserRepo;
@@ -31,6 +32,7 @@ public class AuthenticationResource {
 
     @POST
     @Path("login")
+    @Prometheus(name = "request_login", help = "Login API.")
     public Response login(String content) {
         JsonObject response;
         try {
@@ -79,6 +81,7 @@ public class AuthenticationResource {
 
     @POST
     @Path("signup")
+    @Prometheus(name = "request_signup", help = "Sign Up API.")
     public Response signup(String content) {
         JsonObject response;
         try {
