@@ -5,6 +5,7 @@
  */
 package com.databasserne.hackernews.resource;
 
+import com.bluetrainsoftware.prometheus.Prometheus;
 import com.databasserne.hackernews.config.DatabaseCfg;
 import com.databasserne.hackernews.repo.impl.CommentRepo;
 import com.databasserne.hackernews.repo.impl.SimulatorRepo;
@@ -29,6 +30,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.IOException;
 import java.io.StringWriter;
 
 /**
@@ -47,6 +49,7 @@ public class SimulatorResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("post")
     @PermitAll
+    @Prometheus(name = "request_sim_post", help = "Post")
     public Response createPost(String content) {
         JsonObject response = null;
         try {
@@ -104,6 +107,7 @@ public class SimulatorResource {
     @GET
     @Path("latest")
     @Produces(MediaType.APPLICATION_JSON)
+    @Prometheus(name = "request_sim_latest", help = "Latest")
     public Response simulatorLatest() {
         simulatorService = new SimulatorService(new SimulatorRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
@@ -127,6 +131,7 @@ public class SimulatorResource {
     @GET
     @Path("status")
     @Produces(MediaType.APPLICATION_JSON)
+    @Prometheus(name = "request_sim_status", help = "Status")
     public Response simulatorStatus() {
         simulatorService = new SimulatorService(new SimulatorRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
         JsonObject response;
@@ -145,6 +150,16 @@ public class SimulatorResource {
 
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(gson.toJson(response)).type(MediaType.APPLICATION_JSON).build();
         }
+    }
+
+    @GET
+    @Path("metrics")
+    public String getMetrics() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+        io.prometheus.client.exporter.common.TextFormat.write004(
+                stringWriter, CollectorRegistry.defaultRegistry.metricFamilySamples());
+
+        return stringWriter.toString();
     }
 
 }
