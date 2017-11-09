@@ -6,6 +6,7 @@
 package com.databasserne.hackernews.resource;
 
 import com.databasserne.hackernews.config.DatabaseCfg;
+import com.databasserne.hackernews.repo.impl.CommentRepo;
 import com.databasserne.hackernews.repo.impl.SimulatorRepo;
 import com.databasserne.hackernews.service.ISimulator;
 import com.databasserne.hackernews.service.SimulatorService;
@@ -46,7 +47,7 @@ public class SimulatorResource {
     public Response createPost(String content) {
         JsonObject response = null;
         try {
-            simulatorService = new SimulatorService(new SimulatorRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)));
+            simulatorService = new SimulatorService(new SimulatorRepo(Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME)), new CommentRepo((Persistence.createEntityManagerFactory(DatabaseCfg.PU_NAME))));
             JsonObject inputJson = new JsonParser().parse(content).getAsJsonObject();
             String title = null;
             String text = null;

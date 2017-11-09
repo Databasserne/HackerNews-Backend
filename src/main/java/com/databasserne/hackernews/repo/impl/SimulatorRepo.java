@@ -72,11 +72,11 @@ public class SimulatorRepo implements ISimulatorRepo {
         try {
             em.getTransaction().begin();
             em.persist(post);
-            
+
             Harnest harn = new Harnest();
             harn.setPost(post);
             em.persist(harn);
-            
+
             em.getTransaction().commit();
             return post;
         } catch (EntityExistsException | RollbackException exist) {
@@ -84,6 +84,13 @@ public class SimulatorRepo implements ISimulatorRepo {
         } finally {
             em.close();
         }
+    }
+
+    @Override
+    public Harnest getHarnest(int id) {
+        em = emf.createEntityManager();
+
+        return em.find(Harnest.class, id);
     }
 
     @Override
@@ -100,11 +107,11 @@ public class SimulatorRepo implements ISimulatorRepo {
         try {
             em.getTransaction().begin();
             em.persist(comment);
-            
+
             Harnest harn = new Harnest();
             harn.setComment(comment);
             em.persist(harn);
-            
+
             em.getTransaction().commit();
 
             return comment;
