@@ -1,6 +1,7 @@
 package com.databasserne.hackernews.resource;
 
 import io.swagger.jaxrs.config.BeanConfig;
+import org.eclipse.jetty.servlet.ServletContextHandler;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
