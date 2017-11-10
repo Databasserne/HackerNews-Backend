@@ -25,7 +25,6 @@ import javax.persistence.Table;
 public class Harnest implements Serializable{
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     @Expose
     private int id;
