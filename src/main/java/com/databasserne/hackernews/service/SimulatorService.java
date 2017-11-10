@@ -63,9 +63,9 @@ public class SimulatorService implements ISimulator {
             post.setCreated(now);
             post.setUpdated(now);
             post.setTitle(title);
-            simulatorRepo.createPost(post, username, password);
+            simulatorRepo.createPost(post, username, password, hanesstId);
         } else {
-            Harnest harn = simulatorRepo.getHarnest(hanesstId);
+            Harnest harn = simulatorRepo.getHarnest(parentId);
             Comment comment = new Comment();
             int post_id;
             if (harn.getPost() == null) {
@@ -80,7 +80,7 @@ public class SimulatorService implements ISimulator {
             Date now = new Date();
             comment.setCreated(now);
             comment.setPost_id(post_id);
-            simulatorRepo.createComment(comment, username, password);
+            simulatorRepo.createComment(comment, username, password, hanesstId);
         }
 
         //Return all content we got.
