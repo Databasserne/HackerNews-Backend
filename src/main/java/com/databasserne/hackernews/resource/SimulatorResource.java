@@ -151,13 +151,17 @@ public class SimulatorResource {
     }
 
     @GET
+    @Produces(MediaType.TEXT_PLAIN)
     @Path("metrics")
-    public void getMetrics() throws IOException {
-        StringWriter stringWriter = new StringWriter();
-        io.prometheus.client.exporter.common.TextFormat.write004(
-                stringWriter, CollectorRegistry.defaultRegistry.metricFamilySamples());
-
-        stringWriter.flush();
+    public String getMetrics() throws IOException {
+        StringWriter writer = new StringWriter();
+        try {
+            io.prometheus.client.exporter.common.TextFormat.write004(
+                    writer, CollectorRegistry.defaultRegistry.metricFamilySamples());
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+        return writer.toString();
     }
 
 }
