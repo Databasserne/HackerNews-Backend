@@ -16,7 +16,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.prometheus.client.CollectorRegistry;
-import io.prometheus.client.Histogram;
 import io.swagger.annotations.Api;
 import javax.annotation.security.PermitAll;
 import javax.persistence.Persistence;
@@ -26,7 +25,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -90,7 +88,7 @@ public class SimulatorResource {
             }
 
             simulatorService.simulatorPost(title, text, url, username, password, type, hanesst, parentId);
-            return Response.status(Response.Status.CREATED).type(MediaType.APPLICATION_JSON).build();
+            return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).build();
         } catch (BadRequestException badRequest) {
             response = new JsonObject();
             response.addProperty("error_code", 400);
