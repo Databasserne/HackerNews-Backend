@@ -154,12 +154,12 @@ public class SimulatorResource {
 
     @GET
     @Path("metrics")
-    public String getMetrics() throws IOException {
+    public void getMetrics() throws IOException {
         StringWriter stringWriter = new StringWriter();
         io.prometheus.client.exporter.common.TextFormat.write004(
                 stringWriter, CollectorRegistry.defaultRegistry.metricFamilySamples());
 
-        return stringWriter.toString();
+        stringWriter.flush();
     }
 
 }
