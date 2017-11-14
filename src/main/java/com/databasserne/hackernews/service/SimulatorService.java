@@ -63,24 +63,26 @@ public class SimulatorService implements ISimulator {
             post.setCreated(now);
             post.setUpdated(now);
             post.setTitle(title);
-            simulatorRepo.createPost(post, username, password);
+            simulatorRepo.createPost(post, username, password, hanesstId);
         } else {
-            Harnest harn = simulatorRepo.getHarnest(hanesstId);
+            Harnest harn = simulatorRepo.getHarnest(parentId);
             Comment comment = new Comment();
             int post_id;
-            if (harn.getPost() == null) {
-                post_id = commentRepo.getCommentFromId(harn.getComment().getId()).getPost_id();
-                comment.setParentCommentId(harn.getComment().getId());
-            } else {
-                post_id = harn.getPost().getId();
+            if(harn != null) {
+                if (harn.getPost() == null) {
+                    post_id = commentRepo.getCommentFromId(harn.getComment().getId()).getPost_id();
+                    comment.setParentCommentId(harn.getComment().getId());
+                } else {
+                    post_id = harn.getPost().getId();
+                }
+                comment.setPost_id(post_id);
             }
 
             System.out.println("Making comment");
             comment.setComment_text(text);
             Date now = new Date();
             comment.setCreated(now);
-            comment.setPost_id(post_id);
-            simulatorRepo.createComment(comment, username, password);
+            simulatorRepo.createComment(comment, username, password, hanesstId);
         }
 
         //Return all content we got.

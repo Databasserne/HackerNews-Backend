@@ -53,7 +53,7 @@ public class SimulatorRepo implements ISimulatorRepo {
     }
 
     @Override
-    public Post createPost(Post post, String username, String password) {
+    public Post createPost(Post post, String username, String password, int harnestId) {
         User user = null;
         try {
             user = simulatorLogin(username, password);
@@ -74,6 +74,7 @@ public class SimulatorRepo implements ISimulatorRepo {
             em.persist(post);
 
             Harnest harn = new Harnest();
+            harn.setId(harnestId);
             harn.setPost(post);
             em.persist(harn);
 
@@ -94,7 +95,7 @@ public class SimulatorRepo implements ISimulatorRepo {
     }
 
     @Override
-    public Comment createComment(Comment comment, String username, String password) {
+    public Comment createComment(Comment comment, String username, String password, int harnestId) {
         User user;
         try {
             user = simulatorLogin(username, password);
@@ -109,6 +110,7 @@ public class SimulatorRepo implements ISimulatorRepo {
             em.persist(comment);
 
             Harnest harn = new Harnest();
+            harn.setId(harnestId);
             harn.setComment(comment);
             em.persist(harn);
 

@@ -35,7 +35,7 @@ public interface ISimulatorRepo {
      * @param post post to create
      * @return created post
      */
-    public Post createPost(Post post, String username, String password);
+    public Post createPost(Post post, String username, String password, int harnestId);
 
     /**
      * Simulator create comment
@@ -43,7 +43,7 @@ public interface ISimulatorRepo {
      * @param comment comment to create
      * @return created comment
      */
-    public Comment createComment(Comment comment, String username, String password);
+    public Comment createComment(Comment comment, String username, String password, int harnestId);
 
     public Harnest getHarnest(int id);
     
